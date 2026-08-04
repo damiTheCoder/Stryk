@@ -1,0 +1,15 @@
+export function formatCompact(val) {
+  if (val == null) return "0";
+  const num = typeof val === "number" ? val : parseFloat(val);
+  if (isNaN(num)) return String(val);
+  const abs = Math.abs(num);
+  if (abs >= 1_000_000) {
+    const formatted = (num / 1_000_000).toFixed(2);
+    return formatted.replace(/\.?0+$/, "") + "m";
+  }
+  if (abs >= 1_000) {
+    const formatted = (num / 1_000).toFixed(1);
+    return formatted.replace(/\.0$/, "") + "k";
+  }
+  return String(num);
+}
