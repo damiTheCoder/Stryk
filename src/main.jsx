@@ -45,11 +45,13 @@ import {
 
 window.onerror = (message, url, line) => {
   console.error("Global error:", message, url, line);
+  document.body.innerHTML = `<pre style="color:red;padding:20px;white-space:pre-wrap;">Global error: ${message}\n${url}:${line}</pre>`;
   return false;
 };
 
 window.addEventListener("unhandledrejection", (event) => {
   console.error("Unhandled rejection:", event.reason);
+  document.body.innerHTML = `<pre style="color:red;padding:20px;white-space:pre-wrap;">Unhandled rejection: ${event.reason}</pre>`;
 });
 
 import "./styles.css";
@@ -232,8 +234,37 @@ function LandingPage({ go }) {
   );
 }
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+  componentDidCatch(error, info) {
+    console.error("Render error:", error, info);
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <pre style="color: red; padding: 20px; white-space: pre-wrap;">
+          {this.state.error.message}
+          {"\n"}
+          {this.state.error.stack}
+        </pre>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 try {
-  createRoot(document.getElementById("root")).render(<App />);
+  createRoot(document.getElementById("root")).render(
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  );
 } catch (error) {
   console.error("Failed to render app:", error);
   document.getElementById("root").innerHTML = `<pre style="color:red;padding:20px;">${error.message}\n${error.stack}</pre>`;
