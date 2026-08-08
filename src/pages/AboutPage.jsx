@@ -151,14 +151,14 @@ export default function AboutPage() {
   const toggleFaq = (id) => setOpenFaq(openFaq === id ? null : id);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header>
           <h1 className="text-3xl font-bold text-gray-900">About Stryk</h1>
           <p className="mt-2 text-gray-500">The protocol tokenizing the world's most desired devices.</p>
         </header>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <section className="uniswap-card">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50">
               <Target className="h-7 w-7 text-blue-600" />
@@ -179,7 +179,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {MOCK_TEAM.map((member) => (
-              <div key={member.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 text-center">
+              <div key={member.id} className="uniswap-card text-center">
                 <img
                   src={member.photo}
                   alt={member.name}
@@ -208,7 +208,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {MOCK_ADVISORS.map((advisor) => (
-              <div key={advisor.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+              <div key={advisor.id} className="uniswap-card">
                 <h3 className="text-lg font-semibold text-gray-900">{advisor.name}</h3>
                 <p className="text-sm text-blue-600 font-medium">{advisor.role}</p>
                 <p className="mt-1 text-sm text-gray-500">{advisor.org}</p>
@@ -228,7 +228,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {MOCK_PARTNERS.map((partner) => (
-              <div key={partner.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 flex flex-col items-center justify-center gap-2 hover:shadow-md transition">
+              <div key={partner.id} className="uniswap-card flex flex-col items-center justify-center gap-2 hover:shadow-md transition">
                 <span className="text-4xl">{partner.logo}</span>
                 <span className="text-sm font-semibold text-gray-900">{partner.name}</span>
               </div>
@@ -246,7 +246,7 @@ export default function AboutPage() {
               <a
                 key={item.id}
                 href={item.link}
-                className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition block"
+                className="uniswap-card hover:shadow-md transition block"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -271,7 +271,7 @@ export default function AboutPage() {
           </div>
           <div className="space-y-3">
             {FAQ_ITEMS.map((item) => (
-              <div key={item.id} className="rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 overflow-hidden">
+              <div key={item.id} className="uniswap-card overflow-hidden">
                 <button
                   onClick={() => toggleFaq(item.id)}
                   className="flex w-full items-center justify-between p-6 text-left"

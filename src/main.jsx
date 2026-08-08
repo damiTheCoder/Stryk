@@ -41,6 +41,8 @@ import {
   BookOpen,
   Newspaper,
   ScrollText,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 window.onerror = (message, url, line) => {
@@ -148,6 +150,19 @@ function Shell({ route, go, cart, tags }) {
   console.log("Shell render, route:", route);
   if (route === "landing") return null;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
   const dappRoutes = [
     ["dashboard", LayoutDashboard, "Dashboard"],
     ["trade", BarChart3, "Trade"],
@@ -168,7 +183,7 @@ function Shell({ route, go, cart, tags }) {
       </div>
       <header className="topbar">
         <button className="brand reset" onClick={() => go("landing")}>
-          <img className="brand-logo" src="/logo.png" alt="" />
+          <img className="brand-logo" src="/Logo.jpeg" alt="" />
           <span>Stryk</span>
         </button>
         <nav className="desktop-nav">
@@ -179,6 +194,9 @@ function Shell({ route, go, cart, tags }) {
           ))}
         </nav>
         <div className="nav-actions">
+          <button className="icon-button" aria-label="Toggle theme" onClick={() => setDarkMode((prev) => !prev)}>
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
           <button className="icon-button" aria-label="Search">
             <Search size={20} />
           </button>
@@ -215,7 +233,7 @@ function LandingPage({ go }) {
       <div className="landing-shade" />
       <nav className="landing-nav" aria-label="Stryk landing navigation">
         <button className="landing-nav-logo reset" onClick={() => go("landing")} aria-label="Stryk landing">
-          <img src="/logo.png" alt="" />
+          <img src="/Logo.jpeg" alt="" />
           <span>Stryk</span>
         </button>
       </nav>

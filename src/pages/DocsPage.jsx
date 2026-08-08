@@ -66,10 +66,10 @@ export default function DocsPage() {
   const [activeSection, setActiveSection] = useState("overview");
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col lg:flex-row">
-          <aside className="w-full shrink-0 lg:w-64 border-b border-gray-200 bg-white lg:border-b-0 lg:border-r">
+          <aside className="w-full shrink-0 lg:w-64 border-b border-gray-200 bg-gray-50 dark:bg-[#1C1C1C] lg:border-b-0 lg:border-r">
             <div className="p-6">
               <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <BookOpen className="h-6 w-6 text-blue-600" />
@@ -98,7 +98,7 @@ export default function DocsPage() {
 
           <main className="flex-1 p-4 md:p-8 space-y-8">
             {activeSection === "overview" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
                     <Globe className="h-5 w-5 text-blue-600" />
@@ -109,15 +109,15 @@ export default function DocsPage() {
                   Stryk is a decentralized protocol that tokenizes a diversified vault of premium smartphones. Users buy, stake, and redeem $STRYK, which is fully backed by physical devices. The protocol uses Chainlink oracles for pricing, Fireblocks for custody, and on-chain governance for treasury decisions.
                 </p>
                 <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div className="rounded-xl bg-gray-50 p-4">
+                  <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Devices Secured</p>
                     <p className="mt-2 text-2xl font-bold text-gray-900">12,400+</p>
                   </div>
-                  <div className="rounded-xl bg-gray-50 p-4">
+                  <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Backing Ratio</p>
                     <p className="mt-2 text-2xl font-bold text-gray-900">1.14x</p>
                   </div>
-                  <div className="rounded-xl bg-gray-50 p-4">
+                  <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Chains</p>
                     <p className="mt-2 text-2xl font-bold text-gray-900">3</p>
                   </div>
@@ -127,7 +127,7 @@ export default function DocsPage() {
 
             {activeSection === "contracts" && (
               <section className="space-y-6">
-                <div className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+                <div className="uniswap-card">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50">
                       <Hash className="h-5 w-5 text-violet-600" />
@@ -137,7 +137,7 @@ export default function DocsPage() {
                   <p className="text-gray-600 mb-6">Always verify addresses before interacting. Do not send funds to unknown contracts.</p>
                   <div className="space-y-3">
                     {MOCK_CONTRACTS.map((contract) => (
-                      <div key={contract.chain} className="flex flex-col gap-2 rounded-xl border border-gray-100 p-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div key={contract.chain} className="flex flex-col gap-2 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                           <p className="font-semibold text-gray-900">{contract.chain}</p>
                           <p className="mt-1 font-mono text-sm text-gray-500">{contract.address}</p>
@@ -163,7 +163,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "tokenomics" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
                     <Coins className="h-5 w-5 text-amber-600" />
@@ -173,14 +173,14 @@ export default function DocsPage() {
                 <p className="text-gray-600 mb-6">Understanding the $STRYK supply, distribution, and incentive mechanisms.</p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {MOCK_TOKENOMICS.map((item) => (
-                    <div key={item.label} className="rounded-xl bg-gray-50 p-5">
+                    <div key={item.label} className="rounded-2xl p-5">
                       <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{item.label}</p>
                       <p className="mt-2 text-2xl font-bold text-gray-900">{item.value}</p>
                       <p className="mt-1 text-sm text-gray-500">{item.unit}</p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 rounded-xl border border-gray-100 p-4">
+                <div className="mt-6 rounded-2xl p-4">
                   <p className="text-sm text-gray-600 leading-relaxed">
                     $STRYK uses an inflationary-deflationary model: new tokens are minted as staking rewards (capped at 2% annual inflation), while tokens are burned on every redemption event. This creates a natural deflationary pressure as more devices are redeemed.
                   </p>
@@ -189,7 +189,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "buy" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
                     <ShoppingCart className="h-5 w-5 text-emerald-600" />
@@ -218,7 +218,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "stake" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
                     <Repeat className="h-5 w-5 text-blue-600" />
@@ -247,7 +247,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "redeem" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50">
                     <ShieldCheck className="h-5 w-5 text-violet-600" />
@@ -276,7 +276,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "audits" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
                     <FileSearch className="h-5 w-5 text-emerald-600" />
@@ -286,7 +286,7 @@ export default function DocsPage() {
                 <p className="text-gray-600 mb-6">Security is our top priority. All smart contracts have undergone rigorous third-party audits.</p>
                 <div className="space-y-3">
                   {MOCK_AUDITS.map((audit) => (
-                    <div key={audit.id} className="flex flex-col gap-3 rounded-xl border border-gray-100 p-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div key={audit.id} className="flex flex-col gap-3 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <p className="font-semibold text-gray-900">{audit.firm}</p>
                         <p className="mt-1 text-sm text-gray-500">{new Date(audit.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
@@ -308,7 +308,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "github" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
                     <Github className="h-5 w-5" />
@@ -328,7 +328,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "api" && (
-              <section className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+              <section className="uniswap-card">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50">
                     <Code2 className="h-5 w-5 text-sky-600" />
@@ -338,7 +338,7 @@ export default function DocsPage() {
                 <p className="text-gray-600 mb-6">Integrate with the Stryk protocol using our REST API. All endpoints require an API key.</p>
                 <div className="space-y-3">
                   {MOCK_API_ENDPOINTS.map((endpoint) => (
-                    <div key={endpoint.path} className="flex flex-col gap-2 rounded-xl border border-gray-100 p-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div key={endpoint.path} className="flex flex-col gap-2 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3">
                         <span className={`rounded-lg px-2 py-1 text-xs font-bold ${
                           endpoint.method === "GET" ? "bg-emerald-50 text-emerald-700" : "bg-blue-50 text-blue-700"

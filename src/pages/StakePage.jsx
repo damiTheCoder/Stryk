@@ -16,8 +16,11 @@ const mockStakingData = {
   ],
 };
 
+const LOCK_PERIODS = ["30 days", "60 days", "90 days", "180 days"];
+
 export default function StakePage() {
   const [stakeAmount, setStakeAmount] = useState("");
+  const [selectedLock, setSelectedLock] = useState("30 days");
   const [isStaking, setIsStaking] = useState(false);
 
   const handleStake = () => {
@@ -38,159 +41,224 @@ export default function StakePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="mx-auto max-w-5xl p-4 md:p-8 space-y-6">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Stake $STRYK</h1>
-          <p className="mt-2 text-gray-500">Earn rewards by staking your tokens</p>
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1C1C1C] transition-colors">
+      <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
+        <header>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Stake $SYK</h1>
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Earn high-yield rewards by staking $SYK in physical device-backed vaults.</p>
+        </header>
+
+        {/* Compact Horizontal Metrics Bar */}
+        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4 border-b border-gray-200 dark:border-gray-800">
+          <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Total Staked</p>
+            <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{mockStakingData.totalStaked.toLocaleString()} $SYK</p>
+          </div>
+
+          <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Current APR</p>
+            <p className="mt-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">{mockStakingData.currentAPR}%</p>
+          </div>
+
+          <div className="min-w-[200px] shrink-0">
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Rewards Accrued</p>
+            <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{mockStakingData.rewardsAccrued.toLocaleString()} $SYK</p>
+          </div>
         </div>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200 flex items-center gap-4">
-            <div className="p-3 bg-blue-50 rounded-xl">
-              <Coins className="text-blue-600" size={24} />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Total Staked</p>
-              <p className="text-xl font-bold text-gray-900">{mockStakingData.totalStaked.toLocaleString()} $STRYK</p>
-            </div>
-          </div>
-          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200 flex items-center gap-4">
-            <div className="p-3 bg-emerald-50 rounded-xl">
-              <Percent className="text-emerald-600" size={24} />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Current APR</p>
-              <p className="text-xl font-bold text-gray-900">{mockStakingData.currentAPR}%</p>
-            </div>
-          </div>
-          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200 flex items-center gap-4">
-            <div className="p-3 bg-amber-50 rounded-xl">
-              <Trophy className="text-amber-600" size={24} />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Rewards Accrued</p>
-              <p className="text-xl font-bold text-gray-900">{mockStakingData.rewardsAccrued.toLocaleString()} $STRYK</p>
-            </div>
-          </div>
-        </section>
+        {/* Multi-Column Layout Matching Dashboard */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Main Left Section (2 cols) */}
+          <section className="lg:col-span-2 space-y-6">
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Wallet className="h-5 w-5 text-blue-600" />
-            Staking Actions
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <label className="block text-sm text-gray-500 mb-2">Amount ($STRYK)</label>
-              <input
-                type="number"
-                value={stakeAmount}
-                onChange={(e) => setStakeAmount(e.target.value)}
-                placeholder="0.00"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
-              <button
-                onClick={handleStake}
-                disabled={isStaking || !stakeAmount || Number(stakeAmount) <= 0}
-                className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-medium px-6 py-3 rounded-xl transition-colors"
-              >
-                <ArrowUpRight className="h-5 w-5" />
-                {isStaking ? "Processing..." : "Stake"}
-              </button>
-              <button
-                onClick={handleUnstake}
-                disabled={isStaking}
-                className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 border border-gray-300 text-gray-900 font-medium px-6 py-3 rounded-xl transition-colors"
-              >
-                <ArrowDownRight className="h-5 w-5" />
-                {isStaking ? "Processing..." : "Unstake"}
-              </button>
-              <button
-                onClick={handleClaim}
-                disabled={isStaking || mockStakingData.rewardsAccrued <= 0}
-                className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-medium px-6 py-3 rounded-xl transition-colors"
-              >
-                <Trophy className="h-5 w-5" />
-                {isStaking ? "Processing..." : "Claim Rewards"}
-              </button>
-            </div>
-          </div>
-        </section>
+            {/* Trade Swap Style Staking Card */}
+            <div className="uniswap-card p-6 space-y-5">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                  <Wallet className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  Swap & Stake Vault
+                </h2>
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+                  12.5% APR Active
+                </span>
+              </div>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Flame className="h-5 w-5 text-amber-600" />
-            Pool Details
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-              <Trophy className="h-5 w-5 text-amber-600" />
+              {/* Input Card matching Trade Swap */}
+              <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium text-gray-500 dark:text-gray-400">Stake Amount</span>
+                  <span className="text-gray-400">Available: 847.5k $SYK</span>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <input
+                    type="number"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full bg-transparent text-2xl font-bold text-gray-900 dark:text-white outline-none placeholder:text-gray-300 dark:placeholder:text-gray-600"
+                  />
+                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#2A2A2A] px-3 py-1.5 rounded-lg shrink-0">
+                    <img src="/Logo.jpeg" alt="" className="h-6 w-6 rounded-full object-cover border border-gray-200" />
+                    <span className="text-sm font-bold text-gray-900 dark:text-white">$SYK</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lock Duration Selector matching Trade Slippage */}
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Pool Tier</p>
-                <p className="text-gray-900 font-medium">{mockStakingData.poolTier}</p>
+                <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-2">Lock Duration</label>
+                <div className="flex gap-2">
+                  {LOCK_PERIODS.map((period) => (
+                    <button
+                      key={period}
+                      onClick={() => setSelectedLock(period)}
+                      className={`flex-1 rounded-lg py-2.5 text-sm font-semibold transition ${
+                        selectedLock === period
+                          ? "bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900"
+                          : "bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700"
+                      }`}
+                    >
+                      {period}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3 pt-2">
+                <button
+                  onClick={handleStake}
+                  disabled={isStaking || !stakeAmount || Number(stakeAmount) <= 0}
+                  className="w-full rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {isStaking ? "Processing..." : "Stake $SYK"}
+                </button>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={handleUnstake}
+                    disabled={isStaking}
+                    className="w-full rounded-xl bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 py-3 text-sm font-semibold text-gray-900 dark:text-white transition"
+                  >
+                    Unstake
+                  </button>
+                  <button
+                    onClick={handleClaim}
+                    disabled={isStaking || mockStakingData.rewardsAccrued <= 0}
+                    className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3 text-sm font-semibold text-white transition disabled:opacity-40"
+                  >
+                    Claim Rewards
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-              <Lock className="h-5 w-5 text-blue-600" />
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Lock Period</p>
-                <p className="text-gray-900 font-medium">{mockStakingData.lockPeriod}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-              <Zap className="h-5 w-5 text-emerald-600" />
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Boost Factors</p>
-                <p className="text-gray-900 font-medium">Up to x2.0</p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {mockStakingData.boostFactors.map((factor) => (
-              <span key={factor} className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-sm px-3 py-1.5 rounded-lg ring-1 ring-emerald-200">
-                <Zap className="h-4 w-4" />
-                {factor}
-              </span>
-            ))}
-          </div>
-        </section>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <History className="h-5 w-5 text-gray-900" />
-            Staking History
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="pb-3 text-sm font-medium text-gray-500">Type</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Amount</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Date</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Tx Hash</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {mockStakingData.history.map((item) => (
-                  <tr key={item.id}>
-                    <td className="py-3">
-                      <span className={`inline-flex items-center gap-1.5 text-sm font-medium ${item.type === "stake" ? "text-blue-600" : item.type === "unstake" ? "text-rose-600" : "text-emerald-600"}`}>
-                        {item.type === "stake" ? <ArrowUpRight className="h-4 w-4" /> : item.type === "unstake" ? <ArrowDownRight className="h-4 w-4" /> : <RefreshCw className="h-4 w-4" />}
-                        {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-                      </span>
-                    </td>
-                    <td className="py-3 text-gray-900 font-medium">{item.amount.toLocaleString()} $STRYK</td>
-                    <td className="py-3 text-gray-500">{item.date}</td>
-                    <td className="py-3 text-gray-500 font-mono text-sm">{item.txHash}</td>
-                  </tr>
+            {/* Staking History Table */}
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
+                <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                Staking History
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 dark:border-zinc-800 text-gray-500 dark:text-gray-400">
+                      <th className="pb-3 font-medium">Type</th>
+                      <th className="pb-3 font-medium">Amount</th>
+                      <th className="pb-3 font-medium">Date</th>
+                      <th className="pb-3 font-medium">Tx Hash</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
+                    {mockStakingData.history.map((item) => {
+                      const colorMap = { stake: "text-blue-600 dark:text-blue-400", unstake: "text-rose-600 dark:text-rose-400", claim: "text-emerald-600 dark:text-emerald-400" };
+                      const Icon = item.type === "stake" ? ArrowUpRight : item.type === "unstake" ? ArrowDownRight : RefreshCw;
+                      return (
+                        <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50">
+                          <td className="py-3">
+                            <span className={`inline-flex items-center gap-1.5 font-medium ${colorMap[item.type]}`}>
+                              <Icon className="h-4 w-4" />
+                              {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                            </span>
+                          </td>
+                          <td className="py-3 font-semibold text-gray-900 dark:text-white">{item.amount.toLocaleString()} $SYK</td>
+                          <td className="py-3 text-gray-500 dark:text-gray-400">{item.date}</td>
+                          <td className="py-3 font-mono text-gray-500 dark:text-gray-400">{item.txHash}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          {/* Right Sidebar (1 col) matching Dashboard layout */}
+          <aside className="space-y-6">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
+                <Flame className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                Pool Details & Multipliers
+              </h2>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                  <div className="flex items-center gap-2.5">
+                    <Trophy className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Pool Tier</span>
+                  </div>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">{mockStakingData.poolTier}</span>
+                </div>
+
+                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                  <div className="flex items-center gap-2.5">
+                    <Lock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Selected Lock</span>
+                  </div>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">{selectedLock}</span>
+                </div>
+
+                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                  <div className="flex items-center gap-2.5">
+                    <Zap className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Max Boost</span>
+                  </div>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">Up to x2.0</span>
+                </div>
+              </div>
+
+              <div className="mt-5 pt-4 border-t border-gray-100 dark:border-zinc-800 space-y-2">
+                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wide">Active Multipliers</span>
+                <div className="flex flex-wrap gap-2">
+                  {mockStakingData.boostFactors.map((factor) => (
+                    <span key={factor} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+                      <Zap size={12} />
+                      {factor}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4">Yield Distribution</h2>
+              <div className="space-y-3">
+                {[
+                  { label: "Community Stakers", value: "70%", color: "bg-blue-600" },
+                  { label: "Liquidity Reserve", value: "20%", color: "bg-emerald-600" },
+                  { label: "Vault Operations", value: "10%", color: "bg-purple-600" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`h-2.5 w-2.5 rounded-full ${item.color}`} />
+                      <span className="text-gray-500 dark:text-gray-400">{item.label}</span>
+                    </div>
+                    <span className="font-bold text-gray-900 dark:text-white">{item.value}</span>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
   );

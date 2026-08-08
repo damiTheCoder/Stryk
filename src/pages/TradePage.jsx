@@ -3,10 +3,7 @@ import { formatCompact } from "../utils/format";
 import NumberModal from "../components/NumberModal";
 import {
   ArrowRightLeft,
-  LineChart,
-  CandlestickChart,
   Droplets,
-  BarChart3,
   Wallet,
   TrendingUp,
 } from "lucide-react";
@@ -66,34 +63,36 @@ export default function TradePage() {
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="uniswap-trade-page">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-3xl font-bold text-gray-900">Trade</h1>
-          <p className="mt-2 text-gray-500">Swap, chart, and liquidity pool metrics for $STRYK.</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Trade</h1>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Swap, chart, and liquidity pool metrics for $STRYK.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <aside className="space-y-6 lg:col-span-1">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Swap</h2>
-              <div className="mt-4 space-y-4">
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <label className="text-xs font-medium text-gray-500">From</label>
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-5">Swap</h2>
+              <div className="space-y-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <label className="uniswap-label">From</label>
                   <div className="mt-2 flex items-center justify-between gap-2">
                     <input
                       type="number"
                       value={fromAmount}
                       onChange={(e) => setFromAmount(e.target.value)}
                       placeholder="0.00"
-                      className="w-full bg-transparent text-2xl font-semibold text-gray-900 outline-none placeholder:text-gray-300"
+                      className="uniswap-input text-xl font-semibold"
+                      style={{ minHeight: "56px", fontSize: "20px" }}
                     />
-                    <div className="flex items-center gap-1.5">
-                      <img src="/logo.png" alt="" className="h-6 w-6 rounded-full object-cover border border-gray-200" />
+                    <div className="flex items-center gap-2">
+                      <img src="/Logo.jpeg" alt="" className="h-7 w-7 rounded-full object-cover" />
                       <select
                         value={fromToken}
                         onChange={(e) => setFromToken(e.target.value)}
-                        className="rounded-lg bg-white pl-3 pr-8 py-1.5 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 outline-none"
+                        className="uniswap-input"
+                        style={{ minHeight: "44px", fontSize: "15px", padding: "0 12px", width: "auto" }}
                       >
                         {TOKENS.map((token) => (
                           <option key={token} value={token}>{token}</option>
@@ -104,26 +103,28 @@ export default function TradePage() {
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-1 ring-gray-200">
-                    <ArrowRightLeft className="h-4 w-4 text-gray-600" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "#F3F4F6" }}>
+                    <ArrowRightLeft className="h-5 w-5" style={{ color: "#6B7280" }} />
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <label className="text-xs font-medium text-gray-500">To</label>
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <label className="uniswap-label">To</label>
                   <div className="mt-2 flex items-center justify-between gap-2">
                     <input
                       type="text"
                       value={toToken === "USDC" ? quote : "0.00"}
                       readOnly
-                      className="w-full bg-transparent text-2xl font-semibold text-gray-900 outline-none"
+                      className="uniswap-input text-xl font-semibold"
+                      style={{ minHeight: "56px", fontSize: "20px", background: "transparent" }}
                     />
-                    <div className="flex items-center gap-1.5">
-                      {toToken === "USDC" && <img src="/usdc.png" alt="" className="h-6 w-6 rounded-full object-cover" />}
+                    <div className="flex items-center gap-2">
+                      {toToken === "USDC" && <img src="/usdc.png" alt="" className="h-7 w-7 rounded-full object-cover" />}
                       <select
                         value={toToken}
                         onChange={(e) => setToToken(e.target.value)}
-                        className="rounded-lg bg-white pl-3 pr-8 py-1.5 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 outline-none"
+                        className="uniswap-input"
+                        style={{ minHeight: "44px", fontSize: "15px", padding: "0 12px", width: "auto" }}
                       >
                         {TOKENS.filter((t) => t !== fromToken).map((token) => (
                           <option key={token} value={token}>{token}</option>
@@ -132,24 +133,21 @@ export default function TradePage() {
                     </div>
                   </div>
                   {fromAmount && (
-                    <p className="mt-2 text-sm text-gray-500">
+                    <p className="mt-3 text-sm" style={{ color: "#6B7280" }}>
                       1 {fromToken} ≈ {toToken === "USDC" ? "$0.00031" : "0.00031"}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-500">Slippage Tolerance</label>
+                  <label className="uniswap-label">Slippage Tolerance</label>
                   <div className="mt-2 flex gap-2">
                     {SLIPPAGE_OPTIONS.map((option) => (
                       <button
                         key={option}
                         onClick={() => setSlippage(option)}
-                        className={`flex-1 rounded-lg py-2 text-sm font-semibold transition ${
-                          slippage === option
-                            ? "bg-gray-900 text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        }`}
+                        className={`uniswap-chip flex-1 justify-center text-base ${slippage === option ? "active" : ""}`}
+                        style={{ padding: "10px 16px", fontSize: "15px" }}
                       >
                         {option}
                       </button>
@@ -157,52 +155,53 @@ export default function TradePage() {
                   </div>
                 </div>
 
-                <button className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40" disabled={!fromAmount}>
+                <button className="uniswap-btn-primary w-full" style={{ minHeight: "56px", fontSize: "18px" }} disabled={!fromAmount}>
                   Swap
                 </button>
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Liquidity Pool</h2>
-              <div className="mt-4 space-y-4">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-5">Liquidity Pool</h2>
+              <div className="space-y-5">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <Droplets className="h-4 w-4" />
-                    <span className="text-sm">Total Liquidity</span>
+                  <div className="flex items-center gap-3">
+                    <Droplets className="h-5 w-5" style={{ color: "#2563EB" }} />
+                    <span className="text-base" style={{ color: "#374151" }}>Total Liquidity</span>
                   </div>
-                  <span className="text-sm font-semibold text-gray-900">{formatCurrency(MOCK_LIQUIDITY.totalLiquidity)}</span>
+                  <span className="text-base font-semibold" style={{ color: "#111827" }}>{formatCurrency(MOCK_LIQUIDITY.totalLiquidity)}</span>
                 </div>
+                <hr className="uniswap-divider" />
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <Wallet className="h-4 w-4" />
-                    <span className="text-sm">Your LP Tokens</span>
+                  <div className="flex items-center gap-3">
+                    <Wallet className="h-5 w-5" style={{ color: "#2563EB" }} />
+                    <span className="text-base" style={{ color: "#374151" }}>Your LP Tokens</span>
                   </div>
-                  <span className="text-sm font-semibold text-gray-900 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(MOCK_LIQUIDITY.yourLpTokens.toLocaleString())}>{formatCompact(MOCK_LIQUIDITY.yourLpTokens)}</span>
+                  <span className="text-base font-semibold cursor-pointer hover:text-blue-600 transition-colors" style={{ color: "#111827" }} onClick={() => setModalValue(MOCK_LIQUIDITY.yourLpTokens.toLocaleString())}>{formatCompact(MOCK_LIQUIDITY.yourLpTokens)}</span>
                 </div>
+                <hr className="uniswap-divider" />
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <TrendingUp className="h-4 w-4" />
-                    <span className="text-sm">APR</span>
+                  <div className="flex items-center gap-3">
+                    <TrendingUp className="h-5 w-5" style={{ color: "#2563EB" }} />
+                    <span className="text-base" style={{ color: "#374151" }}>APR</span>
                   </div>
-                  <span className="text-sm font-semibold text-emerald-600">{MOCK_LIQUIDITY.apr}%</span>
+                  <span className="text-base font-semibold" style={{ color: "#059669" }}>{MOCK_LIQUIDITY.apr}%</span>
                 </div>
               </div>
             </div>
           </aside>
 
           <main className="space-y-6 lg:col-span-2">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+            <div className="uniswap-card p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-lg font-semibold text-gray-900">$STRYK / USD</h2>
-                <div className="flex gap-2 rounded-xl bg-gray-100 p-1">
+                <h2 className="uniswap-section-title">$STRYK / USD</h2>
+                <div className="flex gap-2 rounded-xl p-1" style={{ background: "#F3F4F6" }}>
                   {TIMEFRAMES.map((tf) => (
                     <button
                       key={tf}
                       onClick={() => setTimeframe(tf)}
-                      className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
-                        timeframe === tf ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
-                      }`}
+                      className={`uniswap-chip justify-center ${timeframe === tf ? "active" : ""}`}
+                      style={{ padding: "8px 16px", fontSize: "14px" }}
                     >
                       {tf}
                     </button>
@@ -228,42 +227,42 @@ export default function TradePage() {
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div>
-                  <p className="text-xs text-gray-500">Open</p>
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <p className="text-xs font-medium text-gray-500">Open</p>
                   <p className="text-sm font-semibold text-gray-900">0.00025</p>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500">High</p>
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <p className="text-xs font-medium text-gray-500">High</p>
                   <p className="text-sm font-semibold text-emerald-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(maxPrice.toLocaleString())}>{formatCompact(maxPrice)}</p>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500">Low</p>
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <p className="text-xs font-medium text-gray-500">Low</p>
                   <p className="text-sm font-semibold text-rose-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(minPrice.toLocaleString())}>{formatCompact(minPrice)}</p>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500">Volume</p>
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                  <p className="text-xs font-medium text-gray-500">Volume</p>
                   <p className="text-sm font-semibold text-gray-900">4.2M</p>
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Order Book</h3>
-                <div className="mt-4 space-y-6">
+              <div className="uniswap-card p-6">
+                <h3 className="uniswap-section-title mb-5">Order Book</h3>
+                <div className="space-y-5">
                   <div>
-                    <p className="mb-2 text-xs font-medium text-emerald-600">Bids</p>
+                    <p className="mb-3 text-base font-semibold" style={{ color: "#059669" }}>Bids</p>
                     <div className="space-y-2">
                       {MOCK_ORDER_BOOK.bids.map((bid, idx) => (
-                        <div key={idx} className="flex items-center justify-between rounded-lg bg-emerald-50 px-3 py-2">
+                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3" style={{ background: "#F3F4F6" }}>
                           <div className="w-1/2">
-                            <p className="text-sm font-semibold text-emerald-700">{bid.price}</p>
+                            <p className="text-base font-semibold" style={{ color: "#059669" }}>{bid.price}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-sm text-gray-600">{bid.amount}</p>
+                            <p className="text-base" style={{ color: "#374151" }}>{bid.amount}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-sm font-medium text-gray-900">{bid.total}</p>
+                            <p className="text-base font-semibold" style={{ color: "#111827" }}>{bid.total}</p>
                           </div>
                         </div>
                       ))}
@@ -271,18 +270,18 @@ export default function TradePage() {
                   </div>
 
                   <div>
-                    <p className="mb-2 text-xs font-medium text-rose-600">Asks</p>
+                    <p className="mb-3 text-base font-semibold" style={{ color: "#DC2626" }}>Asks</p>
                     <div className="space-y-2">
                       {MOCK_ORDER_BOOK.asks.map((ask, idx) => (
-                        <div key={idx} className="flex items-center justify-between rounded-lg bg-rose-50 px-3 py-2">
+                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3" style={{ background: "#F3F4F6" }}>
                           <div className="w-1/2">
-                            <p className="text-sm font-semibold text-rose-700">{ask.price}</p>
+                            <p className="text-base font-semibold" style={{ color: "#DC2626" }}>{ask.price}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-sm text-gray-600">{ask.amount}</p>
+                            <p className="text-base" style={{ color: "#374151" }}>{ask.amount}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-sm font-medium text-gray-900">{ask.total}</p>
+                            <p className="text-base font-semibold" style={{ color: "#111827" }}>{ask.total}</p>
                           </div>
                         </div>
                       ))}
@@ -291,9 +290,9 @@ export default function TradePage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Depth Chart</h3>
-                <div className="mt-4 flex h-48 items-end justify-between gap-1">
+              <div className="uniswap-card p-6">
+                <h3 className="uniswap-section-title mb-5">Depth Chart</h3>
+                <div className="mt-4 flex h-48 items-end justify-between gap-1.5">
                   {MOCK_ORDER_BOOK.bids.map((bid, idx) => {
                     const maxTotal = Math.max(
                       ...MOCK_ORDER_BOOK.bids.map((b) => parseFloat(b.total)),
@@ -303,8 +302,8 @@ export default function TradePage() {
                     return (
                       <div
                         key={`bid-${idx}`}
-                        className="flex-1 rounded-t bg-emerald-200"
-                        style={{ height: `${bidHeight}%` }}
+                        className="flex-1 rounded-t-lg"
+                        style={{ height: `${bidHeight}%`, background: "#059669" }}
                         title={`${bid.price}: ${bid.total}`}
                       />
                     );
@@ -318,14 +317,14 @@ export default function TradePage() {
                     return (
                       <div
                         key={`ask-${idx}`}
-                        className="flex-1 rounded-t bg-rose-200"
-                        style={{ height: `${askHeight}%` }}
+                        className="flex-1 rounded-t-lg"
+                        style={{ height: `${askHeight}%`, background: "#DC2626" }}
                         title={`${ask.price}: ${ask.total}`}
                       />
                     );
                   })}
                 </div>
-                <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                <div className="mt-4 flex items-center justify-between text-base font-medium" style={{ color: "#6B7280" }}>
                   <span>Price</span>
                   <span>Depth</span>
                 </div>

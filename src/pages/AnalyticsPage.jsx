@@ -57,7 +57,7 @@ export default function AnalyticsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
           <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
@@ -66,22 +66,22 @@ export default function AnalyticsPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-blue-600" />
                 Protocol Stats
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Total Supply</p>
                   <p className="mt-1 text-xl font-bold text-gray-900">{MOCK_PROTOCOL_STATS.totalSupply}</p>
                   <p className="mt-1 text-sm text-gray-500">$STRYK</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Market Cap</p>
                   <p className="mt-1 text-xl font-bold text-gray-900">{MOCK_PROTOCOL_STATS.marketCap}</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Unique Wallets</p>
                   <p className="mt-1 text-xl font-bold text-gray-900">{MOCK_PROTOCOL_STATS.uniqueWallets}</p>
                 </div>
@@ -94,7 +94,7 @@ export default function AnalyticsPage() {
                       key={label}
                       onClick={() => setActiveVolume(label)}
                       className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                        activeVolume === label ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+                         activeVolume === label ? "bg-gray-50 text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
                       }`}
                     >
                       {label}
@@ -105,25 +105,25 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <LineChart className="h-5 w-5 text-violet-600" />
                 Token Metrics
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-gray-50 p-5">
+                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
                   <h3 className="text-sm font-semibold text-gray-700">Price</h3>
                   <p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_TOKEN_METRICS.price}</p>
                   <p className={`mt-1 inline-flex items-center gap-1 text-sm font-medium ${MOCK_TOKEN_METRICS.change24h.startsWith("+") ? "text-emerald-600" : "text-rose-600"}`}>
                     {MOCK_TOKEN_METRICS.change24h.startsWith("+") ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
                     {MOCK_TOKEN_METRICS.change24h}
                   </p>
-                  <div className="mt-4 rounded-lg border border-dashed border-gray-300 p-4 text-center">
+                  <div className="mt-4 rounded-2xl p-4 text-center" style={{ background: "#F9FAFB" }}>
                     <BarChart3 className="mx-auto h-6 w-6 text-gray-400" />
                     <p className="mt-1 text-xs text-gray-500">Price chart placeholder with technical overlays.</p>
                   </div>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-5">
+                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
                   <h3 className="text-sm font-semibold text-gray-700 mb-3">Holder Distribution</h3>
                   <div className="space-y-3">
                     {MOCK_TOKEN_METRICS.holders.map((holder) => (
@@ -138,7 +138,7 @@ export default function AnalyticsPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 flex items-center justify-between rounded-lg bg-white p-3">
+                  <div className="mt-4 flex items-center justify-between rounded-2xl p-3" style={{ background: "#F3F4F6" }}>
                     <div className="flex items-center gap-2">
                       <Flame className="h-4 w-4 text-orange-500" />
                       <span className="text-sm text-gray-600">Burn Rate</span>
@@ -152,27 +152,27 @@ export default function AnalyticsPage() {
           </section>
 
           <aside className="space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-emerald-600" />
                 Revenue Dashboard
               </h2>
               <div className="space-y-4">
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-500">Fees Collected</p>
                     <Repeat className="h-4 w-4 text-gray-400" />
                   </div>
                   <p className="mt-1 text-xl font-bold text-gray-900">{MOCK_REVENUE.feesCollected}</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-500">Spread Profit</p>
                     <CircleDollarSign className="h-4 w-4 text-gray-400" />
                   </div>
                   <p className="mt-1 text-xl font-bold text-gray-900">{MOCK_REVENUE.spreadProfit}</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-500">Vault Yield Generated</p>
                     <Wallet className="h-4 w-4 text-gray-400" />
@@ -190,8 +190,8 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Activity className="h-5 w-5 text-blue-600" />
                 Quick Insights
               </h2>
@@ -202,7 +202,7 @@ export default function AnalyticsPage() {
                   { label: "Protocol Revenue (30d)", value: "$462.7K", trend: "up" },
                   { label: "New Holders (7d)", value: "1,245", trend: "down" },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+                  <div key={item.label} className="flex items-center justify-between rounded-2xl p-3" style={{ background: "#F3F4F6" }}>
                     <span className="text-sm text-gray-600">{item.label}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-semibold text-gray-900">{item.value}</span>

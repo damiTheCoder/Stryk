@@ -2,9 +2,9 @@ import React from 'react';
 
 const DisclaimerPage = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-3xl p-4 md:p-8">
-        <div className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+        <div className="uniswap-card">
           <div className="flex items-center mb-4">
             <h1 className="text-3xl font-bold text-gray-900">Risk Disclosure & Disclaimer</h1>
           </div>

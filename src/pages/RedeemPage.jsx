@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Wallet, MapPin, Phone, Package, Truck, CheckCircle2, Clock, Flame, Lock, History } from "lucide-react";
+import { Wallet, Package, Truck, CheckCircle2, Clock, Flame } from "lucide-react";
 
 const mockRedemptionData = {
   balance: 750000,
@@ -20,7 +20,7 @@ export default function RedeemPage() {
     city: "",
     country: "",
     zip: "",
-    phoneModel: "",
+    phoneModel: "iPhone 16 Pro Max",
   });
   const [burnConfirmed, setBurnConfirmed] = useState(false);
   const [isRedeeming, setIsRedeeming] = useState(false);
@@ -41,9 +41,9 @@ export default function RedeemPage() {
   };
 
   const statusStyles = {
-    Processing: "bg-amber-50 text-amber-700 ring-amber-200",
-    Shipped: "bg-blue-50 text-blue-700 ring-blue-200",
-    Delivered: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    Processing: "bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 ring-amber-200 dark:ring-amber-800",
+    Shipped: "bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 ring-blue-200 dark:ring-blue-800",
+    Delivered: "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 ring-emerald-200 dark:ring-emerald-800",
   };
 
   const statusIcons = {
@@ -53,125 +53,121 @@ export default function RedeemPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="mx-auto max-w-5xl p-4 md:p-8 space-y-6">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Redeem $STRYK</h1>
-          <p className="mt-2 text-gray-500">Burn tokens to redeem premium devices</p>
+    <div className="uniswap-page">
+      <div className="mx-auto max-w-5xl px-4 py-8 md:px-8 md:py-10">
+        <div className="uniswap-page-header">
+          <h1>Redeem $STRYK</h1>
+          <p>Burn tokens to redeem premium flagship devices.</p>
         </div>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Wallet className="h-5 w-5 text-blue-600" />
-            Redemption Eligibility
-          </h2>
+        <section className="uniswap-card p-6">
+          <div className="flex items-center gap-2 mb-5">
+            <Wallet className="h-5 w-5" style={{ color: "#2563EB" }} />
+            <h2 className="uniswap-section-title">Redemption Eligibility</h2>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="rounded-xl bg-gray-50 p-4">
-              <p className="text-sm text-gray-500 mb-1">Current Balance</p>
-              <p className="text-2xl font-bold text-gray-900">{mockRedemptionData.balance.toLocaleString()} $STRYK</p>
+            <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+              <p className="text-sm font-medium" style={{ color: "#6B7280" }}>Current Balance</p>
+              <p className="uniswap-stat-value mt-1">{mockRedemptionData.balance.toLocaleString()} $STRYK</p>
             </div>
-            <div className="rounded-xl bg-gray-50 p-4">
-              <p className="text-sm text-gray-500 mb-1">Redemption Target</p>
-              <p className="text-2xl font-bold text-gray-900">{mockRedemptionData.target.toLocaleString()} $STRYK</p>
+            <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+              <p className="text-sm font-medium" style={{ color: "#6B7280" }}>Redemption Target</p>
+              <p className="uniswap-stat-value mt-1">{mockRedemptionData.target.toLocaleString()} $STRYK</p>
             </div>
-            <div className="rounded-xl bg-gray-50 p-4">
-              <p className="text-sm text-gray-500 mb-1">Amount Needed</p>
-              <p className="text-2xl font-bold text-gray-900">{remaining.toLocaleString()} $STRYK</p>
+            <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+              <p className="text-sm font-medium" style={{ color: "#6B7280" }}>Amount Needed</p>
+              <p className="uniswap-stat-value mt-1">{remaining.toLocaleString()} $STRYK</p>
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Progress to redemption</span>
-              <span className="text-gray-900 font-medium">{progressPercent.toFixed(1)}%</span>
+          <div>
+            <div className="flex justify-between text-sm mb-2">
+              <span className="uniswap-stat-label">Progress to redemption</span>
+              <span className="font-medium" style={{ color: "#111827" }}>{progressPercent.toFixed(1)}%</span>
             </div>
-            <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
-              <div
-                className="bg-gradient-to-r from-blue-600 to-emerald-600 h-full rounded-full transition-all duration-500"
-                style={{ width: `${progressPercent}%` }}
-              />
+            <div className="uniswap-progress-track">
+              <div className="uniswap-progress-fill-gradient" style={{ width: `${progressPercent}%` }} />
             </div>
           </div>
         </section>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Package className="h-5 w-5 text-emerald-600" />
-            Redemption Form
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <section className="uniswap-card p-6 mt-6">
+          <div className="flex items-center gap-2 mb-5">
+            <Package className="h-5 w-5" style={{ color: "#059669" }} />
+            <h2 className="uniswap-section-title">Redemption Form</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">Full Name</label>
+              <label className="uniswap-label">Full Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">Address</label>
+              <label className="uniswap-label">Address</label>
               <input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="123 Main St"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">City</label>
+              <label className="uniswap-label">City</label>
               <input
                 type="text"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
                 placeholder="New York"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">Country</label>
+              <label className="uniswap-label">Country</label>
               <input
                 type="text"
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
                 placeholder="United States"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">Zip Code</label>
+              <label className="uniswap-label">Zip Code</label>
               <input
                 type="text"
                 name="zip"
                 value={formData.zip}
                 onChange={handleChange}
                 placeholder="10001"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1.5">Phone Model</label>
+              <label className="uniswap-label">Phone Model</label>
               <select
                 name="phoneModel"
                 value={formData.phoneModel}
                 onChange={handleChange}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="uniswap-input"
               >
-                <option value="">Select a model</option>
                 {mockRedemptionData.phoneModels.map((model) => (
                   <option key={model} value={model}>{model}</option>
                 ))}
               </select>
             </div>
           </div>
-          <div className="flex items-center gap-2 mb-4 p-3 bg-gray-50 rounded-xl">
-            <Truck className="h-5 w-5 text-blue-600" />
-            <span className="text-sm text-gray-600">Estimated delivery: <strong className="text-gray-900">{mockRedemptionData.estimatedDelivery}</strong></span>
+          <div className="flex items-center gap-2 mb-5 p-4 rounded-2xl" style={{ background: "#EFF6FF" }}>
+            <Truck className="h-5 w-5" style={{ color: "#2563EB" }} />
+            <span className="text-sm" style={{ color: "#1E40AF" }}>Estimated delivery: <strong>{mockRedemptionData.estimatedDelivery}</strong></span>
           </div>
           <div className="flex items-start gap-3 mb-6">
             <input
@@ -179,58 +175,62 @@ export default function RedeemPage() {
               id="burnConfirm"
               checked={burnConfirmed}
               onChange={(e) => setBurnConfirmed(e.target.checked)}
-              className="mt-1 w-4 h-4 rounded border-gray-300 bg-gray-50 text-blue-600 focus:ring-blue-500"
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
-            <label htmlFor="burnConfirm" className="text-sm text-gray-600 cursor-pointer select-none">
+            <label htmlFor="burnConfirm" className="text-sm cursor-pointer select-none" style={{ color: "#4B5563" }}>
               I confirm that I want to burn {mockRedemptionData.target.toLocaleString()} $STRYK tokens to redeem this device. This action cannot be undone.
             </label>
           </div>
           <button
             onClick={handleRedeem}
             disabled={!canRedeem || !burnConfirmed || isRedeeming || !formData.name || !formData.address || !formData.city || !formData.country || !formData.zip || !formData.phoneModel}
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:bg-gray-200 disabled:text-gray-400 text-white font-medium px-6 py-3 rounded-xl transition-colors"
+            className="uniswap-btn-primary w-full"
           >
             <Flame className="h-5 w-5" />
             {isRedeeming ? "Processing Redemption..." : canRedeem ? "Redeem Device" : `Need ${remaining.toLocaleString()} more $STRYK`}
           </button>
         </section>
 
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <History className="h-5 w-5 text-gray-900" />
-            Redemption History
-          </h2>
+        <section className="uniswap-card p-6 mt-6">
+          <div className="flex items-center gap-2 mb-5">
+            <History className="h-5 w-5" style={{ color: "#6B7280" }} />
+            <h2 className="uniswap-section-title">Redemption History</h2>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left">
+            <table className="uniswap-table">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="pb-3 text-sm font-medium text-gray-500">Device</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Status</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Date</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Tracking</th>
+                <tr>
+                  <th>Device</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Tracking</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
-                {mockRedemptionData.history.map((item) => (
-                  <tr key={item.id}>
-                    <td className="py-3">
-                      <div className="flex items-center gap-2">
-                        <Package className="h-4 w-4 text-gray-400" />
-                        <span className="text-gray-900 font-medium">{item.phone}</span>
-                      </div>
-                    </td>
-                    <td className="py-3">
-                      <span className={`inline-flex items-center gap-1.5 text-sm font-medium px-2.5 py-1 rounded-lg ring-1 ${statusStyles[item.status]}`}>
-                        {statusIcons[item.status]}
-                        {item.status}
-                      </span>
-                    </td>
-                    <td className="py-3 text-gray-500">{item.date}</td>
-                    <td className="py-3">
-                      <span className="text-gray-500 font-mono text-sm">{item.tracking}</span>
-                    </td>
-                  </tr>
-                ))}
+              <tbody>
+                {mockRedemptionData.history.map((item) => {
+                  const style = statusStyles[item.status];
+                  const StatusIcon = statusIcons[item.status];
+                  return (
+                    <tr key={item.id} className="uniswap-row-hover">
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <Package className="h-4 w-4" style={{ color: "#9CA3AF" }} />
+                          <span className="font-medium" style={{ color: "#111827" }}>{item.phone}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="uniswap-badge" style={{ background: style.bg, color: style.text, border: `1px solid ${style.border}` }}>
+                          <StatusIcon className="h-3.5 w-3.5" />
+                          {item.status}
+                        </span>
+                      </td>
+                      <td style={{ color: "#6B7280" }}>{item.date}</td>
+                      <td>
+                        <span className="font-mono text-sm" style={{ color: "#6B7280" }}>{item.tracking}</span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

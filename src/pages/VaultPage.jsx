@@ -54,7 +54,7 @@ const STATUS_COLORS = {
   Passed: "bg-emerald-50 text-emerald-700 ring-emerald-200",
   Conditional: "bg-amber-50 text-amber-700 ring-amber-200",
   Insured: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-  Pending: "bg-gray-50 text-gray-600 ring-gray-200",
+  Pending: "bg-gray-50 text-gray-600",
 };
 
 export default function VaultPage() {
@@ -64,7 +64,7 @@ export default function VaultPage() {
   const formatDate = (dateStr) => new Date(dateStr).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
           <h1 className="text-3xl font-bold text-gray-900">Vault</h1>
@@ -73,21 +73,21 @@ export default function VaultPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <HardDrive className="h-5 w-5 text-blue-600" />
                 Vault Overview
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Total Devices Stored</p>
                   <p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_VAULT_OVERVIEW.totalDevices.toLocaleString()}</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Total Value Locked</p>
                   <p className="mt-1 text-2xl font-bold text-gray-900">{formatCurrency(MOCK_VAULT_OVERVIEW.totalValueUsd)}</p>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-4">
+                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                   <p className="text-sm text-gray-500">Insurance Status</p>
                   <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-emerald-600">
                     <ShieldCheck className="h-4 w-4" />
@@ -123,13 +123,13 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <ClipboardList className="h-5 w-5 text-violet-600" />
                 Live Audits
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-gray-50 p-5">
+                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
                   <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     <FileText className="h-4 w-4 text-gray-400" />
                     Latest Audit Report
@@ -146,7 +146,7 @@ export default function VaultPage() {
                     <span className="text-sm text-gray-600">{MOCK_AUDITS.latest.totalDevicesVerified.toLocaleString()} devices verified</span>
                   </div>
                 </div>
-                <div className="rounded-xl bg-gray-50 p-5">
+                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
                   <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     <Eye className="h-4 w-4 text-gray-400" />
                     Proof of Reserves
@@ -154,7 +154,7 @@ export default function VaultPage() {
                   <p className="mt-2 text-sm text-gray-500">
                     Verified on-chain proof of assets backing every physical device in the vault.
                   </p>
-                  <div className="mt-4 rounded-lg border border-dashed border-gray-300 p-4 text-center">
+                  <div className="mt-4 rounded-2xl p-4 text-center" style={{ background: "#F9FAFB" }}>
                     <Lock className="mx-auto h-6 w-6 text-gray-400" />
                     <p className="mt-1 text-xs text-gray-500">Merkle root and attestation link available post-audit.</p>
                   </div>
@@ -191,14 +191,14 @@ export default function VaultPage() {
           </section>
 
           <aside className="space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-rose-600" />
                 Vault Location
               </h2>
               <div className="space-y-4">
                 {MOCK_LOCATIONS.map((loc) => (
-                  <div key={loc.name} className="rounded-xl bg-gray-50 p-4">
+                  <div key={loc.name} className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
                     <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
                       <Warehouse className="h-4 w-4 text-gray-400" />
                       {loc.name}
@@ -221,8 +221,8 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Shield className="h-5 w-5 text-amber-600" />
                 Security Certifications
               </h2>
@@ -244,14 +244,14 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-emerald-600" />
                 Custodian Partners
               </h2>
               <div className="space-y-3">
                 {MOCK_LOCATIONS.map((loc) => (
-                  <div key={loc.custodian} className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
+                  <div key={loc.custodian} className="flex items-center justify-between rounded-2xl p-3" style={{ background: "#F3F4F6" }}>
                     <div>
                       <p className="text-sm font-medium text-gray-900">{loc.custodian}</p>
                       <p className="text-xs text-gray-500">{loc.name}</p>

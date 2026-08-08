@@ -115,7 +115,7 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -130,7 +130,7 @@ export default function BlogPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                   activeCategory === cat
                     ? "bg-gray-900 text-white"
-                    : "bg-white text-gray-600 ring-1 ring-gray-200 hover:bg-gray-50"
+                      : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                 }`}
               >
                 {cat}
@@ -144,7 +144,7 @@ export default function BlogPage() {
             const Icon = CATEGORY_ICONS[post.category];
             const colorClass = CATEGORY_COLORS[post.category];
             return (
-              <article key={post.id} className="flex flex-col rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 overflow-hidden hover:shadow-md transition">
+              <article key={post.id} className="flex flex-col uniswap-card hover:shadow-md transition">
                 <img
                   src={post.image}
                   alt={post.title}
@@ -214,7 +214,7 @@ export default function BlogPage() {
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100 transition"
+                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-50 px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100 transition"
                 >
                   Subscribe
                   <ArrowRight className="h-4 w-4" />

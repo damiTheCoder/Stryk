@@ -2,9 +2,9 @@ import React from 'react';
 
 const TermsPage = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-3xl p-4 md:p-8">
-        <div className="rounded-2xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-gray-200">
+        <div className="uniswap-card">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Service</h1>
           <p className="text-sm text-gray-500 mb-8">Last updated: August 2026</p>
 
