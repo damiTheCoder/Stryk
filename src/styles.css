@@ -194,7 +194,7 @@ button, input, select { font: inherit; }
 .brand-logo {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: 9999px;
 }
 .brand-mark {
   display: grid;
@@ -295,7 +295,7 @@ button, input, select { font: inherit; }
 .landing-nav-logo img {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: 9999px;
   object-fit: cover;
   border: 1px solid black;
 }

@@ -106,6 +106,30 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
             <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title">Explore wallets</h2>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Connect and manage</p>
+              <div className="mt-6 -mx-6 overflow-x-auto no-scrollbar">
+                <div className="flex gap-12 px-6">
+                  {[
+                    { name: "Phantom Wallet", src: "/phantom logo.jpeg" },
+                    { name: "MetaMask", src: "/metamask.jpeg" },
+                    { name: "AZZA", src: "/AZZA.png" },
+                    { name: "Busha", src: "/Busha.png" },
+                  ].map((wallet) => (
+                    <button key={wallet.name} className="flex flex-col items-center gap-3 shrink-0">
+                      <img
+                        src={wallet.src}
+                        alt={wallet.name}
+                        className="h-16 w-16 rounded-full object-cover bg-gray-100 dark:bg-zinc-800 p-1"
+                      />
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{wallet.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500">
