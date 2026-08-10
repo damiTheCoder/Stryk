@@ -58,7 +58,7 @@ export default function StakePage() {
 
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Current APR</p>
-            <p className="mt-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">{mockStakingData.currentAPR}%</p>
+            <p className="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{mockStakingData.currentAPR}%</p>
           </div>
 
           <div className="min-w-[200px] shrink-0">

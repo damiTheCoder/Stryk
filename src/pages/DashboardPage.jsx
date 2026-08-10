@@ -107,7 +107,7 @@ export default function DashboardPage() {
           <section className="lg:col-span-2 space-y-6">
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500">
                   <ArrowUpRight className="h-5 w-5" />
                   Buy $SYK
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                 </button>
                 <button
                   disabled={!canRedeem}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
+                  className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
                 >
                   <ShieldCheck className="h-5 w-5" />
                   Redeem Phone

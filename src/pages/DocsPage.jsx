@@ -116,11 +116,11 @@ export default function DocsPage() {
                   </div>
                   <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Backing Ratio</p>
-                    <p className="mt-2 text-2xl font-bold text-gray-900">1.14x</p>
+                     <p className="mt-2 text-2xl font-semibold text-gray-900">1.14x</p>
                   </div>
                   <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Chains</p>
-                    <p className="mt-2 text-2xl font-bold text-gray-900">3</p>
+                     <p className="mt-2 text-2xl font-semibold text-gray-900">3</p>
                   </div>
                 </div>
               </section>
