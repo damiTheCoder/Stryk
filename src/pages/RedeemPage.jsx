@@ -70,15 +70,15 @@ export default function RedeemPage() {
         <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Current Balance</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockRedemptionData.balance)} $SYK</p>
+            <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockRedemptionData.balance)} $SYK</p>
           </div>
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Redemption Target</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockRedemptionData.target)} $SYK</p>
+            <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockRedemptionData.target)} $SYK</p>
           </div>
           <div className="min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Amount Needed</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(remaining)} $SYK</p>
+            <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(remaining)} $SYK</p>
           </div>
         </div>
 

@@ -73,7 +73,7 @@ export default function DashboardPage() {
             <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">$SYK Balance</p>
             <p 
-              className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
               onClick={() => setModalValue(MOCK_PORTFOLIO.balance.toLocaleString())}
             >
               {formatCompact(MOCK_PORTFOLIO.balance)}
@@ -84,7 +84,7 @@ export default function DashboardPage() {
           {/* Item 2 */}
           <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Redemption Progress</p>
-            <p className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
+            <p className="mt-2 text-3xl font-medium text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more to redeem
             </p>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
           <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Staking Rewards Accrued</p>
             <p 
-              className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
               onClick={() => setModalValue(MOCK_PORTFOLIO.stakingRewards.toLocaleString() + " $SYK")}
             >
               {formatCompact(MOCK_PORTFOLIO.stakingRewards)} $SYK

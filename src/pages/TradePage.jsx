@@ -70,17 +70,19 @@ export default function TradePage() {
 
   return (
     <div className="uniswap-trade-page">
-      <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 space-y-4">
         <header>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Trade</h1>
           <p className="mt-2 text-gray-500 dark:text-gray-400">Swap, chart, and liquidity pool metrics for $STRYK.</p>
         </header>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <aside className="space-y-6 lg:col-span-1">
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title mb-5">Swap</h2>
-              <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <aside className="space-y-4 lg:col-span-1">
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <h2 className="uniswap-section-title mb-4">Swap</h2>
+              </div>
+              <div className="px-4 pb-4 space-y-3">
                 <div className="rounded-2xl p-4 bg-surface">
                   <label className="uniswap-label">From</label>
                   <div className="mt-2 flex items-center justify-between gap-2">
@@ -167,9 +169,11 @@ export default function TradePage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title mb-5">Liquidity Pool</h2>
-              <div className="space-y-5">
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <h2 className="uniswap-section-title mb-3">Liquidity Pool</h2>
+              </div>
+              <div className="px-4 pb-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Droplets className="h-5 w-5" style={{ color: "#2563EB" }} />
@@ -197,10 +201,16 @@ export default function TradePage() {
             </div>
           </aside>
 
-          <main className="space-y-6 lg:col-span-2">
-            <div className="uniswap-card p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="uniswap-section-title">$STRYK / USD</h2>
+          <main className="space-y-4 lg:col-span-2">
+            <div className="uniswap-card">
+              <div className="p-4 pb-0 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center -space-x-2">
+                    <img src="/Logo.jpeg" alt="" className="h-6 w-6 rounded-full object-cover border-2 border-white dark:border-black" />
+                    <img src="/usdc.png" alt="" className="h-6 w-6 rounded-full object-cover border-2 border-white dark:border-black" />
+                  </div>
+                  <h2 className="uniswap-section-title">SYK / USDC</h2>
+                </div>
                 <div className="flex gap-2 rounded-xl p-1 bg-surface">
                   {TIMEFRAMES.map((tf) => (
                     <button
@@ -215,47 +225,58 @@ export default function TradePage() {
                 </div>
               </div>
 
-              <div className="mt-6 h-72 w-full">
-                <div className="flex h-full items-end gap-2">
-                  {MOCK_PRICE_HISTORY.map((point, idx) => {
-                    const height = ((point.price - minPrice) / priceRange) * 100;
-                    return (
-                      <div key={idx} className="flex flex-1 flex-col items-center gap-2">
-                        <div
-                          className="w-full rounded-t-lg bg-blue-600 transition-all"
-                          style={{ height: `${Math.max(height, 5)}%` }}
-                        />
-                        <span className="text-xs text-gray-400">{point.time}</span>
-                      </div>
-                    );
-                  })}
+              <div className="px-4 pb-4">
+                <div className="h-64 w-full">
+                  <svg viewBox="0 0 500 200" className="h-full w-full" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#2563EB" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d={`M 0 ${200 - ((MOCK_PRICE_HISTORY[0].price - minPrice) / priceRange) * 180} ${MOCK_PRICE_HISTORY.slice(1).map((point, i) => `L ${(i + 1) * (500 / (MOCK_PRICE_HISTORY.length - 1))} ${200 - ((point.price - minPrice) / priceRange) * 180}`).join(" ")}`}
+                      fill="none"
+                      stroke="#2563EB"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d={`M 0 ${200 - ((MOCK_PRICE_HISTORY[0].price - minPrice) / priceRange) * 180} ${MOCK_PRICE_HISTORY.slice(1).map((point, i) => `L ${(i + 1) * (500 / (MOCK_PRICE_HISTORY.length - 1))} ${200 - ((point.price - minPrice) / priceRange) * 180}`).join(" ")} L 500 200 L 0 200 Z`}
+                      fill="url(#chartGradient)"
+                      stroke="none"
+                    />
+                  </svg>
                 </div>
               </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div className="rounded-2xl p-4 bg-surface">
+              <div className="p-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="rounded-xl bg-surface px-3 py-2">
                   <p className="text-xs font-medium text-gray-500">Open</p>
                   <p className="text-sm font-semibold text-gray-900">0.00025</p>
                 </div>
-                <div className="rounded-2xl p-4 bg-surface">
+                <div className="rounded-xl bg-surface px-3 py-2">
                   <p className="text-xs font-medium text-gray-500">High</p>
                   <p className="text-sm font-semibold text-emerald-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(maxPrice.toLocaleString())}>{formatCompact(maxPrice)}</p>
                 </div>
-                <div className="rounded-2xl p-4 bg-surface">
+                <div className="rounded-xl bg-surface px-3 py-2">
                   <p className="text-xs font-medium text-gray-500">Low</p>
                   <p className="text-sm font-semibold text-rose-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(minPrice.toLocaleString())}>{formatCompact(minPrice)}</p>
                 </div>
-                <div className="rounded-2xl p-4 bg-surface">
+                <div className="rounded-xl bg-surface px-3 py-2">
                   <p className="text-xs font-medium text-gray-500">Volume</p>
                   <p className="text-sm font-semibold text-gray-900">4.2M</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <div className="uniswap-card p-6">
-                <h3 className="uniswap-section-title mb-5">Order Book</h3>
-                <div className="space-y-5">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div className="uniswap-card">
+                <div className="p-4 pb-2">
+                  <h3 className="uniswap-section-title mb-3">Order Book</h3>
+                </div>
+                <div className="px-4 pb-4 space-y-2">
                   <div>
                     <p className="mb-3 text-base font-semibold" style={{ color: "#059669" }}>Bids</p>
                     <div className="space-y-2">
@@ -296,43 +317,47 @@ export default function TradePage() {
                 </div>
               </div>
 
-              <div className="uniswap-card p-6">
-                <h3 className="uniswap-section-title mb-5">Depth Chart</h3>
-                <div className="mt-4 flex h-48 items-end justify-between gap-1.5">
-                  {MOCK_ORDER_BOOK.bids.map((bid, idx) => {
-                    const maxTotal = Math.max(
-                      ...MOCK_ORDER_BOOK.bids.map((b) => parseFloat(b.total)),
-                      ...MOCK_ORDER_BOOK.asks.map((a) => parseFloat(a.total))
-                    );
-                    const bidHeight = (parseFloat(bid.total) / maxTotal) * 100;
-                    return (
-                      <div
-                        key={`bid-${idx}`}
-                        className="flex-1 rounded-t-lg"
-                        style={{ height: `${bidHeight}%`, background: "#059669" }}
-                        title={`${bid.price}: ${bid.total}`}
-                      />
-                    );
-                  })}
-                  {MOCK_ORDER_BOOK.asks.map((ask, idx) => {
-                    const maxTotal = Math.max(
-                      ...MOCK_ORDER_BOOK.bids.map((b) => parseFloat(b.total)),
-                      ...MOCK_ORDER_BOOK.asks.map((a) => parseFloat(a.total))
-                    );
-                    const askHeight = (parseFloat(ask.total) / maxTotal) * 100;
-                    return (
-                      <div
-                        key={`ask-${idx}`}
-                        className="flex-1 rounded-t-lg"
-                        style={{ height: `${askHeight}%`, background: "#DC2626" }}
-                        title={`${ask.price}: ${ask.total}`}
-                      />
-                    );
-                  })}
+              <div className="uniswap-card">
+                <div className="p-4 pb-2">
+                  <h3 className="uniswap-section-title mb-3">Depth Chart</h3>
                 </div>
-                <div className="mt-4 flex items-center justify-between text-base font-medium" style={{ color: "#6B7280" }}>
-                  <span>Price</span>
-                  <span>Depth</span>
+                <div className="px-4 pb-4">
+                  <div className="flex h-40 items-end justify-between gap-1.5">
+                    {MOCK_ORDER_BOOK.bids.map((bid, idx) => {
+                      const maxTotal = Math.max(
+                        ...MOCK_ORDER_BOOK.bids.map((b) => parseFloat(b.total)),
+                        ...MOCK_ORDER_BOOK.asks.map((a) => parseFloat(a.total))
+                      );
+                      const bidHeight = (parseFloat(bid.total) / maxTotal) * 100;
+                      return (
+                        <div
+                          key={`bid-${idx}`}
+                          className="flex-1 rounded-t-lg"
+                          style={{ height: `${bidHeight}%`, background: "#059669" }}
+                          title={`${bid.price}: ${bid.total}`}
+                        />
+                      );
+                    })}
+                    {MOCK_ORDER_BOOK.asks.map((ask, idx) => {
+                      const maxTotal = Math.max(
+                        ...MOCK_ORDER_BOOK.bids.map((b) => parseFloat(b.total)),
+                        ...MOCK_ORDER_BOOK.asks.map((a) => parseFloat(a.total))
+                      );
+                      const askHeight = (parseFloat(ask.total) / maxTotal) * 100;
+                      return (
+                        <div
+                          key={`ask-${idx}`}
+                          className="flex-1 rounded-t-lg"
+                          style={{ height: `${askHeight}%`, background: "#DC2626" }}
+                          title={`${ask.price}: ${ask.total}`}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-sm font-medium" style={{ color: "#6B7280" }}>
+                    <span>Price</span>
+                    <span>Depth</span>
+                  </div>
                 </div>
               </div>
             </div>

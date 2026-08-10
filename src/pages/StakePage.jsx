@@ -43,70 +43,69 @@ export default function StakePage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 space-y-4">
         <header>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Stake $SYK</h1>
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Earn high-yield rewards by staking $SYK in physical device-backed vaults.</p>
         </header>
 
-        {/* Compact Horizontal Metrics Bar */}
         <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Total Staked</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockStakingData.totalStaked)} $SYK</p>
+            <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockStakingData.totalStaked)} $SYK</p>
           </div>
 
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Current APR</p>
-            <p className="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-400">{mockStakingData.currentAPR}%</p>
+            <p className="mt-1 text-2xl font-medium text-emerald-600 dark:text-emerald-400">{mockStakingData.currentAPR}%</p>
           </div>
 
           <div className="min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Rewards Accrued</p>
-            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockStakingData.rewardsAccrued)} $SYK</p>
+            <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockStakingData.rewardsAccrued)} $SYK</p>
           </div>
         </div>
 
-        {/* Multi-Column Layout Matching Dashboard */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Main Left Section (2 cols) */}
-          <section className="lg:col-span-2 space-y-6">
-
-            {/* Trade Swap Style Staking Card */}
-            <div className="uniswap-card p-6 space-y-5">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Wallet className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                  Swap & Stake Vault
-                </h2>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
-                  12.5% APR Active
-                </span>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <section className="lg:col-span-2 space-y-4">
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                    <Wallet className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    Swap & Stake Vault
+                  </h2>
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
+                    12.5% APR Active
+                  </span>
+                </div>
               </div>
 
-              {/* Input Card matching Trade Swap */}
-              <div className="rounded-2xl p-4 bg-surface">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-gray-500 dark:text-gray-400">Stake Amount</span>
-                  <span className="text-gray-400">Available: 847.5k $SYK</span>
+              <div className="rounded-2xl bg-surface">
+                <div className="px-4 pt-4 pb-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-gray-500 dark:text-gray-400">Stake Amount</span>
+                    <span className="text-gray-400">Available: 847.5k $SYK</span>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between gap-2">
-                  <input
-                    type="number"
-                    value={stakeAmount}
-                    onChange={(e) => setStakeAmount(e.target.value)}
-                    placeholder="0.00"
-                     className="w-full bg-transparent text-2xl font-semibold text-gray-900 dark:text-white outline-none placeholder:text-gray-300 dark:placeholder:text-gray-600"
-                  />
-                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#27272a] px-3 py-1.5 rounded-lg shrink-0">
-                    <img src="/Logo.jpeg" alt="" className="h-6 w-6 rounded-full object-cover border border-gray-200" />
-                     <span className="text-sm font-semibold text-gray-900 dark:text-white">$SYK</span>
+                <div className="px-4 pb-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <input
+                      type="number"
+                      value={stakeAmount}
+                      onChange={(e) => setStakeAmount(e.target.value)}
+                      placeholder="0.00"
+                       className="w-full bg-transparent text-2xl font-semibold text-gray-900 dark:text-white outline-none placeholder:text-gray-300 dark:placeholder:text-gray-600"
+                    />
+                    <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#27272a] px-3 py-1.5 rounded-lg shrink-0">
+                      <img src="/Logo.jpeg" alt="" className="h-6 w-6 rounded-full object-cover border border-gray-200" />
+                       <span className="text-sm font-semibold text-gray-900 dark:text-white">$SYK</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Lock Duration Selector matching Trade Slippage */}
-              <div>
+              <div className="px-4 pb-4">
                 <label className="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-2">Lock Duration</label>
                 <div className="flex gap-2">
                   {LOCK_PERIODS.map((period) => (
@@ -125,8 +124,7 @@ export default function StakePage() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-3 pt-2">
+              <div className="px-4 pb-4 space-y-3">
                 <button
                   onClick={handleStake}
                   disabled={isStaking || !stakeAmount || Number(stakeAmount) <= 0}
@@ -154,54 +152,58 @@ export default function StakePage() {
               </div>
             </div>
 
-            {/* Staking History Table */}
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
-                <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                Staking History
-              </h2>
-              <div className="overflow-x-auto no-scrollbar">
-                <table className="w-full text-left text-sm">
-                  <thead>
-                    <tr className="border-b border-gray-200 dark:border-zinc-800 text-gray-500 dark:text-gray-400">
-                      <th className="pb-3 font-medium">Type</th>
-                      <th className="pb-3 font-medium">Amount</th>
-                      <th className="pb-3 font-medium">Date</th>
-                      <th className="pb-3 font-medium">Tx Hash</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
-                    {mockStakingData.history.map((item) => {
-                      const colorMap = { stake: "text-blue-600 dark:text-blue-400", unstake: "text-rose-600 dark:text-rose-400", claim: "text-emerald-600 dark:text-emerald-400" };
-                      const Icon = item.type === "stake" ? ArrowUpRight : item.type === "unstake" ? ArrowDownRight : RefreshCw;
-                      return (
-                        <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50">
-                          <td className="py-3">
-                            <span className={`inline-flex items-center gap-1.5 font-medium ${colorMap[item.type]}`}>
-                              <Icon className="h-4 w-4" />
-                              {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-                            </span>
-                          </td>
-                           <td className="py-3 font-medium text-gray-900 dark:text-white">{formatCompact(item.amount)} $SYK</td>
-                          <td className="py-3 text-gray-500 dark:text-gray-400">{item.date}</td>
-                          <td className="py-3 font-mono text-gray-500 dark:text-gray-400">{item.txHash}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <h2 className="uniswap-section-title mb-3 flex items-center gap-2">
+                  <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  Staking History
+                </h2>
+              </div>
+              <div className="px-4 pb-4">
+                <div className="overflow-x-auto no-scrollbar">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200 dark:border-zinc-800 text-gray-500 dark:text-gray-400">
+                        <th className="pb-3 font-medium">Type</th>
+                        <th className="pb-3 font-medium">Amount</th>
+                        <th className="pb-3 font-medium">Date</th>
+                        <th className="pb-3 font-medium">Tx Hash</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
+                      {mockStakingData.history.map((item) => {
+                        const colorMap = { stake: "text-blue-600 dark:text-blue-400", unstake: "text-rose-600 dark:text-rose-400", claim: "text-emerald-600 dark:text-emerald-400" };
+                        const Icon = item.type === "stake" ? ArrowUpRight : item.type === "unstake" ? ArrowDownRight : RefreshCw;
+                        return (
+                          <tr key={item.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50">
+                            <td className="py-3">
+                              <span className={`inline-flex items-center gap-1.5 font-medium ${colorMap[item.type]}`}>
+                                <Icon className="h-4 w-4" />
+                                {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                              </span>
+                            </td>
+                             <td className="py-3 font-medium text-gray-900 dark:text-white">{formatCompact(item.amount)} $SYK</td>
+                            <td className="py-3 text-gray-500 dark:text-gray-400">{item.date}</td>
+                            <td className="py-3 font-mono text-gray-500 dark:text-gray-400">{item.txHash}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Right Sidebar (1 col) matching Dashboard layout */}
-          <aside className="space-y-6">
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
-                <Flame className="h-5 w-5 text-amber-600 dark:text-amber-400" />
-                Pool Details & Multipliers
-              </h2>
-              <div className="space-y-3">
+          <aside className="space-y-4">
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <h2 className="uniswap-section-title mb-3 flex items-center gap-2">
+                  <Flame className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                  Pool Details & Multipliers
+                </h2>
+              </div>
+              <div className="px-4 pb-4 space-y-2">
                 <div className="flex items-center justify-between p-3 rounded-xl bg-surface">
                   <div className="flex items-center gap-2.5">
                     <Trophy className="h-5 w-5 text-amber-600 dark:text-amber-400" />
@@ -227,8 +229,8 @@ export default function StakePage() {
                 </div>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-gray-100 dark:border-zinc-800 space-y-2">
-                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wide">Active Multipliers</span>
+              <div className="px-4 pb-4 pt-2">
+                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wide mb-2">Active Multipliers</span>
                 <div className="flex flex-wrap gap-2">
                   {mockStakingData.boostFactors.map((factor) => (
                     <span key={factor} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
@@ -240,9 +242,11 @@ export default function StakePage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title mb-4">Yield Distribution</h2>
-              <div className="space-y-3">
+            <div className="uniswap-card">
+              <div className="p-4 pb-2">
+                <h2 className="uniswap-section-title mb-3">Yield Distribution</h2>
+              </div>
+              <div className="px-4 pb-4 space-y-2">
                 {[
                   { label: "Community Stakers", value: "70%", color: "bg-blue-600" },
                   { label: "Liquidity Reserve", value: "20%", color: "bg-emerald-600" },
