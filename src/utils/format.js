@@ -5,11 +5,11 @@ export function formatCompact(val) {
   const abs = Math.abs(num);
   if (abs >= 1_000_000) {
     const formatted = (num / 1_000_000).toFixed(2);
-    return formatted.replace(/\.?0+$/, "") + "m";
+    return formatted.replace(/\.?0+$/, "") + "M";
   }
   if (abs >= 1_000) {
     const formatted = (num / 1_000).toFixed(1);
-    return formatted.replace(/\.0$/, "") + "k";
+    return formatted.replace(/\.0$/, "") + "K";
   }
   return String(num);
 }

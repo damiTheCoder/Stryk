@@ -8,7 +8,13 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-const TOKENS = ["$STRYK", "USDC", "USDT", "ETH", "BTC"];
+const TOKENS = [
+  { value: "STRK", label: "STRK" },
+  { value: "USDC", label: "USDC" },
+  { value: "USDT", label: "UST" },
+  { value: "ETH", label: "ETH" },
+  { value: "BTC", label: "BTC" },
+];
 
 const MOCK_PRICE_HISTORY = [
   { time: "00:00", price: 0.00025 },
@@ -21,24 +27,24 @@ const MOCK_PRICE_HISTORY = [
 
 const MOCK_ORDER_BOOK = {
   bids: [
-    { price: 0.00030, amount: "120,000", total: "36.00" },
-    { price: 0.00029, amount: "85,000", total: "24.65" },
-    { price: 0.00028, amount: "210,000", total: "58.80" },
-    { price: 0.00027, amount: "55,000", total: "14.85" },
-    { price: 0.00026, amount: "95,000", total: "24.70" },
+    { price: 0.00030, amount: 120000, total: "36.00" },
+    { price: 0.00029, amount: 85000, total: "24.65" },
+    { price: 0.00028, amount: 210000, total: "58.80" },
+    { price: 0.00027, amount: 55000, total: "14.85" },
+    { price: 0.00026, amount: 95000, total: "24.70" },
   ],
   asks: [
-    { price: 0.00031, amount: "140,000", total: "43.40" },
-    { price: 0.00032, amount: "75,000", total: "24.00" },
-    { price: 0.00033, amount: "160,000", total: "52.80" },
-    { price: 0.00034, amount: "90,000", total: "30.60" },
-    { price: 0.00035, amount: "110,000", total: "38.50" },
+    { price: 0.00031, amount: 140000, total: "43.40" },
+    { price: 0.00032, amount: 75000, total: "24.00" },
+    { price: 0.00033, amount: 160000, total: "52.80" },
+    { price: 0.00034, amount: 90000, total: "30.60" },
+    { price: 0.00035, amount: 110000, total: "38.50" },
   ],
 };
 
 const MOCK_LIQUIDITY = {
   totalLiquidity: 2450000,
-  yourLpTokens: "12,500",
+  yourLpTokens: 12500,
   apr: 18.4,
 };
 
@@ -47,7 +53,7 @@ const TIMEFRAMES = ["1D", "1W", "1M", "1Y"];
 const SLIPPAGE_OPTIONS = ["0.1%", "0.5%", "1%"];
 
 export default function TradePage() {
-  const [fromToken, setFromToken] = useState("$STRYK");
+  const [fromToken, setFromToken] = useState("STRK");
   const [toToken, setToToken] = useState("USDC");
   const [fromAmount, setFromAmount] = useState("");
   const [slippage, setSlippage] = useState("0.5%");
@@ -75,7 +81,7 @@ export default function TradePage() {
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title mb-5">Swap</h2>
               <div className="space-y-4">
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <label className="uniswap-label">From</label>
                   <div className="mt-2 flex items-center justify-between gap-2">
                     <input
@@ -83,10 +89,10 @@ export default function TradePage() {
                       value={fromAmount}
                       onChange={(e) => setFromAmount(e.target.value)}
                       placeholder="0.00"
-                      className="uniswap-input text-xl font-semibold"
+                      className="uniswap-input text-xl font-medium"
                       style={{ minHeight: "56px", fontSize: "20px" }}
                     />
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       <img src="/Logo.jpeg" alt="" className="h-7 w-7 rounded-full object-cover" />
                       <select
                         value={fromToken}
@@ -95,7 +101,7 @@ export default function TradePage() {
                         style={{ minHeight: "44px", fontSize: "15px", padding: "0 12px", width: "auto" }}
                       >
                         {TOKENS.map((token) => (
-                          <option key={token} value={token}>{token}</option>
+                          <option key={token.value} value={token.value}>{token.label}</option>
                         ))}
                       </select>
                     </div>
@@ -103,22 +109,22 @@ export default function TradePage() {
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "#F3F4F6" }}>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface">
                     <ArrowRightLeft className="h-5 w-5" style={{ color: "#6B7280" }} />
                   </div>
                 </div>
 
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <label className="uniswap-label">To</label>
                   <div className="mt-2 flex items-center justify-between gap-2">
                     <input
                       type="text"
                       value={toToken === "USDC" ? quote : "0.00"}
                       readOnly
-                      className="uniswap-input text-xl font-semibold"
-                      style={{ minHeight: "56px", fontSize: "20px", background: "transparent" }}
+                      className="uniswap-input text-xl font-medium"
+                      style={{ minHeight: "56px", fontSize: "20px" }}
                     />
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {toToken === "USDC" && <img src="/usdc.png" alt="" className="h-7 w-7 rounded-full object-cover" />}
                       <select
                         value={toToken}
@@ -126,8 +132,8 @@ export default function TradePage() {
                         className="uniswap-input"
                         style={{ minHeight: "44px", fontSize: "15px", padding: "0 12px", width: "auto" }}
                       >
-                        {TOKENS.filter((t) => t !== fromToken).map((token) => (
-                          <option key={token} value={token}>{token}</option>
+                        {TOKENS.filter((t) => t.value !== fromToken).map((token) => (
+                          <option key={token.value} value={token.value}>{token.label}</option>
                         ))}
                       </select>
                     </div>
@@ -195,7 +201,7 @@ export default function TradePage() {
             <div className="uniswap-card p-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="uniswap-section-title">$STRYK / USD</h2>
-                <div className="flex gap-2 rounded-xl p-1" style={{ background: "#F3F4F6" }}>
+                <div className="flex gap-2 rounded-xl p-1 bg-surface">
                   {TIMEFRAMES.map((tf) => (
                     <button
                       key={tf}
@@ -227,19 +233,19 @@ export default function TradePage() {
               </div>
 
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <p className="text-xs font-medium text-gray-500">Open</p>
                   <p className="text-sm font-semibold text-gray-900">0.00025</p>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <p className="text-xs font-medium text-gray-500">High</p>
                   <p className="text-sm font-semibold text-emerald-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(maxPrice.toLocaleString())}>{formatCompact(maxPrice)}</p>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <p className="text-xs font-medium text-gray-500">Low</p>
                   <p className="text-sm font-semibold text-rose-600 cursor-pointer hover:text-blue-600 transition" onClick={() => setModalValue(minPrice.toLocaleString())}>{formatCompact(minPrice)}</p>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+                <div className="rounded-2xl p-4 bg-surface">
                   <p className="text-xs font-medium text-gray-500">Volume</p>
                   <p className="text-sm font-semibold text-gray-900">4.2M</p>
                 </div>
@@ -254,15 +260,15 @@ export default function TradePage() {
                     <p className="mb-3 text-base font-semibold" style={{ color: "#059669" }}>Bids</p>
                     <div className="space-y-2">
                       {MOCK_ORDER_BOOK.bids.map((bid, idx) => (
-                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3" style={{ background: "#F3F4F6" }}>
+                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3 bg-surface">
                           <div className="w-1/2">
                             <p className="text-base font-semibold" style={{ color: "#059669" }}>{bid.price}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-base" style={{ color: "#374151" }}>{bid.amount}</p>
+                            <p className="text-base" style={{ color: "#374151" }}>{formatCompact(bid.amount)}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-base font-semibold" style={{ color: "#111827" }}>{bid.total}</p>
+                             <p className="text-base font-medium" style={{ color: "#111827" }}>{bid.total}</p>
                           </div>
                         </div>
                       ))}
@@ -273,15 +279,15 @@ export default function TradePage() {
                     <p className="mb-3 text-base font-semibold" style={{ color: "#DC2626" }}>Asks</p>
                     <div className="space-y-2">
                       {MOCK_ORDER_BOOK.asks.map((ask, idx) => (
-                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3" style={{ background: "#F3F4F6" }}>
+                        <div key={idx} className="flex items-center justify-between rounded-xl px-4 py-3 bg-surface">
                           <div className="w-1/2">
                             <p className="text-base font-semibold" style={{ color: "#DC2626" }}>{ask.price}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-base" style={{ color: "#374151" }}>{ask.amount}</p>
+                            <p className="text-base" style={{ color: "#374151" }}>{formatCompact(ask.amount)}</p>
                           </div>
                           <div className="w-1/4 text-right">
-                            <p className="text-base font-semibold" style={{ color: "#111827" }}>{ask.total}</p>
+                             <p className="text-base font-medium" style={{ color: "#111827" }}>{ask.total}</p>
                           </div>
                         </div>
                       ))}

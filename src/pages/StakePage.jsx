@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatCompact } from "../utils/format";
 import { Coins, Percent, Trophy, Wallet, ArrowUpRight, ArrowDownRight, History, Flame, Lock, Zap, RefreshCw } from "lucide-react";
 
 const mockStakingData = {
@@ -41,7 +42,7 @@ export default function StakePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#1C1C1C] transition-colors">
+    <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Stake $SYK</h1>
@@ -49,10 +50,10 @@ export default function StakePage() {
         </header>
 
         {/* Compact Horizontal Metrics Bar */}
-        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Total Staked</p>
-            <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{mockStakingData.totalStaked.toLocaleString()} $SYK</p>
+            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockStakingData.totalStaked)} $SYK</p>
           </div>
 
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
@@ -62,7 +63,7 @@ export default function StakePage() {
 
           <div className="min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Rewards Accrued</p>
-            <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{mockStakingData.rewardsAccrued.toLocaleString()} $SYK</p>
+            <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(mockStakingData.rewardsAccrued)} $SYK</p>
           </div>
         </div>
 
@@ -84,7 +85,7 @@ export default function StakePage() {
               </div>
 
               {/* Input Card matching Trade Swap */}
-              <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
+              <div className="rounded-2xl p-4 bg-surface">
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium text-gray-500 dark:text-gray-400">Stake Amount</span>
                   <span className="text-gray-400">Available: 847.5k $SYK</span>
@@ -95,11 +96,11 @@ export default function StakePage() {
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full bg-transparent text-2xl font-bold text-gray-900 dark:text-white outline-none placeholder:text-gray-300 dark:placeholder:text-gray-600"
+                     className="w-full bg-transparent text-2xl font-semibold text-gray-900 dark:text-white outline-none placeholder:text-gray-300 dark:placeholder:text-gray-600"
                   />
-                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#2A2A2A] px-3 py-1.5 rounded-lg shrink-0">
+                  <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#27272a] px-3 py-1.5 rounded-lg shrink-0">
                     <img src="/Logo.jpeg" alt="" className="h-6 w-6 rounded-full object-cover border border-gray-200" />
-                    <span className="text-sm font-bold text-gray-900 dark:text-white">$SYK</span>
+                     <span className="text-sm font-semibold text-gray-900 dark:text-white">$SYK</span>
                   </div>
                 </div>
               </div>
@@ -159,7 +160,7 @@ export default function StakePage() {
                 <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 Staking History
               </h2>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto no-scrollbar">
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-zinc-800 text-gray-500 dark:text-gray-400">
@@ -181,7 +182,7 @@ export default function StakePage() {
                               {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
                             </span>
                           </td>
-                          <td className="py-3 font-semibold text-gray-900 dark:text-white">{item.amount.toLocaleString()} $SYK</td>
+                           <td className="py-3 font-medium text-gray-900 dark:text-white">{formatCompact(item.amount)} $SYK</td>
                           <td className="py-3 text-gray-500 dark:text-gray-400">{item.date}</td>
                           <td className="py-3 font-mono text-gray-500 dark:text-gray-400">{item.txHash}</td>
                         </tr>
@@ -201,28 +202,28 @@ export default function StakePage() {
                 Pool Details & Multipliers
               </h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-surface">
                   <div className="flex items-center gap-2.5">
                     <Trophy className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                     <span className="text-sm text-gray-500 dark:text-gray-400">Pool Tier</span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white">{mockStakingData.poolTier}</span>
+                   <span className="text-sm font-semibold text-gray-900 dark:text-white">{mockStakingData.poolTier}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-surface">
                   <div className="flex items-center gap-2.5">
                     <Lock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     <span className="text-sm text-gray-500 dark:text-gray-400">Selected Lock</span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white">{selectedLock}</span>
+                   <span className="text-sm font-semibold text-gray-900 dark:text-white">{selectedLock}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-3 rounded-xl" style={{ background: "#F3F4F6" }}>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-surface">
                   <div className="flex items-center gap-2.5">
                     <Zap className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                     <span className="text-sm text-gray-500 dark:text-gray-400">Max Boost</span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 dark:text-white">Up to x2.0</span>
+                   <span className="text-sm font-semibold text-gray-900 dark:text-white">Up to x2.0</span>
                 </div>
               </div>
 
@@ -252,7 +253,7 @@ export default function StakePage() {
                       <div className={`h-2.5 w-2.5 rounded-full ${item.color}`} />
                       <span className="text-gray-500 dark:text-gray-400">{item.label}</span>
                     </div>
-                    <span className="font-bold text-gray-900 dark:text-white">{item.value}</span>
+                     <span className="font-semibold text-gray-900 dark:text-white">{item.value}</span>
                   </div>
                 ))}
               </div>

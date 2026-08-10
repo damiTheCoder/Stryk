@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatCompact } from "../utils/format";
 import {
   BookOpen,
   ScrollText,
@@ -29,8 +30,8 @@ const MOCK_CONTRACTS = [
 ];
 
 const MOCK_TOKENOMICS = [
-  { label: "Total Supply", value: "1,000,000,000", unit: "$STRYK" },
-  { label: "Circulating", value: "420,000,000", unit: "$STRYK" },
+  { label: "Total Supply", value: 1000000000, unit: "$STRYK" },
+  { label: "Circulating", value: 420000000, unit: "$STRYK" },
   { label: "Vesting / Team", value: "15%", unit: "4yr linear" },
   { label: "Treasury", value: "25%", unit: "DAO governed" },
   { label: "Community & Rewards", value: "35%", unit: "staking + liquidity" },
@@ -66,10 +67,10 @@ export default function DocsPage() {
   const [activeSection, setActiveSection] = useState("overview");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col lg:flex-row">
-          <aside className="w-full shrink-0 lg:w-64 border-b border-gray-200 bg-gray-50 dark:bg-[#1C1C1C] lg:border-b-0 lg:border-r">
+          <aside className="w-full shrink-0 lg:w-64 border-b border-gray-200 bg-white dark:bg-black lg:border-b-0 lg:border-r">
             <div className="p-6">
               <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <BookOpen className="h-6 w-6 text-blue-600" />
@@ -111,7 +112,7 @@ export default function DocsPage() {
                 <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Devices Secured</p>
-                    <p className="mt-2 text-2xl font-bold text-gray-900">12,400+</p>
+                     <p className="mt-2 text-2xl font-semibold text-gray-900">12.4K+</p>
                   </div>
                   <div className="rounded-2xl p-4">
                     <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Backing Ratio</p>
@@ -175,7 +176,7 @@ export default function DocsPage() {
                   {MOCK_TOKENOMICS.map((item) => (
                     <div key={item.label} className="rounded-2xl p-5">
                       <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{item.label}</p>
-                      <p className="mt-2 text-2xl font-bold text-gray-900">{item.value}</p>
+                       <p className="mt-2 text-2xl font-semibold text-gray-900">{formatCompact(item.value)}</p>
                       <p className="mt-1 text-sm text-gray-500">{item.unit}</p>
                     </div>
                   ))}

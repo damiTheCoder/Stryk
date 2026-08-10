@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatCompact } from "../utils/format";
 import {
   Smartphone,
   HardDrive,
@@ -54,7 +55,7 @@ const STATUS_COLORS = {
   Passed: "bg-emerald-50 text-emerald-700 ring-emerald-200",
   Conditional: "bg-amber-50 text-amber-700 ring-amber-200",
   Insured: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-  Pending: "bg-gray-50 text-gray-600",
+  Pending: "bg-gray-50 text-gray-600 dark:text-gray-400",
 };
 
 export default function VaultPage() {
@@ -64,11 +65,11 @@ export default function VaultPage() {
   const formatDate = (dateStr) => new Date(dateStr).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-3xl font-bold text-gray-900">Vault</h1>
-          <p className="mt-2 text-gray-500">Physical asset storage, audit status, and custodian details.</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Vault</h1>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Physical asset storage, audit status, and custodian details.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -79,42 +80,42 @@ export default function VaultPage() {
                 Vault Overview
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
-                  <p className="text-sm text-gray-500">Total Devices Stored</p>
-                  <p className="mt-1 text-2xl font-bold text-gray-900">{MOCK_VAULT_OVERVIEW.totalDevices.toLocaleString()}</p>
+                <div className="rounded-2xl p-4 bg-surface">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Devices Stored</p>
+                   <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_VAULT_OVERVIEW.totalDevices)}</p>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
-                  <p className="text-sm text-gray-500">Total Value Locked</p>
-                  <p className="mt-1 text-2xl font-bold text-gray-900">{formatCurrency(MOCK_VAULT_OVERVIEW.totalValueUsd)}</p>
+                <div className="rounded-2xl p-4 bg-surface">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Value Locked</p>
+                   <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCurrency(MOCK_VAULT_OVERVIEW.totalValueUsd)}</p>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
-                  <p className="text-sm text-gray-500">Insurance Status</p>
+                <div className="rounded-2xl p-4 bg-surface">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Insurance Status</p>
                   <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-emerald-600">
                     <ShieldCheck className="h-4 w-4" />
                     {MOCK_VAULT_OVERVIEW.insuranceStatus}
                   </p>
                 </div>
               </div>
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Device Breakdown by Model</h3>
-                <div className="overflow-x-auto">
+               <div className="mt-6">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Device Breakdown by Model</h3>
+                <div className="overflow-x-auto no-scrollbar">
                   <table className="w-full text-left text-sm">
                     <thead>
-                      <tr className="border-b border-gray-200">
-                        <th className="pb-3 font-medium text-gray-500">Model</th>
-                        <th className="pb-3 font-medium text-gray-500 text-right">Count</th>
-                        <th className="pb-3 font-medium text-gray-500 text-right">Value (USD)</th>
+                      <tr className="border-b border-gray-200 dark:border-zinc-800 dark:border-zinc-800">
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400">Model</th>
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400 text-right">Count</th>
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400 text-right">Value (USD)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-gray-100 dark:divide-zinc-800 dark:divide-zinc-800">
                       {MOCK_VAULT_OVERVIEW.breakdown.map((item) => (
                         <tr key={item.model} className="hover:bg-gray-50">
-                          <td className="py-3 flex items-center gap-2 text-gray-900 font-medium">
-                            <Smartphone className="h-4 w-4 text-gray-400" />
+                          <td className="py-3 flex items-center gap-2 text-gray-900 dark:text-white font-medium">
+                            <Smartphone className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                             {item.model}
                           </td>
-                          <td className="py-3 text-right text-gray-700">{item.count.toLocaleString()}</td>
-                          <td className="py-3 text-right text-gray-700">{formatCurrency(item.value)}</td>
+                          <td className="py-3 text-right text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">{formatCompact(item.count)}</td>
+                          <td className="py-3 text-right text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">{formatCurrency(item.value)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -129,53 +130,53 @@ export default function VaultPage() {
                 Live Audits
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
-                  <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-gray-400" />
+                <div className="rounded-2xl p-5 bg-surface">
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                     Latest Audit Report
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">Report ID</p>
-                  <p className="text-sm font-mono font-medium text-gray-900">{MOCK_AUDITS.latest.id}</p>
-                  <p className="mt-2 text-sm text-gray-500">Date</p>
-                  <p className="text-sm font-medium text-gray-900">{formatDate(MOCK_AUDITS.latest.date)}</p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Report ID</p>
+                  <p className="text-sm font-mono font-medium text-gray-900 dark:text-white">{MOCK_AUDITS.latest.id}</p>
+                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Date</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">{formatDate(MOCK_AUDITS.latest.date)}</p>
                   <div className="mt-3 flex items-center justify-between">
                     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${STATUS_COLORS[MOCK_AUDITS.latest.status]}`}>
                       <BadgeCheck className="h-3.5 w-3.5" />
                       {MOCK_AUDITS.latest.status}
                     </span>
-                    <span className="text-sm text-gray-600">{MOCK_AUDITS.latest.totalDevicesVerified.toLocaleString()} devices verified</span>
+                     <span className="text-sm text-gray-600 dark:text-gray-400">{formatCompact(MOCK_AUDITS.latest.totalDevicesVerified)} devices verified</span>
                   </div>
                 </div>
-                <div className="rounded-2xl p-5" style={{ background: "#F3F4F6" }}>
-                  <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                    <Eye className="h-4 w-4 text-gray-400" />
+                <div className="rounded-2xl p-5 bg-surface">
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 flex items-center gap-2">
+                    <Eye className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                     Proof of Reserves
                   </h3>
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                     Verified on-chain proof of assets backing every physical device in the vault.
                   </p>
-                  <div className="mt-4 rounded-2xl p-4 text-center" style={{ background: "#F9FAFB" }}>
-                    <Lock className="mx-auto h-6 w-6 text-gray-400" />
-                    <p className="mt-1 text-xs text-gray-500">Merkle root and attestation link available post-audit.</p>
+                  <div className="mt-4 rounded-2xl p-4 text-center bg-surface">
+                    <Lock className="mx-auto h-6 w-6 text-gray-400 dark:text-gray-400" />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Merkle root and attestation link available post-audit.</p>
                   </div>
                 </div>
               </div>
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Audit History</h3>
-                <div className="overflow-x-auto">
+               <div className="mt-6">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Audit History</h3>
+                <div className="overflow-x-auto no-scrollbar">
                   <table className="w-full text-left text-sm">
                     <thead>
-                      <tr className="border-b border-gray-200">
-                        <th className="pb-3 font-medium text-gray-500">Report ID</th>
-                        <th className="pb-3 font-medium text-gray-500">Date</th>
-                        <th className="pb-3 font-medium text-gray-500">Status</th>
+                      <tr className="border-b border-gray-200 dark:border-zinc-800 dark:border-zinc-800">
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400">Report ID</th>
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400">Date</th>
+                        <th className="pb-3 font-medium text-gray-500 dark:text-gray-400">Status</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-gray-100 dark:divide-zinc-800 dark:divide-zinc-800">
                       {MOCK_AUDITS.history.map((audit) => (
                         <tr key={audit.id} className="hover:bg-gray-50">
-                          <td className="py-3 font-mono text-gray-900 font-medium">{audit.id}</td>
-                          <td className="py-3 text-gray-700">{audit.date}</td>
+                          <td className="py-3 font-mono text-gray-900 dark:text-white font-medium">{audit.id}</td>
+                          <td className="py-3 text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">{audit.date}</td>
                           <td className="py-3">
                             <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${STATUS_COLORS[audit.status]}`}>
                               {audit.status}
@@ -198,12 +199,12 @@ export default function VaultPage() {
               </h2>
               <div className="space-y-4">
                 {MOCK_LOCATIONS.map((loc) => (
-                  <div key={loc.name} className="rounded-2xl p-4" style={{ background: "#F3F4F6" }}>
-                    <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                      <Warehouse className="h-4 w-4 text-gray-400" />
+                  <div key={loc.name} className="rounded-2xl p-4 bg-surface">
+                     <p className="text-sm font-medium text-gray-900 dark:text-white flex items-center gap-2">
+                      <Warehouse className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                       {loc.name}
                     </p>
-                    <p className="mt-1 text-xs text-gray-500">Capacity: {loc.capacity}</p>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Capacity: {loc.capacity}</p>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {loc.certifications.map((cert) => (
                         <span key={cert} className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-200">
@@ -212,7 +213,7 @@ export default function VaultPage() {
                         </span>
                       ))}
                     </div>
-                    <p className="mt-2 text-xs text-gray-500 flex items-center gap-1">
+                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                       <Landmark className="h-3 w-3" />
                       {loc.custodian}
                     </p>
@@ -234,7 +235,7 @@ export default function VaultPage() {
                   { name: "GDPR Compliant", status: "Active" },
                 ].map((cert) => (
                   <div key={cert.name} className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">{cert.name}</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">{cert.name}</span>
                     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${STATUS_COLORS[cert.status]}`}>
                       <ShieldCheck className="h-3.5 w-3.5" />
                       {cert.status}
@@ -251,10 +252,10 @@ export default function VaultPage() {
               </h2>
               <div className="space-y-3">
                 {MOCK_LOCATIONS.map((loc) => (
-                  <div key={loc.custodian} className="flex items-center justify-between rounded-2xl p-3" style={{ background: "#F3F4F6" }}>
+                  <div key={loc.custodian} className="flex items-center justify-between rounded-2xl p-3 bg-surface">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{loc.custodian}</p>
-                      <p className="text-xs text-gray-500">{loc.name}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{loc.custodian}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{loc.name}</p>
                     </div>
                     <BadgeCheck className="h-4 w-4 text-emerald-600" />
                   </div>

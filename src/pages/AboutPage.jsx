@@ -151,7 +151,7 @@ export default function AboutPage() {
   const toggleFaq = (id) => setOpenFaq(openFaq === id ? null : id);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header>
           <h1 className="text-3xl font-bold text-gray-900">About Stryk</h1>

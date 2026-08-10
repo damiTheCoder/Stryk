@@ -238,11 +238,17 @@ function LandingPage({ go }) {
         </button>
       </nav>
       <div className="landing-content">
-        <h1>Discover premium electronics</h1>
-        <p>Collect Game Tags and enter transparent product hunts scheduled any day.</p>
+        <h1>
+          Real devices.
+          <br />
+          Real yield.
+          <br />
+          <span className="landing-hero-accent">Real tokens.</span>
+        </h1>
+        <p>STRYK turns premium electronics into on-chain positions you can trade, stake, and redeem—backed by real hardware, not promises.</p>
         <div className="landing-actions">
-          <button className="landing-primary" onClick={() => go("dashboard")}><Mail size={20} /> Continue with email</button>
-          <button className="landing-secondary" onClick={() => go("dashboard")}><QrCode size={20} /> Login from Web</button>
+          <button className="landing-primary" onClick={() => go("dashboard")}><Mail size={20} /> Join the Waitlist</button>
+          <button className="landing-secondary" onClick={() => go("docs")}><QrCode size={20} /> Read the Litepaper</button>
         </div>
         <p className="landing-terms">By continuing you accept Stryk's <button onClick={() => go("terms")}>Terms</button> and <button onClick={() => go("privacy")}>Privacy Policy</button>.</p>
       </div>

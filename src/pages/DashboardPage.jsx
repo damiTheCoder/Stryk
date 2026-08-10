@@ -16,11 +16,11 @@ const MOCK_PORTFOLIO = {
 };
 
 const MOCK_TRANSACTIONS = [
-  { id: "1", type: "buy", amount: "50,000", token: "$SYK", date: "2026-08-03", status: "Completed" },
-  { id: "2", type: "stake", amount: "120,000", token: "$SYK", date: "2026-08-02", status: "Completed" },
-  { id: "3", type: "sell", amount: "25,000", token: "$SYK", date: "2026-08-01", status: "Completed" },
-  { id: "4", type: "stake", amount: "80,000", token: "$SYK", date: "2026-07-31", status: "Completed" },
-  { id: "5", type: "buy", amount: "200,000", token: "$SYK", date: "2026-07-30", status: "Completed" },
+  { id: "1", type: "buy", amount: 50000, token: "$SYK", date: "2026-08-03", status: "Completed" },
+  { id: "2", type: "stake", amount: 120000, token: "$SYK", date: "2026-08-02", status: "Completed" },
+  { id: "3", type: "sell", amount: 25000, token: "$SYK", date: "2026-08-01", status: "Completed" },
+  { id: "4", type: "stake", amount: 80000, token: "$SYK", date: "2026-07-31", status: "Completed" },
+  { id: "5", type: "buy", amount: 200000, token: "$SYK", date: "2026-07-30", status: "Completed" },
   { id: "6", type: "redeem", amount: "1 Phone", token: "Galaxy S25", date: "2026-07-29", status: "Completed" },
 ];
 
@@ -60,7 +60,7 @@ export default function DashboardPage() {
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#1C1C1C] transition-colors">
+    <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
@@ -68,12 +68,12 @@ export default function DashboardPage() {
         </header>
 
           {/* Horizontally scrollable metrics strip with NO background and gray right separating lines */}
-          <div className="overflow-x-auto no-scrollbar flex items-stretch gap-8 py-6 border-b border-gray-200 dark:border-gray-800">
+          <div className="overflow-x-auto no-scrollbar flex items-stretch gap-8 py-6">
             {/* Item 1 */}
             <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">$SYK Balance</p>
             <p 
-              className="mt-2 text-3xl font-bold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+              className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
               onClick={() => setModalValue(MOCK_PORTFOLIO.balance.toLocaleString())}
             >
               {formatCompact(MOCK_PORTFOLIO.balance)}
@@ -84,7 +84,7 @@ export default function DashboardPage() {
           {/* Item 2 */}
           <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Redemption Progress</p>
-            <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
+            <p className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more to redeem
             </p>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
           <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Staking Rewards Accrued</p>
             <p 
-              className="mt-2 text-3xl font-bold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+              className="mt-2 text-3xl font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
               onClick={() => setModalValue(MOCK_PORTFOLIO.stakingRewards.toLocaleString() + " $SYK")}
             >
               {formatCompact(MOCK_PORTFOLIO.stakingRewards)} $SYK
@@ -118,8 +118,7 @@ export default function DashboardPage() {
                 </button>
                 <button
                   disabled={!canRedeem}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40"
-                  style={{ background: "#F3F4F6" }}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
                 >
                   <ShieldCheck className="h-5 w-5" />
                   Redeem Phone
@@ -152,7 +151,7 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="mt-4 overflow-x-auto">
+              <div className="mt-4 overflow-x-auto no-scrollbar">
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-zinc-800">

@@ -115,12 +115,12 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Blog</h1>
-            <p className="mt-2 text-gray-500">Announcements, product updates, and Web3 education.</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Blog</h1>
+            <p className="mt-2 text-gray-500 dark:text-gray-400">Announcements, product updates, and Web3 education.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((cat) => (
@@ -130,7 +130,7 @@ export default function BlogPage() {
                 className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                   activeCategory === cat
                     ? "bg-gray-900 text-white"
-                      : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                      : "bg-gray-50 text-gray-600 dark:text-gray-400 hover:bg-gray-100"
                 }`}
               >
                 {cat}
@@ -156,19 +156,19 @@ export default function BlogPage() {
                       <Icon className="h-3 w-3" />
                       {post.category}
                     </span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1">
+                    <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
                       <Eye className="h-3 w-3" />
                       {post.views}
                     </span>
                   </div>
-                  <h2 className="text-lg font-semibold text-gray-900 leading-snug">{post.title}</h2>
-                  <p className="mt-2 text-sm text-gray-600 flex-1">{post.excerpt}</p>
-                  <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white leading-snug">{post.title}</h2>
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 flex-1">{post.excerpt}</p>
+                  <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                     <div className="flex items-center gap-2">
                       <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100">
-                        <User className="h-3 w-3 text-gray-500" />
+                        <User className="h-3 w-3 text-gray-500 dark:text-gray-400" />
                       </div>
-                      <span className="font-medium text-gray-700">{post.author}</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">{post.author}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="flex items-center gap-1">
@@ -196,7 +196,7 @@ export default function BlogPage() {
               <Mail className="h-6 w-6 text-white" />
             </div>
             <h2 className="mt-4 text-2xl font-bold text-white">Stay in the Loop</h2>
-            <p className="mt-2 text-gray-400">Get the latest posts, product updates, and protocol news delivered to your inbox.</p>
+            <p className="mt-2 text-gray-400 dark:text-gray-400">Get the latest posts, product updates, and protocol news delivered to your inbox.</p>
             {subscribed ? (
               <div className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 px-5 py-3 text-emerald-400 font-medium">
                 <CheckCircle2 className="h-5 w-5" />
@@ -214,14 +214,14 @@ export default function BlogPage() {
                 />
                 <button
                   type="submit"
-                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-50 px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100 transition"
+                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-50 px-5 py-3 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-100 transition"
                 >
                   Subscribe
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </form>
             )}
-            <p className="mt-3 text-xs text-gray-500">No spam. Unsubscribe anytime.</p>
+            <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">No spam. Unsubscribe anytime.</p>
           </div>
         </section>
       </div>

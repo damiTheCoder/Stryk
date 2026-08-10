@@ -2,7 +2,7 @@ import React from 'react';
 
 const DisclaimerPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-3xl p-4 md:p-8">
         <div className="uniswap-card">
           <div className="flex items-center mb-4">
