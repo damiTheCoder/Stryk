@@ -154,7 +154,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header>
-          <h1 className="text-3xl font-bold text-gray-900">About Stryk</h1>
+          <h1 className="text-3xl font-semibold text-gray-900">About Stryk</h1>
           <p className="mt-2 text-gray-500">The protocol tokenizing the world's most desired devices.</p>
         </header>
 

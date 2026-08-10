@@ -45,7 +45,7 @@ export default function StakePage() {
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Stake $SYK</h1>
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Stake $SYK</h1>
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Earn high-yield rewards by staking $SYK in physical device-backed vaults.</p>
         </header>
 
@@ -75,7 +75,7 @@ export default function StakePage() {
             {/* Trade Swap Style Staking Card */}
             <div className="uniswap-card p-6 space-y-5">
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Wallet className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   Swap & Stake Vault
                 </h2>
@@ -130,7 +130,7 @@ export default function StakePage() {
                 <button
                   onClick={handleStake}
                   disabled={isStaking || !stakeAmount || Number(stakeAmount) <= 0}
-                  className="w-full rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
+                  className="w-full rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {isStaking ? "Processing..." : "Stake $SYK"}
                 </button>

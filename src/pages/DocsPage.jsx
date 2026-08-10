@@ -72,7 +72,7 @@ export default function DocsPage() {
         <div className="flex flex-col lg:flex-row">
           <aside className="w-full shrink-0 lg:w-64 border-b border-gray-200 bg-white dark:bg-black lg:border-b-0 lg:border-r">
             <div className="p-6">
-              <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <h1 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
                 <BookOpen className="h-6 w-6 text-blue-600" />
                 Documentation
               </h1>
@@ -199,19 +199,19 @@ export default function DocsPage() {
                 </div>
                 <ol className="space-y-4 text-gray-600">
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">1</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">1</span>
                     <span>Connect your EVM-compatible wallet (MetaMask, Coinbase Wallet, Ledger, etc.).</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">2</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">2</span>
                     <span>Navigate to the Trade page and select your preferred chain (Ethereum, Polygon, or Arbitrum).</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">3</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">3</span>
                     <span>Enter the amount of ETH, USDC, or MATIC to swap. Review slippage and fees.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">4</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">4</span>
                     <span>Confirm the transaction in your wallet. Tokens arrive in your account within ~30 seconds.</span>
                   </li>
                 </ol>
@@ -228,19 +228,19 @@ export default function DocsPage() {
                 </div>
                 <ol className="space-y-4 text-gray-600">
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">1</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">1</span>
                     <span>Ensure you have $STRYK in your connected wallet.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">2</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">2</span>
                     <span>Go to the Stake page and enter the amount you wish to stake.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">3</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">3</span>
                     <span>Approve the $STRYK token contract (if first time staking).</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">4</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">4</span>
                     <span>Confirm the stake transaction. Rewards accrue every block and can be claimed anytime.</span>
                   </li>
                 </ol>
@@ -257,19 +257,19 @@ export default function DocsPage() {
                 </div>
                 <ol className="space-y-4 text-gray-600">
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">1</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">1</span>
                     <span>Accumulate 1,000,000 $STRYK in your wallet.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">2</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">2</span>
                     <span>Visit the Redeem page and select your preferred device tier.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">3</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">3</span>
                     <span>Submit your shipping address for KYC verification.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">4</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">4</span>
                     <span>Tokens are burned upon confirmation. Your device ships within 7-14 business days.</span>
                   </li>
                 </ol>
@@ -341,7 +341,7 @@ export default function DocsPage() {
                   {MOCK_API_ENDPOINTS.map((endpoint) => (
                     <div key={endpoint.path} className="flex flex-col gap-2 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3">
-                        <span className={`rounded-lg px-2 py-1 text-xs font-bold ${
+                        <span className={`rounded-lg px-2 py-1 text-xs font-semibold ${
                           endpoint.method === "GET" ? "bg-emerald-50 text-emerald-700" : "bg-blue-50 text-blue-700"
                         }`}>
                           {endpoint.method}

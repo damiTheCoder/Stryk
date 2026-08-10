@@ -6,7 +6,7 @@ const DisclaimerPage = () => {
       <div className="mx-auto max-w-3xl p-4 md:p-8">
         <div className="uniswap-card">
           <div className="flex items-center mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">Risk Disclosure & Disclaimer</h1>
+            <h1 className="text-3xl font-semibold text-gray-900">Risk Disclosure & Disclaimer</h1>
           </div>
           <p className="text-sm text-red-600 font-medium mb-8">Please read this disclaimer carefully before using our services.</p>
 

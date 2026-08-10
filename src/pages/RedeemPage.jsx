@@ -63,7 +63,7 @@ export default function RedeemPage() {
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Redeem $SYK</h1>
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Redeem $SYK</h1>
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Burn tokens to redeem premium flagship devices.</p>
         </header>
 
@@ -86,7 +86,7 @@ export default function RedeemPage() {
           <section className="lg:col-span-2 space-y-6">
             <div className="uniswap-card p-6 space-y-5">
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Package className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                   Redemption Form
                 </h2>
@@ -182,7 +182,7 @@ export default function RedeemPage() {
               <button
                 onClick={handleRedeem}
                 disabled={!canRedeem || !burnConfirmed || isRedeeming || !formData.name || !formData.address || !formData.city || !formData.country || !formData.zip || !formData.phoneModel}
-                className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-sm font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
+                className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <Flame className="h-5 w-5" />
                  {isRedeeming ? "Processing Redemption..." : canRedeem ? "Redeem Device" : `Need ${formatCompact(remaining)} more $SYK`}

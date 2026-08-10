@@ -148,7 +148,6 @@ function App() {
 
 function Shell({ route, go, cart, tags }) {
   console.log("Shell render, route:", route);
-  if (route === "landing") return null;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
@@ -177,50 +176,54 @@ function Shell({ route, go, cart, tags }) {
 
   return (
     <>
-      <div className="header-banner">
-        <img src="/banner 2.png" alt="" className="header-banner-img" />
-        <div className="header-banner-shade" />
-      </div>
-      <header className="topbar">
-        <button className="brand reset" onClick={() => go("landing")}>
-          <img className="brand-logo" src="/Logo.jpeg" alt="" />
-          <span>Stryk</span>
-        </button>
-        <nav className="desktop-nav">
-          {dappRoutes.map(([name, Icon, label]) => (
-            <button key={name} className={route === name ? "active reset" : "reset"} onClick={() => go(name)}>
-              {label}
-            </button>
-          ))}
-        </nav>
-        <div className="nav-actions">
-          <button className="icon-button" aria-label="Toggle theme" onClick={() => setDarkMode((prev) => !prev)}>
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-          <button className="icon-button" aria-label="Search">
-            <Search size={20} />
-          </button>
-          <button className="icon-button" aria-label="More" onClick={() => setMobileOpen((v) => !v)}>
-            <MoreHorizontal size={20} />
-          </button>
-          <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect</button>
-        </div>
-        <button className="mobile-search-button reset" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
-          {mobileOpen ? <X size={21} strokeWidth={2.4} /> : <MoreHorizontal size={21} strokeWidth={2.4} />}
-        </button>
-        {mobileOpen && (
-          <div className="mobile-menu">
-            {dappRoutes.map(([name, Icon, label]) => (
-              <button key={name} className={route === name ? "active reset" : "reset"} onClick={() => { go(name); setMobileOpen(false); }}>
-                {label}
-              </button>
-            ))}
-            <div className="mobile-wallet">
-              <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect Wallet</button>
-            </div>
+      {route !== "landing" && (
+        <>
+          <div className="header-banner">
+            <img src="/banner 2.png" alt="" className="header-banner-img" />
+            <div className="header-banner-shade" />
           </div>
-        )}
-      </header>
+          <header className="topbar">
+            <button className="brand reset" onClick={() => go("landing")}>
+              <img className="brand-logo" src="/Logo.jpeg" alt="" />
+              <span>Stryk</span>
+            </button>
+            <nav className="desktop-nav">
+              {dappRoutes.map(([name, Icon, label]) => (
+                <button key={name} className={route === name ? "active reset" : "reset"} onClick={() => go(name)}>
+                  {label}
+                </button>
+              ))}
+            </nav>
+            <div className="nav-actions">
+              <button className="icon-button" aria-label="Toggle theme" onClick={() => setDarkMode((prev) => !prev)}>
+                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+              <button className="icon-button" aria-label="Search">
+                <Search size={20} />
+              </button>
+              <button className="icon-button" aria-label="More" onClick={() => setMobileOpen((v) => !v)}>
+                <MoreHorizontal size={20} />
+              </button>
+              <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect</button>
+            </div>
+            <button className="mobile-search-button reset" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
+              {mobileOpen ? <X size={21} strokeWidth={2.4} /> : <MoreHorizontal size={21} strokeWidth={2.4} />}
+            </button>
+            {mobileOpen && (
+              <div className="mobile-menu">
+                {dappRoutes.map(([name, Icon, label]) => (
+                  <button key={name} className={route === name ? "active reset" : "reset"} onClick={() => { go(name); setMobileOpen(false); }}>
+                    {label}
+                  </button>
+                ))}
+                <div className="mobile-wallet">
+                  <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect Wallet</button>
+                </div>
+              </div>
+            )}
+          </header>
+        </>
+      )}
     </>
   );
 }

@@ -119,7 +119,7 @@ export default function BlogPage() {
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-8">
         <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Blog</h1>
+            <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Blog</h1>
             <p className="mt-2 text-gray-500 dark:text-gray-400">Announcements, product updates, and Web3 education.</p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -195,7 +195,7 @@ export default function BlogPage() {
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
               <Mail className="h-6 w-6 text-white" />
             </div>
-            <h2 className="mt-4 text-2xl font-bold text-white">Stay in the Loop</h2>
+            <h2 className="mt-4 text-2xl font-semibold text-white">Stay in the Loop</h2>
             <p className="mt-2 text-gray-400 dark:text-gray-400">Get the latest posts, product updates, and protocol news delivered to your inbox.</p>
             {subscribed ? (
               <div className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 px-5 py-3 text-emerald-400 font-medium">

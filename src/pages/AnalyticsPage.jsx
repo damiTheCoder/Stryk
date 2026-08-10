@@ -61,7 +61,7 @@ export default function AnalyticsPage() {
     <div className="min-h-screen bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Analytics</h1>
+          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Analytics</h1>
           <p className="mt-2 text-gray-500 dark:text-gray-400">Protocol metrics, token data, and revenue dashboard.</p>
         </header>
 

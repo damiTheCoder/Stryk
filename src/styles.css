@@ -318,7 +318,7 @@ button, input, select { font: inherit; }
 }
 
 .landing-hero-accent {
-  background: linear-gradient(90deg, #26c0ff, #e600c2 20%, #ff4940 40%, #ffa130 60%, #ffc837 80%, #00cc3d);
+  background: linear-gradient(90deg, #2563eb, #facc15 50%, #16a34a);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
