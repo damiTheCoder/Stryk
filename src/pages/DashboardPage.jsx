@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { formatCompact } from "../utils/format";
 import NumberModal from "../components/NumberModal";
 import {
@@ -59,21 +59,29 @@ export default function DashboardPage() {
   const formatCurrency = (val) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://widgets.coingecko.com/gecko-coin-price-marquee-widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
+      <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-4">
         <header>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
           <p className="mt-2 text-gray-500 dark:text-gray-400">Overview of your $SYK portfolio and vault status.</p>
         </header>
 
-          {/* Horizontally scrollable metrics strip with NO background and gray right separating lines */}
-          <div className="overflow-x-auto no-scrollbar flex items-stretch gap-8 py-6">
-            {/* Item 1 */}
-            <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
+        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
+          <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">$SYK Balance</p>
-            <p 
-              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+            <p
+              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
               onClick={() => setModalValue(MOCK_PORTFOLIO.balance.toLocaleString())}
             >
               {formatCompact(MOCK_PORTFOLIO.balance)}
@@ -81,7 +89,6 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{formatCurrency(MOCK_PORTFOLIO.usdValue)}</p>
           </div>
 
-          {/* Item 2 */}
           <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Redemption Progress</p>
             <p className="mt-2 text-3xl font-medium text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
@@ -90,11 +97,10 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          {/* Item 3 */}
           <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Staking Rewards Accrued</p>
-            <p 
-              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition" 
+            <p
+              className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
               onClick={() => setModalValue(MOCK_PORTFOLIO.stakingRewards.toLocaleString() + " $SYK")}
             >
               {formatCompact(MOCK_PORTFOLIO.stakingRewards)} $SYK
@@ -103,31 +109,14 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <section className="lg:col-span-2 space-y-6">
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title">Explore wallets</h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Connect and manage</p>
-              <div className="mt-6 -mx-6 overflow-x-auto no-scrollbar">
-                <div className="flex gap-12 px-6">
-                  {[
-                    { name: "Phantom Wallet", src: "/phantom logo.jpeg" },
-                    { name: "MetaMask", src: "/metamask.jpeg" },
-                    { name: "AZZA", src: "/AZZA.png" },
-                    { name: "Busha", src: "/Busha.png" },
-                  ].map((wallet) => (
-                    <button key={wallet.name} className="flex flex-col items-center gap-3 shrink-0">
-                      <img
-                        src={wallet.src}
-                        alt={wallet.name}
-                        className="h-16 w-16 rounded-full object-cover bg-gray-100 dark:bg-zinc-800 p-1"
-                      />
-                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{wallet.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <section className="lg:col-span-2 space-y-4">
+            <gecko-coin-price-marquee-widget
+              locale="en"
+              transparent-background="true"
+              coin-ids="aave,polymarket,usd-coin,global-dollar,nvidia-robinhood-tokenized-stock"
+              initial-currency="usd"
+            />
 
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
@@ -153,6 +142,30 @@ export default function DashboardPage() {
                   You need {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more $SYK to redeem a phone.
                 </p>
               )}
+            </div>
+
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title">Explore wallets</h2>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Connect and manage</p>
+              <div className="mt-6 -mx-6 overflow-x-auto no-scrollbar">
+                <div className="flex gap-12 px-6">
+                  {[
+                    { name: "Phantom Wallet", src: "/phantom logo.jpeg" },
+                    { name: "MetaMask", src: "/metamask.jpeg" },
+                    { name: "AZZA", src: "/AZZA.png" },
+                    { name: "Busha", src: "/Busha.png" },
+                  ].map((wallet) => (
+                    <button key={wallet.name} className="flex flex-col items-center gap-3 shrink-0">
+                      <img
+                        src={wallet.src}
+                        alt={wallet.name}
+                        className="h-16 w-16 rounded-full object-cover bg-gray-100 dark:bg-zinc-800 p-1"
+                      />
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{wallet.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="uniswap-card p-6">
@@ -214,7 +227,7 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          <aside className="space-y-6">
+          <aside className="space-y-4">
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Vault Status</h2>
               <div className="mt-4 space-y-4">
@@ -228,36 +241,29 @@ export default function DashboardPage() {
                 </div>
                 <div className="h-2 w-full rounded-full bg-gray-100 dark:bg-zinc-800">
                   <div
-                    className="h-2 rounded-full bg-orange-400 transition-all"
+                    className="h-full rounded-full bg-blue-600"
                     style={{ width: `${MOCK_VAULT.utilizationPercent}%` }}
                   />
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">Latest Audit</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {new Date(MOCK_VAULT.lastAudit).toLocaleString()}
-                  </span>
-                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Last audit: {new Date(MOCK_VAULT.lastAudit).toLocaleString()}</p>
               </div>
             </div>
 
             <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title">Activity</h2>
-              <div className="mt-4 space-y-4">
-                {[
-                  { label: "Stake", value: "12", color: "bg-blue-600" },
-                  { label: "Buy", value: "8", color: "bg-emerald-600" },
-                  { label: "Sell", value: "3", color: "bg-rose-600" },
-                  { label: "Redeem", value: "1", color: "bg-violet-600" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{item.label}</span>
-                    <div className="flex items-center gap-2">
-                      <div className={`h-2 w-2 rounded-full ${item.color}`} />
-                      <span className="text-sm font-semibold text-gray-900 dark:text-white">{item.value}</span>
-                    </div>
-                  </div>
-                ))}
+              <h2 className="uniswap-section-title">Quick Actions</h2>
+              <div className="mt-4 space-y-3">
+                <button className="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500">
+                  Buy $SYK
+                </button>
+                <button className="w-full rounded-xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                  Stake $SYK
+                </button>
+                <button
+                  disabled={!canRedeem}
+                  className="w-full rounded-xl px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
+                >
+                  Redeem Phone
+                </button>
               </div>
             </div>
           </aside>
