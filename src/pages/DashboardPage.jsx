@@ -6,6 +6,8 @@ import {
   ArrowDownRight,
   Repeat,
   ShieldCheck,
+  ChevronDown,
+  Coins,
 } from "lucide-react";
 
 const MOCK_PORTFOLIO = {
@@ -56,12 +58,24 @@ export default function DashboardPage() {
     document.documentElement.classList.contains("dark")
   );
 
+  const [activeMetric, setActiveMetric] = useState("balance");
+  const [showMetricModal, setShowMetricModal] = useState(false);
+
   useEffect(() => {
     const checkDark = () => setIsDarkMode(document.documentElement.classList.contains("dark"));
     const observer = new MutationObserver(checkDark);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!showMetricModal) return;
+    const handleClick = (e) => {
+      if (!e.target.closest(".dashboard-metrics")) setShowMetricModal(false);
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [showMetricModal]);
 
   const filteredTransactions = txFilter === "All"
     ? MOCK_TRANSACTIONS
@@ -83,7 +97,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-4">
-        <header>
+        <header className="dashboard-header">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
             <img
@@ -95,7 +109,110 @@ export default function DashboardPage() {
           <p className="mt-2 text-gray-500 dark:text-gray-400">Overview of your $SYK portfolio and vault status.</p>
         </header>
 
-        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
+        <div className="dashboard-metrics">
+          <div className="min-w-[220px] flex flex-col items-center text-center relative">
+            <img
+              src="/L1.png"
+              alt="Memoji"
+              className="absolute -top-2 -right-2 h-10 w-10 rounded-full object-cover rotate-12 border-2 border-white dark:border-zinc-800 shadow-md"
+            />
+            <button
+              className="text-sm font-medium text-gray-500 dark:text-gray-400 inline-flex items-center gap-1"
+              onClick={() => setShowMetricModal((v) => !v)}
+            >
+              {activeMetric === "balance" ? "$SYK Balance" : activeMetric === "redemption" ? "Redemption Progress" : "Staking Rewards Accrued"}
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${showMetricModal ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {showMetricModal && (
+              <div className="absolute top-full mt-2 w-64 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl shadow-lg z-50 text-left overflow-hidden">
+                {activeMetric !== "balance" && (
+                  <button
+                    className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                    onClick={() => { setActiveMetric("balance"); setShowMetricModal(false); }}
+                  >
+                    $SYK Balance
+                  </button>
+                )}
+                {activeMetric !== "redemption" && (
+                  <button
+                    className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                    onClick={() => { setActiveMetric("redemption"); setShowMetricModal(false); }}
+                  >
+                    Redemption Progress
+                  </button>
+                )}
+                {activeMetric !== "rewards" && (
+                  <button
+                    className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-zinc-800 transition"
+                    onClick={() => { setActiveMetric("rewards"); setShowMetricModal(false); }}
+                  >
+                    Staking Rewards Accrued
+                  </button>
+                )}
+              </div>
+            )}
+
+            {activeMetric === "balance" && (
+              <>
+                <p
+                  className="mt-2 text-3xl font-bold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
+                  onClick={() => setModalValue(MOCK_PORTFOLIO.balance.toLocaleString())}
+                >
+                  {formatCompact(MOCK_PORTFOLIO.balance)}
+                </p>
+                <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">{formatCurrency(MOCK_PORTFOLIO.usdValue)}</p>
+              </>
+            )}
+            {activeMetric === "redemption" && (
+              <>
+                <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more to redeem
+                </p>
+              </>
+            )}
+            {activeMetric === "rewards" && (
+              <>
+                <p
+                  className="mt-2 text-3xl font-bold text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
+                  onClick={() => setModalValue(MOCK_PORTFOLIO.stakingRewards.toLocaleString() + " $SYK")}
+                >
+                  {formatCompact(MOCK_PORTFOLIO.stakingRewards)} $SYK
+                </p>
+                <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">+12.4% this month</p>
+              </>
+            )}
+          </div>
+
+          <div className="dashboard-metric-card dashboard-metric-card-hidden">
+            <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Redemption Progress</p>
+              <p className="mt-2 text-3xl font-medium text-gray-900 dark:text-white">{progress.toFixed(1)}%</p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more to redeem
+              </p>
+            </div>
+          </div>
+
+          <div className="dashboard-metric-card dashboard-metric-card-hidden">
+            <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Staking Rewards Accrued</p>
+              <p
+                className="mt-2 text-3xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
+                onClick={() => setModalValue(MOCK_PORTFOLIO.stakingRewards.toLocaleString() + " $SYK")}
+              >
+                {formatCompact(MOCK_PORTFOLIO.stakingRewards)} $SYK
+              </p>
+              <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">+12.4% this month</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="dashboard-metrics-desktop hidden md:flex">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">$SYK Balance</p>
             <p
@@ -149,12 +266,12 @@ export default function DashboardPage() {
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500">
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-500">
                   <ArrowUpRight className="h-5 w-5" />
                   Buy $SYK
                 </button>
-                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-semibold text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
-                  <Repeat className="h-5 w-5" />
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                  <Coins className="h-5 w-5" />
                   Stake $SYK
                 </button>
                 <button
@@ -280,10 +397,10 @@ export default function DashboardPage() {
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 space-y-3">
-                <button className="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500">
+                <button className="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-blue-500">
                   Buy $SYK
                 </button>
-                <button className="w-full rounded-xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                <button className="w-full rounded-xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 text-sm font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
                   Stake $SYK
                 </button>
                 <button

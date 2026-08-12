@@ -81,7 +81,7 @@ export default function StakePage() {
               <div className="p-4 pb-2">
                 <div className="flex items-center justify-between">
                   <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                    <img src="/usdc.png" alt="USDC" className="h-5 w-5 rounded-full object-cover" />
+                     <img src="/usdc.png" alt="USDC" className="h-7 w-7 rounded-full object-cover" />
                     Swap & Stake Vault
                   </h2>
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
