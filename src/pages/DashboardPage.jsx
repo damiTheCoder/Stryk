@@ -84,20 +84,21 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-1 md:space-y-4">
-        <header className="dashboard-header">
+        <div className="px-4 md:px-0 mb-4">
+          <header className="dashboard-header">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
             <img
               src="/L1.png"
               alt="Memoji"
-              className="h-9 w-9 rounded-full object-cover rotate-12 border-2 border-white dark:border-zinc-800 shadow-sm"
+              className="h-9 w-9 rounded-full object-cover rotate-12 bg-gray-100 dark:bg-zinc-800 p-1"
             />
           </div>
           <p className="mt-2 hidden sm:block text-gray-500 dark:text-gray-400">Overview of your $SYK portfolio and vault status.</p>
         </header>
+        </div>
 
-        <div className="uniswap-card p-6">
-          <div className="dashboard-metrics-desktop flex flex-nowrap items-stretch gap-3 md:gap-6 overflow-x-auto no-scrollbar">
+        <div className="dashboard-metrics-desktop flex flex-nowrap items-stretch gap-3 md:gap-6 overflow-x-auto no-scrollbar px-4 md:px-0">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">$SYK Balance</p>
             <p
@@ -128,28 +129,27 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">+12.4% this month</p>
           </div>
         </div>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <section className="lg:col-span-2 space-y-4">
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
-              <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-3 sm:gap-3">
-                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-2xl bg-blue-600 px-3 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white transition hover:bg-blue-500">
-                  <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-full bg-blue-600/90 dark:bg-blue-600 px-4 py-3 text-base sm:text-base font-medium text-white transition hover:bg-blue-500">
+                  <span className="rounded-full bg-blue-500/20 p-1 sm:p-1.5"><ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" /></span>
                   <span className="hidden sm:inline">Buy $SYK</span>
                   <span className="sm:hidden">Buy</span>
                 </button>
-                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-2xl bg-gray-900 dark:bg-zinc-800 px-3 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
-                  <Lock className="h-4 w-4 sm:h-5 sm:w-5" />
+                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-full bg-gray-900/90 dark:bg-zinc-700/90 px-4 py-3 text-base sm:text-base font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                  <span className="rounded-full bg-white/10 p-1 sm:p-1.5"><Lock className="h-4 w-4 sm:h-5 sm:w-5" /></span>
                   <span className="hidden sm:inline">Stake $SYK</span>
                   <span className="sm:hidden">Stake</span>
                 </button>
                 <button
                   disabled={!canRedeem}
-                  className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl px-3 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
+                  className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-full bg-gray-100/90 dark:bg-zinc-800/90 px-4 py-3 text-base sm:text-base font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="rounded-full bg-gray-200 dark:bg-zinc-600 p-1 sm:p-1.5"><ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" /></span>
                   <span className="hidden sm:inline">Redeem Phone</span>
                   <span className="sm:hidden">Redeem</span>
                 </button>

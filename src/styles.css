@@ -244,7 +244,13 @@ button, input, select { font: inherit; }
 .brand-logo {
   display: block;
   object-fit: cover;
-  border: 1px solid #000000;
+  border: 1px solid transparent;
+  background: #f3f4f4;
+  padding: 4px;
+}
+.dark .brand-logo {
+  background: #27272a;
+  border-color: transparent;
 }
 .desktop-nav { gap: 22px; color: #3c444f; font-size: 14px; }
 .desktop-nav button.active, .desktop-nav button:hover { color: var(--blue); }
