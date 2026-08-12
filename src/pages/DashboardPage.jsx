@@ -248,7 +248,7 @@ export default function DashboardPage() {
           <section className="lg:col-span-2 space-y-4">
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title hidden sm:block">Quick Actions</h2>
-              <div className="mt-4 grid grid-cols-2 gap-1.5 sm:grid-cols-3 sm:gap-3">
+              <div className="mt-4 grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3">
                 <div className="flex flex-col items-center gap-1 sm:hidden">
                   <button className="w-14 h-14 rounded-full bg-blue-600 text-white transition hover:bg-blue-500 inline-flex items-center justify-center">
                     <ArrowUpRight className="h-6 w-6" />
