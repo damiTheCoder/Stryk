@@ -13,11 +13,6 @@
 .dashboard-header {
   display: block;
 }
-@media (max-width: 768px) {
-  .dashboard-header {
-    display: none;
-  }
-}
 .dashboard-metrics {
   display: flex;
   flex-wrap: wrap;
@@ -41,11 +36,12 @@
 }
 .dashboard-metrics-desktop {
   display: flex;
-  gap: 24px;
+  flex-wrap: nowrap;
 }
 @media (max-width: 768px) {
   .dashboard-metrics-desktop {
-    display: none;
+    display: flex;
+    flex-wrap: nowrap;
   }
 }
 .dashboard-metrics > div:first-child > div:last-child {
