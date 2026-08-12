@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stryk</title>
     <link rel="stylesheet" href="/src/styles.css" />
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (stored !== "dark") {
+          document.documentElement.classList.remove("dark");
+        }
+        document.documentElement.style.colorScheme = "light";
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

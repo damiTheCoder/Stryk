@@ -52,6 +52,17 @@ export default function DashboardPage() {
   const canRedeem = MOCK_PORTFOLIO.balance >= MOCK_PORTFOLIO.redemptionThreshold;
   const progress = Math.min((MOCK_PORTFOLIO.balance / MOCK_PORTFOLIO.redemptionThreshold) * 100, 100);
 
+  const [isDarkMode, setIsDarkMode] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const checkDark = () => setIsDarkMode(document.documentElement.classList.contains("dark"));
+    const observer = new MutationObserver(checkDark);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
   const filteredTransactions = txFilter === "All"
     ? MOCK_TRANSACTIONS
     : MOCK_TRANSACTIONS.filter((tx) => tx.type === txFilter.toLowerCase());
@@ -73,7 +84,14 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-4">
         <header>
-          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+            <img
+              src="/L1.png"
+              alt="Memoji"
+              className="h-9 w-9 rounded-full object-cover rotate-12 border-2 border-white dark:border-zinc-800 shadow-sm"
+            />
+          </div>
           <p className="mt-2 text-gray-500 dark:text-gray-400">Overview of your $SYK portfolio and vault status.</p>
         </header>
 
@@ -111,21 +129,31 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-4">
-            <gecko-coin-price-marquee-widget
-              locale="en"
-              transparent-background="true"
-              coin-ids="aave,polymarket,usd-coin,global-dollar,nvidia-robinhood-tokenized-stock"
-              initial-currency="usd"
-            />
+            {isDarkMode ? (
+              <gecko-coin-price-marquee-widget
+                locale="en"
+                dark-mode="true"
+                transparent-background="true"
+                coin-ids="pump-fun,nvidia-robinhood-tokenized-stock,hyperliquid,usd-coin,global-dollar"
+                initial-currency="usd"
+              />
+            ) : (
+              <gecko-coin-price-marquee-widget
+                locale="en"
+                transparent-background="true"
+                coin-ids="aave,polymarket,usd-coin,global-dollar,nvidia-robinhood-tokenized-stock"
+                initial-currency="usd"
+              />
+            )}
 
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500">
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-500">
                   <ArrowUpRight className="h-5 w-5" />
                   Buy $SYK
                 </button>
-                <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-semibold text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-semibold text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
                   <Repeat className="h-5 w-5" />
                   Stake $SYK
                 </button>
