@@ -7,7 +7,7 @@ import {
   Repeat,
   ShieldCheck,
   ChevronDown,
-  Coins,
+  Lock,
 } from "lucide-react";
 
 const MOCK_PORTFOLIO = {
@@ -96,7 +96,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-4">
+      <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-1 md:space-y-4">
         <header className="dashboard-header">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
@@ -246,6 +246,39 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-4">
+            <div className="uniswap-card p-6">
+              <h2 className="uniswap-section-title hidden sm:block">Quick Actions</h2>
+              <div className="mt-4 grid grid-cols-2 gap-1.5 sm:grid-cols-3 sm:gap-3">
+                <div className="flex flex-col items-center gap-1 sm:hidden">
+                  <button className="w-14 h-14 rounded-full bg-blue-600 text-white transition hover:bg-blue-500 inline-flex items-center justify-center">
+                    <ArrowUpRight className="h-6 w-6" />
+                  </button>
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Buy $SYK</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 sm:hidden">
+                  <button className="w-14 h-14 rounded-full bg-gray-900 dark:bg-zinc-800 text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700 inline-flex items-center justify-center">
+                    <Lock className="h-6 w-6" />
+                  </button>
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Stake $SYK</span>
+                </div>
+                <button className="hidden sm:inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-500">
+                  <ArrowUpRight className="h-5 w-5" />
+                  Buy $SYK
+                </button>
+                <button className="hidden sm:inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
+                  <Lock className="h-5 w-5" />
+                  Stake $SYK
+                </button>
+                <button
+                  disabled={!canRedeem}
+                  className="hidden sm:inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
+                >
+                  <ShieldCheck className="h-5 w-5" />
+                  Redeem Phone
+                </button>
+              </div>
+            </div>
+
             {isDarkMode ? (
               <gecko-coin-price-marquee-widget
                 locale="en"
@@ -262,32 +295,6 @@ export default function DashboardPage() {
                 initial-currency="usd"
               />
             )}
-
-            <div className="uniswap-card p-6">
-              <h2 className="uniswap-section-title">Quick Actions</h2>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-500">
-                  <ArrowUpRight className="h-5 w-5" />
-                  Buy $SYK
-                </button>
-                <button className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gray-900 dark:bg-zinc-800 px-4 py-3 font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
-                  <Coins className="h-5 w-5" />
-                  Stake $SYK
-                </button>
-                <button
-                  disabled={!canRedeem}
-                  className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40 bg-surface"
-                >
-                  <ShieldCheck className="h-5 w-5" />
-                  Redeem Phone
-                </button>
-              </div>
-              {!canRedeem && (
-                <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-                  You need {formatCompact(MOCK_PORTFOLIO.redemptionThreshold - MOCK_PORTFOLIO.balance)} more $SYK to redeem a phone.
-                </p>
-              )}
-            </div>
 
             <div className="uniswap-card p-6">
               <h2 className="uniswap-section-title">Explore wallets</h2>
