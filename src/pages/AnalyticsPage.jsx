@@ -67,7 +67,7 @@ export default function AnalyticsPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-blue-600" />
                 Protocol Stats
@@ -106,7 +106,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <LineChart className="h-5 w-5 text-violet-600" />
                 Token Metrics
@@ -153,7 +153,7 @@ export default function AnalyticsPage() {
           </section>
 
           <aside className="space-y-6">
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-emerald-600" />
                 Revenue Dashboard
@@ -191,7 +191,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Activity className="h-5 w-5 text-blue-600" />
                 Quick Insights

@@ -67,7 +67,7 @@ export default function RedeemPage() {
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Burn tokens to redeem premium flagship devices.</p>
         </header>
 
-        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
+        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4 animate-drop-in">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Current Balance</p>
             <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockRedemptionData.balance)} $SYK</p>
@@ -84,7 +84,7 @@ export default function RedeemPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
-            <div className="uniswap-card p-6 space-y-5">
+            <div className="uniswap-card p-6 space-y-5 animate-drop-in">
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Package className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -189,7 +189,7 @@ export default function RedeemPage() {
               </button>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 Redemption History
@@ -233,7 +233,7 @@ export default function RedeemPage() {
           </section>
 
           <aside className="space-y-6">
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Truck className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 Delivery Info
@@ -248,7 +248,7 @@ export default function RedeemPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                 Requirements
@@ -278,7 +278,7 @@ export default function RedeemPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Info className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                 Tips

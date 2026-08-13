@@ -139,7 +139,7 @@ export default function BlogPage() {
           </div>
         </header>
 
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 animate-drop-in">
           {filteredPosts.map((post) => {
             const Icon = CATEGORY_ICONS[post.category];
             const colorClass = CATEGORY_COLORS[post.category];
@@ -190,7 +190,7 @@ export default function BlogPage() {
           })}
         </section>
 
-        <section className="rounded-2xl bg-gray-900 p-8 md:p-12">
+        <section className="rounded-2xl bg-gray-900 p-8 md:p-12 animate-drop-in">
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
               <Mail className="h-6 w-6 text-white" />

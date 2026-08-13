@@ -99,7 +99,7 @@ export default function DocsPage() {
 
           <main className="flex-1 p-4 md:p-8 space-y-8">
             {activeSection === "overview" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
                     <Globe className="h-5 w-5 text-blue-600" />
@@ -127,7 +127,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "contracts" && (
-              <section className="space-y-6">
+              <section className="space-y-6 animate-drop-in">
                 <div className="uniswap-card">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50">
@@ -164,7 +164,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "tokenomics" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
                     <Coins className="h-5 w-5 text-amber-600" />
@@ -190,7 +190,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "buy" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
                     <ShoppingCart className="h-5 w-5 text-emerald-600" />
@@ -219,7 +219,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "stake" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
                     <Repeat className="h-5 w-5 text-blue-600" />
@@ -248,7 +248,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "redeem" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50">
                     <ShieldCheck className="h-5 w-5 text-violet-600" />
@@ -277,7 +277,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "audits" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
                     <FileSearch className="h-5 w-5 text-emerald-600" />
@@ -309,7 +309,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "github" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
                     <Github className="h-5 w-5" />
@@ -329,7 +329,7 @@ export default function DocsPage() {
             )}
 
             {activeSection === "api" && (
-              <section className="uniswap-card">
+              <section className="uniswap-card animate-drop-in">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50">
                     <Code2 className="h-5 w-5 text-sky-600" />

@@ -4,7 +4,7 @@ const DisclaimerPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-3xl p-4 md:p-8">
-        <div className="uniswap-card">
+        <div className="uniswap-card animate-drop-in">
           <div className="flex items-center mb-4">
             <h1 className="text-3xl font-semibold text-gray-900">Risk Disclosure & Disclaimer</h1>
           </div>

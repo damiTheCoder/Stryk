@@ -74,7 +74,7 @@ export default function VaultPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-6">
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <HardDrive className="h-5 w-5 text-blue-600" />
                 Vault Overview
@@ -124,7 +124,7 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <ClipboardList className="h-5 w-5 text-violet-600" />
                 Live Audits
@@ -192,7 +192,7 @@ export default function VaultPage() {
           </section>
 
           <aside className="space-y-6">
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-rose-600" />
                 Vault Location
@@ -222,7 +222,7 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Shield className="h-5 w-5 text-amber-600" />
                 Security Certifications
@@ -245,7 +245,7 @@ export default function VaultPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6">
+            <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-emerald-600" />
                 Custodian Partners

@@ -37,7 +37,7 @@ export default function TradePage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       <div className="flex flex-col lg:flex-row h-[calc(100vh-64px)]">
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col min-w-0 animate-drop-in">
           <div className="flex items-center justify-between border-b border-gray-200 dark:border-zinc-800 px-4 py-2 bg-white dark:bg-black">
             <div className="flex items-center gap-3">
               <div className="flex items-center -space-x-2">
@@ -89,7 +89,7 @@ export default function TradePage() {
           </div>
         </div>
 
-        <aside className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col">
+        <aside className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col animate-drop-in">
           <div className="flex border-b border-gray-200 dark:border-zinc-800">
             <button
               onClick={() => setSide("sell")}

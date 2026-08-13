@@ -158,7 +158,7 @@ export default function AboutPage() {
           <p className="mt-2 text-gray-500">The protocol tokenizing the world's most desired devices.</p>
         </header>
 
-        <section className="uniswap-card">
+        <section className="uniswap-card animate-drop-in">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50">
               <Target className="h-7 w-7 text-blue-600" />
@@ -172,7 +172,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-drop-in">
           <div className="flex items-center gap-2 mb-6">
             <Users className="h-5 w-5 text-gray-900" />
             <h2 className="text-xl font-semibold text-gray-900">Team</h2>
@@ -201,7 +201,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-drop-in">
           <div className="flex items-center gap-2 mb-6">
             <GraduationCap className="h-5 w-5 text-gray-900" />
             <h2 className="text-xl font-semibold text-gray-900">Advisors</h2>
@@ -221,7 +221,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-drop-in">
           <div className="flex items-center gap-2 mb-6">
             <Handshake className="h-5 w-5 text-gray-900" />
             <h2 className="text-xl font-semibold text-gray-900">Partners & Backers</h2>
@@ -236,7 +236,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-drop-in">
           <div className="flex items-center gap-2 mb-6">
             <Newspaper className="h-5 w-5 text-gray-900" />
             <h2 className="text-xl font-semibold text-gray-900">Press & Media</h2>
@@ -264,7 +264,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section>
+        <section className="animate-drop-in">
           <div className="flex items-center gap-2 mb-6">
             <HelpCircle className="h-5 w-5 text-gray-900" />
             <h2 className="text-xl font-semibold text-gray-900">FAQ</h2>

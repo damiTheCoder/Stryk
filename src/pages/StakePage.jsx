@@ -58,7 +58,7 @@ export default function StakePage() {
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Earn high-yield rewards by staking $SYK in physical device-backed vaults.</p>
         </header>
 
-        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4">
+        <div className="overflow-x-auto no-scrollbar flex items-stretch gap-6 py-4 animate-drop-in">
           <div className="border-r border-gray-200 dark:border-gray-800 pr-6 min-w-[200px] shrink-0">
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Total Staked</p>
             <p className="mt-1 text-2xl font-medium text-gray-900 dark:text-white">{formatCompact(mockStakingData.totalStaked)} $SYK</p>
@@ -77,7 +77,7 @@ export default function StakePage() {
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <section className="lg:col-span-2 space-y-4">
-            <div className="uniswap-card">
+            <div className="uniswap-card animate-drop-in">
               <div className="p-4 pb-2">
                 <div className="flex items-center justify-between">
                   <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
@@ -161,7 +161,7 @@ export default function StakePage() {
               </div>
             </div>
 
-            <div className="uniswap-card">
+            <div className="uniswap-card animate-drop-in">
               <div className="p-4 pb-2">
                 <h2 className="uniswap-section-title mb-3 flex items-center gap-2">
                   <History className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -205,7 +205,7 @@ export default function StakePage() {
           </section>
 
           <aside className="space-y-4">
-            <div className="uniswap-card">
+            <div className="uniswap-card animate-drop-in">
               <div className="p-4 pb-2">
                 <h2 className="uniswap-section-title mb-3 flex items-center gap-2">
                   <Flame className="h-5 w-5 text-amber-600 dark:text-amber-400" />
@@ -251,7 +251,7 @@ export default function StakePage() {
               </div>
             </div>
 
-            <div className="uniswap-card">
+            <div className="uniswap-card animate-drop-in">
               <div className="p-4 pb-2">
                 <h2 className="uniswap-section-title mb-3">Yield Distribution</h2>
               </div>

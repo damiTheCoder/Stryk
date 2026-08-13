@@ -4,7 +4,7 @@ const PrivacyPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-3xl p-4 md:p-8">
-        <div className="uniswap-card">
+        <div className="uniswap-card animate-drop-in">
           <h1 className="text-3xl font-semibold text-gray-900 mb-2">Privacy Policy</h1>
           <p className="text-sm text-gray-500 mb-8">Last updated: August 2026</p>
 

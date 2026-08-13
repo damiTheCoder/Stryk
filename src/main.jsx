@@ -145,6 +145,31 @@ function App() {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-drop-in");
+    elements.forEach((el) => el.classList.remove("visible"));
+    void document.querySelector("main").offsetWidth;
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const bottom = rect.bottom;
+      if (bottom < window.innerHeight) {
+        el.classList.add("visible");
+      }
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [route]);
+
   function go(next) {
     setRoute(next);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -160,7 +185,7 @@ function App() {
   return (
     <>
       <Shell route={route} go={go} cart={cart} tags={tags} darkMode={darkMode} setDarkMode={setDarkMode} />
-      <main className={route === "landing" ? "landing-main" : "app-main"}>
+      <main className={route === "landing" ? "landing-main animate-page-enter stagger" : "app-main animate-page-enter stagger"}>
         {route === "landing" && <LandingPage go={go} darkMode={darkMode} setDarkMode={setDarkMode} />}
         {route === "dashboard" && <DashboardPage />}
         {route === "trade" && <TradePage />}
@@ -318,7 +343,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
       </nav>
 
       {/* Hero */}
-      <section className="landing-hero">
+      <section className="landing-hero animate-drop-in animate-page-enter" style={{ "--i": 0 }}>
         <div className="landing-container landing-hero-content">
           <h1 className="landing-hero-title">
             Real devices.<br />
@@ -346,7 +371,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
 
 
       {/* Hero Image */}
-      <section className="landing-section landing-hero-image-section">
+      <section className="landing-section landing-hero-image-section animate-drop-in" style={{ "--i": 1 }}>
         <div className="landing-container">
           <div className="landing-hero-image-wrapper">
             <div className="landing-hero-iphone-mockup">
@@ -373,7 +398,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
 
       {/* Product Sections */}
       {products.map((p, idx) => (
-        <section key={p.title} className={`landing-section ${idx % 2 === 1 ? "landing-product-reverse" : ""}`}>
+        <section key={p.title} className={`landing-section ${idx % 2 === 1 ? "landing-product-reverse" : ""} animate-drop-in`} style={{ "--i": idx + 2 }}>
           <div className="landing-container">
             <div className="landing-products">
               <div className="landing-products-text">
@@ -394,7 +419,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
       ))}
 
       {/* Security */}
-      <section className="landing-section landing-security-section">
+      <section className="landing-section landing-security-section animate-drop-in" style={{ "--i": 6 }}>
         <div className="landing-container">
           <div className="landing-security-grid">
             <div>
@@ -434,7 +459,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
       </section>
 
       {/* FAQ */}
-      <section className="landing-section">
+      <section className="landing-section animate-drop-in" style={{ "--i": 7 }}>
         <div className="landing-container">
           <div className="landing-section-header">
             <h2 className="landing-section-title">Frequently asked questions</h2>
@@ -457,7 +482,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
       </section>
 
       {/* CTA */}
-      <section className="landing-cta-section">
+      <section className="landing-cta-section animate-drop-in" style={{ "--i": 8 }}>
         <div className="landing-container">
           <div className="landing-cta-card">
             <h2 className="landing-cta-title">Ready to enter the flywheel?</h2>
