@@ -129,7 +129,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <section className="lg:col-span-2 space-y-4">
+          <section className="lg:col-span-2 space-y-3">
             <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 1 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">

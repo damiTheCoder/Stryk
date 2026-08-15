@@ -20,6 +20,7 @@ export default function TradePage() {
   const [modalValue, setModalValue] = useState(null);
   const [side, setSide] = useState("buy");
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const checkDark = () => setIsDark(document.documentElement.classList.contains("dark"));
@@ -29,14 +30,68 @@ export default function TradePage() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape" && isFullscreen) setIsFullscreen(false);
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isFullscreen]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("chart-fullscreen", isFullscreen);
+    return () => document.documentElement.classList.remove("chart-fullscreen");
+  }, [isFullscreen]);
+
   const quote = fromAmount ? (parseFloat(fromAmount) * 0.00031).toFixed(2) : "0.00";
 
   const formatCurrency = (val) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
 
+  const chartWidget = (
+    <AdvancedRealTimeChart
+      key={isDark ? (isFullscreen ? "dark-fs" : "dark") : (isFullscreen ? "light-fs" : "light")}
+      autosize
+      symbol="BINANCE:SYKUSDC"
+      interval={timeframe}
+      theme={isDark ? "dark" : "light"}
+      style="1"
+      locale="en"
+      allow_symbol_change={false}
+      hide_top_toolbar={false}
+      hide_legend={false}
+      withdateranges={true}
+      hide_side_toolbar={false}
+      save_image={true}
+      details={true}
+      hotlist={true}
+      calendar={false}
+      watchlist={[]}
+    />
+  );
+
   return (
     <div className="min-h-screen bg-white dark:bg-black">
-      <div className="flex flex-col lg:flex-row h-[calc(100vh-64px)]">
+      {isFullscreen && (
+        <div className="fixed inset-0 z-50 bg-white dark:bg-black flex flex-col">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-zinc-800">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center -space-x-2">
+                <img src="/Logo.jpeg" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black relative z-10" />
+                <img src="/usdc.png" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black" />
+              </div>
+              <h1 className="text-base font-bold text-gray-900 dark:text-white">SYK / USDC</h1>
+            </div>
+            <button onClick={() => setIsFullscreen(false)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 transition">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div className="flex-1 min-h-0">
+            {chartWidget}
+          </div>
+        </div>
+      )}
+      <div className={`flex flex-col lg:flex-row h-[calc(100vh-64px)] ${isFullscreen ? "hidden" : ""}`}>
         <div className="flex-1 flex flex-col min-w-0 animate-drop-in">
           <div className="flex items-center justify-between border-b border-gray-200 dark:border-zinc-800 px-4 py-2 bg-white dark:bg-black">
             <div className="flex items-center gap-3">
@@ -48,32 +103,14 @@ export default function TradePage() {
             </div>
             <div className="flex items-center gap-2">
               <button className="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition">Save</button>
-              <button className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 transition">
+              <button onClick={() => setIsFullscreen(true)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 transition">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               </button>
             </div>
           </div>
 
           <div className="flex-1 relative min-h-[300px] sm:min-h-0 pb-8">
-            <AdvancedRealTimeChart
-              key={isDark ? "dark" : "light"}
-              autosize
-              symbol="BINANCE:SYKUSDC"
-              interval={timeframe}
-              theme={isDark ? "dark" : "light"}
-              style="1"
-              locale="en"
-              allow_symbol_change={false}
-              hide_top_toolbar={false}
-              hide_legend={false}
-              withdateranges={true}
-              hide_side_toolbar={false}
-              save_image={true}
-              details={true}
-              hotlist={true}
-              calendar={false}
-              watchlist={[]}
-            />
+            {chartWidget}
           </div>
 
           <div className="border-t border-gray-200 dark:border-zinc-800 bg-white dark:bg-black">
@@ -95,7 +132,7 @@ export default function TradePage() {
               onClick={() => setSide("sell")}
               className={`flex-1 py-3 text-sm font-semibold transition ${
                 side === "sell"
-                  ? "text-rose-600 border-b-2 border-rose-600 bg-rose-50 dark:bg-rose-950/30"
+                  ? "text-rose-600 bg-rose-50 dark:bg-rose-950/30"
                   : "text-gray-500 hover:bg-gray-50 dark:hover:bg-zinc-800"
               }`}
             >
@@ -105,7 +142,7 @@ export default function TradePage() {
               onClick={() => setSide("buy")}
               className={`flex-1 py-3 text-sm font-semibold transition ${
                 side === "buy"
-                  ? "text-emerald-600 border-b-2 border-emerald-600 bg-emerald-50 dark:bg-emerald-950/30"
+                  ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30"
                   : "text-gray-500 hover:bg-gray-50 dark:hover:bg-zinc-800"
               }`}
             >

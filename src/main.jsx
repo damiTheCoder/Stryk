@@ -143,30 +143,44 @@ function App() {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
-  }, [darkMode]);
+    const main = document.querySelector("main");
+    if (main) {
+      main.classList.remove("visible");
+      void main.offsetWidth;
+      setTimeout(() => main.classList.add("visible"), 50);
+    }
+  }, [darkMode, route]);
 
   useEffect(() => {
     const elements = document.querySelectorAll(".animate-drop-in");
     elements.forEach((el) => el.classList.remove("visible"));
-    void document.querySelector("main").offsetWidth;
-    elements.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      const bottom = rect.bottom;
-      if (bottom < window.innerHeight) {
-        el.classList.add("visible");
-      }
-    });
+    const main = document.querySelector("main");
+    if (main) {
+      main.classList.remove("visible");
+      void main.offsetWidth;
+      requestAnimationFrame(() => main.classList.add("visible"));
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            const delay = parseInt(entry.target.style.getPropertyValue("--i") || "0", 10) * 100;
+            setTimeout(() => entry.target.classList.add("visible"), delay);
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1 }
     );
-    elements.forEach((el) => observer.observe(el));
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const delay = parseInt(el.style.getPropertyValue("--i") || "0", 10) * 100;
+        setTimeout(() => el.classList.add("visible"), 300 + delay);
+      } else {
+        observer.observe(el);
+      }
+    });
     return () => observer.disconnect();
   }, [route]);
 
