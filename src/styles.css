@@ -223,6 +223,16 @@ button, input, select { font: inherit; }
   background: #ffffff;
   backdrop-filter: none;
 }
+@media (max-width: 768px) {
+  .header-banner {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  .topbar {
+    top: 0 !important;
+  }
+}
 .chart-fullscreen .topbar,
 .chart-fullscreen .header-banner {
   display: none;

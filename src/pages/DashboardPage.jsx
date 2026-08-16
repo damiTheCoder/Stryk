@@ -83,10 +83,11 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-1 md:space-y-4">
-        <header className="dashboard-header">
+      <div className="mx-auto max-w-7xl px-4 pt-0 md:p-6 md:pt-6 space-y-1 md:space-y-4">
+        <div className="lg:w-2/3 lg:p-6">
+          <header className="dashboard-header">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+             <h1 className="text-3xl font-semibold text-gray-900 dark:text-white my-3">Dashboard</h1>
             <img
               src="/L1.png"
               alt="Memoji"
@@ -127,6 +128,7 @@ export default function DashboardPage() {
             <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">+12.4% this month</p>
           </div>
         </div>
+      </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <section className="lg:col-span-2 space-y-3">
