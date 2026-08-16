@@ -83,8 +83,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl px-4 pt-0 md:p-6 md:pt-6 space-y-1 md:space-y-4">
-        <div className="lg:w-2/3 lg:p-6">
+      <div className="mx-auto max-w-7xl p-6 pt-0 md:p-6 md:pt-6 space-y-1 md:space-y-4">
+        <div className="px-6 pt-3 pb-6 lg:w-2/3 lg:p-6">
           <header className="dashboard-header">
           <div className="flex items-center gap-3">
              <h1 className="text-3xl font-semibold text-gray-900 dark:text-white my-3">Dashboard</h1>
