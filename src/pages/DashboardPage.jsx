@@ -83,8 +83,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
-      <div className="mx-auto max-w-7xl p-6 pt-0 md:p-6 md:pt-6 space-y-1 md:space-y-4">
-        <div className="px-6 pt-3 pb-6 lg:w-2/3 lg:p-6">
+      <div className="mx-auto max-w-7xl w-full px-3 pt-0 pb-6 lg:px-6 lg:pt-6 lg:pb-6 space-y-1 md:space-y-4">
+        <div className="px-3 pt-3 pb-6 lg:w-2/3 lg:p-6">
           <header className="dashboard-header">
           <div className="flex items-center gap-3">
              <h1 className="text-3xl font-semibold text-gray-900 dark:text-white my-3">Dashboard</h1>
@@ -132,26 +132,16 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <section className="lg:col-span-2 space-y-3">
-            <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 1 }}>
+            <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 1 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
-              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
-                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-3xl sm:rounded-full bg-blue-600/90 dark:bg-blue-600 px-4 py-3 text-base sm:text-base font-medium text-white transition hover:bg-blue-500">
-                  <span className="rounded-full bg-blue-500/20 p-1 sm:p-1.5"><ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" /></span>
-                  <span className="hidden sm:inline">Buy $SYK</span>
-                  <span className="sm:hidden">Buy</span>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <button className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 dark:border-zinc-700 bg-transparent px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 transition hover:bg-gray-50 dark:hover:bg-zinc-800">
+                  <ArrowDownRight className="h-5 w-5" />
+                  Sell
                 </button>
-                <button className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-3xl sm:rounded-full bg-gray-900/90 dark:bg-zinc-700/90 px-4 py-3 text-base sm:text-base font-medium text-white transition hover:bg-gray-800 dark:hover:bg-zinc-700">
-                  <span className="rounded-full bg-white/10 p-1 sm:p-1.5"><Lock className="h-4 w-4 sm:h-5 sm:w-5" /></span>
-                  <span className="hidden sm:inline">Stake $SYK</span>
-                  <span className="sm:hidden">Stake</span>
-                </button>
-                <button
-                  disabled={!canRedeem}
-                  className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-3xl sm:rounded-full bg-gray-100/90 dark:bg-zinc-800/90 px-4 py-3 text-base sm:text-base font-semibold text-gray-900 dark:text-white transition hover:bg-gray-50 dark:hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  <span className="rounded-full bg-gray-200 dark:bg-zinc-600 p-1 sm:p-1.5"><ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" /></span>
-                  <span className="hidden sm:inline">Redeem Phone</span>
-                  <span className="sm:hidden">Redeem</span>
+                <button className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 dark:border-emerald-900 bg-transparent px-4 py-3 text-base font-medium text-emerald-700 dark:text-emerald-400 transition hover:bg-emerald-50 dark:hover:bg-emerald-950">
+                  <ArrowUpRight className="h-5 w-5" />
+                  Buy
                 </button>
               </div>
             </div>
@@ -173,11 +163,11 @@ export default function DashboardPage() {
               />
             )}
 
-            <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 2 }}>
+            <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 2 }}>
               <h2 className="uniswap-section-title">Explore wallets</h2>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Connect and manage</p>
-              <div className="mt-6 -mx-6 overflow-x-auto no-scrollbar">
-                <div className="flex gap-12 px-6">
+              <div className="mt-6 mx-0 lg:-mx-6 overflow-x-auto no-scrollbar">
+                <div className="flex gap-12 px-0 lg:px-6">
                   {[
                     { name: "Phantom Wallet", src: "/phantom logo.jpeg" },
                     { name: "MetaMask", src: "/metamask.jpeg" },
@@ -197,7 +187,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 3 }}>
+            <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 3 }}>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="uniswap-section-title">Transaction History</h2>
                 <div className="flex flex-wrap gap-2">
@@ -257,7 +247,7 @@ export default function DashboardPage() {
           </section>
 
           <aside className="space-y-4">
-            <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 4 }}>
+            <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 4 }}>
               <h2 className="uniswap-section-title">Vault Status</h2>
               <div className="mt-4 space-y-4">
                 <div className="flex items-center justify-between">
@@ -278,7 +268,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="uniswap-card p-6 animate-drop-in" style={{ "--i": 5 }}>
+            <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 5 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 space-y-3">
                 <button className="inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-blue-600/90 dark:bg-blue-600 px-4 py-3 text-base font-medium text-white transition hover:bg-blue-500 w-full">
