@@ -62,6 +62,7 @@ import {
   Play,
   Download,
   Award,
+  Briefcase,
   Building2,
   Banknote,
   Clock,
@@ -103,30 +104,36 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import AboutPage from "./pages/AboutPage";
 import DocsPage from "./pages/DocsPage";
 import BlogPage from "./pages/BlogPage";
+import LeasePage from "./pages/LeasePage";
+import BusinessManagerPage from "./pages/BusinessManagerPage";
 import TermsPage from "./pages/TermsPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import DisclaimerPage from "./pages/DisclaimerPage";
 
 const products = [
-  { id: "astra", name: "Astra X1 Pro", vendor: "NovaCircuit", category: "Phones", price: 1499, subscriberPrice: 1349, hunt: "Tuesday 7:00 PM", art: "phone", image: "/products/phone.jpg", reward: 99 },
-  { id: "helio", name: "HelioBook 16", vendor: "OrbitWare", category: "Laptops", price: 2299, subscriberPrice: 2069, hunt: "Saturday 11:00 AM", art: "laptop", image: "/products/laptop.jpg", reward: 99 },
-  { id: "arcade", name: "Arcade One S", vendor: "PixelVault", category: "Gaming", price: 699, subscriberPrice: 629, hunt: "Thursday 8:30 PM", art: "console", image: "/products/console.jpg", reward: 95 },
-  { id: "studio", name: "StudioPods Max", vendor: "SoundForge", category: "Audio", price: 549, subscriberPrice: 499, hunt: "No active hunt", art: "audio", image: "/products/audio.jpg", reward: 20 },
-  { id: "watch", name: "Lumina Watch", vendor: "NovaCircuit", category: "Wearables", price: 429, subscriberPrice: 389, hunt: "Monday 6:00 PM", art: "watch", image: "/products/watch.jpg", reward: 80 },
-  { id: "cine", name: "CineView 65", vendor: "HomeSignal", category: "Televisions", price: 1899, subscriberPrice: 1709, hunt: "Sunday 2:00 PM", art: "tv", image: "/products/tv.jpg", reward: 99 },
+  { id: "iphone17promax", name: "iPhone 17 Pro Max", vendor: "Apple Direct", category: "Phones", price: 1399, subscriberPrice: 1249, hunt: "Tuesday 7:00 PM", art: "phone", image: "/M1.png", reward: 99 },
+  { id: "iphone17pro", name: "iPhone 17 Pro", vendor: "Apple Direct", category: "Phones", price: 1299, subscriberPrice: 1149, hunt: "Wednesday 8:00 PM", art: "phone", image: "/M1.png", reward: 95 },
+  { id: "iphone17", name: "iPhone 17", vendor: "Apple Direct", category: "Phones", price: 1099, subscriberPrice: 979, hunt: "Thursday 9:00 PM", art: "phone", image: "/M1.png", reward: 90 },
+  { id: "iphone16promax", name: "iPhone 16 Pro Max", vendor: "Apple Direct", category: "Phones", price: 1299, subscriberPrice: 1149, hunt: "Friday 7:00 PM", art: "phone", image: "/M2.png", reward: 99 },
+  { id: "iphone16pro", name: "iPhone 16 Pro", vendor: "Apple Direct", category: "Phones", price: 1199, subscriberPrice: 1079, hunt: "Saturday 8:00 PM", art: "phone", image: "/M2.png", reward: 95 },
+  { id: "iphone16", name: "iPhone 16", vendor: "Apple Direct", category: "Phones", price: 999, subscriberPrice: 899, hunt: "Monday 9:00 PM", art: "phone", image: "/M2.png", reward: 90 },
+  { id: "iphone15promax", name: "iPhone 15 Pro Max", vendor: "Apple Direct", category: "Phones", price: 1199, subscriberPrice: 1079, hunt: "Tuesday 8:00 PM", art: "phone", image: "/M3.png", reward: 95 },
+  { id: "iphone15pro", name: "iPhone 15 Pro", vendor: "Apple Direct", category: "Phones", price: 1099, subscriberPrice: 979, hunt: "Wednesday 9:00 PM", art: "phone", image: "/M3.png", reward: 90 },
+  { id: "iphone15", name: "iPhone 15", vendor: "Apple Direct", category: "Phones", price: 899, subscriberPrice: 799, hunt: "Thursday 8:00 PM", art: "phone", image: "/M3.png", reward: 85 },
+  { id: "iphone14promax", name: "iPhone 14 Pro Max", vendor: "Apple Direct", category: "Phones", price: 999, subscriberPrice: 899, hunt: "Friday 9:00 PM", art: "phone", image: "/M4.png", reward: 90 },
+  { id: "iphone14pro", name: "iPhone 14 Pro", vendor: "Apple Direct", category: "Phones", price: 899, subscriberPrice: 799, hunt: "Saturday 9:00 PM", art: "phone", image: "/M4.png", reward: 85 },
+  { id: "iphone14", name: "iPhone 14", vendor: "Apple Direct", category: "Phones", price: 799, subscriberPrice: 699, hunt: "Monday 8:00 PM", art: "phone", image: "/M4.png", reward: 80 },
 ];
 
 const hunts = [
-  { id: "astra", product: "Astra X1 Pro", vendor: "NovaCircuit", time: "Live today", format: "Skill-based challenge", tags: 1000, rewards: 10, standard: 10, subscriber: 1, reveals: 6, freeEntry: true, state: "live" },
-  { id: "helio", product: "HelioBook 16", vendor: "OrbitWare", time: "Saturday 11:00 AM", format: "Guaranteed-reward hunt", tags: 1200, rewards: 12, standard: 12, subscriber: 0.6, reveals: 6, freeEntry: true, state: "scheduled" },
-  { id: "cine", product: "CineView 65", vendor: "HomeSignal", time: "Sunday 2:00 PM", format: "Free-entry prize hunt", tags: 800, rewards: 8, standard: 0, subscriber: 0, reveals: 5, freeEntry: true, state: "review" },
+  { id: "iphone17promax", product: "iPhone 17 Pro Max", vendor: "Apple Direct", time: "Live today", format: "Skill-based challenge", tags: 1000, rewards: 10, standard: 10, subscriber: 1, reveals: 6, freeEntry: true, state: "live" },
+  { id: "iphone17pro", product: "iPhone 17 Pro", vendor: "Apple Direct", time: "Saturday 11:00 AM", format: "Guaranteed-reward hunt", tags: 1200, rewards: 12, standard: 12, subscriber: 0.6, reveals: 6, freeEntry: true, state: "scheduled" },
+  { id: "iphone17", product: "iPhone 17", vendor: "Apple Direct", time: "Sunday 2:00 PM", format: "Free-entry prize hunt", tags: 800, rewards: 8, standard: 0, subscriber: 0, reveals: 5, freeEntry: true, state: "review" },
 ];
 
 const vendors = [
-  { name: "NovaCircuit", handle: "@novacircuit", score: "98.7%", plan: "$6/mo", discount: "90%", focus: "Flagship phones, tablets, smartwatches", color: "blue", subscribers: 8421, followers: 18420, following: 312, since: "2024", cover: "Linear devices, launch-day stock, fast replacements" },
-  { name: "OrbitWare", handle: "@orbitware", score: "99.1%", plan: "$9/mo", discount: "95%", focus: "Creator laptops, displays, workstation gear", color: "green", subscribers: 6210, followers: 12880, following: 205, since: "2023", cover: "Creator machines and calibrated display bundles" },
-  { name: "PixelVault", handle: "@pixelvault", score: "97.9%", plan: "$5/mo", discount: "90%", focus: "Gaming consoles, controllers, accessories", color: "violet", subscribers: 4390, followers: 9310, following: 184, since: "2025", cover: "Console drops, accessories, and guaranteed-reward hunts" },
-  { name: "HomeSignal", handle: "@homesignal", score: "98.2%", plan: "$7/mo", discount: "92%", focus: "TVs, projectors, home cinema kits", color: "amber", subscribers: 3184, followers: 7420, following: 166, since: "2024", cover: "Living-room displays and installation-ready bundles" },
+  { name: "Apple Direct", handle: "@appledirect", score: "99.9%", plan: "$0/mo", discount: "100%", focus: "iPhone 14–17 trade-ins and new stock", color: "blue", subscribers: 15000, followers: 50000, following: 50, since: "2024", cover: "Official Apple reseller. All iPhone models 14–17" },
+  { name: "STRYK Certified", handle: "@stryk", score: "99.5%", plan: "$5/mo", discount: "95%", focus: "Certified pre-owned iPhones 14–17", color: "green", subscribers: 8500, followers: 22000, following: 120, since: "2025", cover: "Grade-A certified iPhones with warranty" },
 ];
 
 const tabs = [
@@ -145,10 +152,10 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(products[0]);
   const [selectedVendor, setSelectedVendor] = useState(vendors[0]);
   const [cart, setCart] = useState([]);
-  const [subscriptions, setSubscriptions] = useState(["NovaCircuit"]);
+  const [subscriptions, setSubscriptions] = useState(["Apple Direct"]);
   const [tags, setTags] = useState([
-    { id: "HG-TAG-8841", hunt: "Astra X1 Pro", status: "Eligible", type: "Subscriber paid tag", reveals: 6 },
-    { id: "FREE-2209", hunt: "CineView 65", status: "Scheduled", type: "Free alternative entry", reveals: 5 },
+    { id: "HG-TAG-8841", hunt: "iPhone 17 Pro Max", status: "Eligible", type: "Subscriber paid tag", reveals: 6 },
+    { id: "FREE-2209", hunt: "iPhone 17 Pro", status: "Scheduled", type: "Free alternative entry", reveals: 5 },
   ]);
   const [toast, setToast] = useState("");
 
@@ -218,10 +225,12 @@ function App() {
       <Shell route={route} go={go} cart={cart} tags={tags} darkMode={darkMode} setDarkMode={setDarkMode} />
       <main className={route === "landing" ? "landing-main animate-page-enter stagger" : "app-main animate-page-enter stagger"}>
         {route === "landing" && <LandingPage go={go} darkMode={darkMode} setDarkMode={setDarkMode} />}
-        {route === "dashboard" && <DashboardPage />}
-        {route === "trade" && <TradePage />}
-        {route === "stake" && <StakePage />}
-        {route === "redeem" && <RedeemPage />}
+        {route === "dashboard" && <DashboardPage go={go} />}
+  {route === "trade" && <TradePage />}
+  {route === "stake" && <StakePage />}
+  {route === "lease" && <LeasePage />}
+  {route === "business" && <BusinessManagerPage />}
+  {route === "redeem" && <RedeemPage />}
         {route === "vault" && <VaultPage />}
         {route === "analytics" && <AnalyticsPage />}
         {route === "about" && <AboutPage />}
@@ -243,6 +252,7 @@ function Shell({ route, go, cart, tags, darkMode, setDarkMode }) {
     ["dashboard", LayoutDashboard, "Dashboard"],
     ["trade", Smartphone, "Trade-In"],
     ["stake", WalletCards, "Savings"],
+    ["lease", Key, "Lease"],
     ["redeem", ShoppingBag, "Upgrade"],
     ["vault", Boxes, "Vault"],
     ["analytics", Flame, "Analytics"],
@@ -293,6 +303,10 @@ function Shell({ route, go, cart, tags, darkMode, setDarkMode }) {
                     {label}
                   </button>
                 ))}
+                <button className="reset inline-flex items-center gap-2" onClick={() => { go("business"); setMobileOpen(false); }}>
+                  <Briefcase className="h-4 w-4" />
+                  Business Manager
+                </button>
                 <div className="mobile-wallet">
                   <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect Wallet</button>
                 </div>
@@ -523,7 +537,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
               <button className="landing-btn-primary" onClick={() => go("dashboard")}>
                 Get Started <ArrowUpRight size={18} />
               </button>
-              <button className="landing-btn-secondary" onClick={() => go("trade")}>
+              <button className="landing-btn-secondary" onClick={() => go("lease")}>
                 Apply for Lease
               </button>
             </div>

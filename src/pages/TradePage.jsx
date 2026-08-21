@@ -14,28 +14,34 @@ import {
 } from "lucide-react";
 
 const DEVICE_CATEGORIES = [
-  { id: "phones", label: "Phones" },
-  { id: "laptops", label: "Laptops" },
-  { id: "tablets", label: "Tablets" },
-  { id: "gaming", label: "Gaming" },
+  { id: "all", label: "All" },
+  { id: "iphone-14", label: "iPhone 14" },
+  { id: "iphone-15", label: "iPhone 15" },
+  { id: "iphone-16", label: "iPhone 16" },
+  { id: "iphone-17", label: "iPhone 17" },
 ];
 
 const MOCK_DEVICES = [
-  { id: "1", model: "iPhone 15 Pro Max (256GB)", category: "phones", price: 920, change: -2.3, trend: "down" },
-  { id: "2", model: "iPhone 15 Pro (128GB)", category: "phones", price: 780, change: -1.8, trend: "down" },
-  { id: "3", model: "Samsung S24 Ultra (256GB)", category: "phones", price: 650, change: 0.5, trend: "up" },
-  { id: "4", model: "iPhone 14 Pro (256GB)", category: "phones", price: 540, change: -3.1, trend: "down" },
-  { id: "5", model: "NVIDIA RTX 4080", category: "gaming", price: 1150, change: 4.2, trend: "up" },
-  { id: "6", model: "MacBook Pro M3 (14\")", category: "laptops", price: 1450, change: 1.1, trend: "up" },
-  { id: "7", model: "iPad Pro M4 (12.9\")", category: "tablets", price: 720, change: -0.8, trend: "down" },
-  { id: "8", model: "PlayStation 5", category: "gaming", price: 380, change: 2.5, trend: "up" },
+  { id: "1", model: "iPhone 15 Pro Max (256GB)", generation: "iphone-15", price: 920, change: -2.3, trend: "down", image: "/15proMax.jpeg" },
+  { id: "2", model: "iPhone 15 Pro (128GB)", generation: "iphone-15", price: 780, change: -1.8, trend: "down", image: "/15pro.jpeg" },
+  { id: "3", model: "iPhone 15 (128GB)", generation: "iphone-15", price: 480, change: 0.5, trend: "up", image: "/15pro.jpeg" },
+  { id: "4", model: "iPhone 14 Pro Max (256GB)", generation: "iphone-14", price: 650, change: -3.1, trend: "down", image: "/14proMax.jpeg" },
+  { id: "5", model: "iPhone 14 Pro (128GB)", generation: "iphone-14", price: 540, change: 4.2, trend: "up", image: "/14pro.jpeg" },
+  { id: "6", model: "iPhone 14 (128GB)", generation: "iphone-14", price: 380, change: 1.1, trend: "up", image: "/14.jpeg" },
+  { id: "7", model: "iPhone 17 Pro Max (256GB)", generation: "iphone-17", price: 1450, change: -0.8, trend: "down", image: "/17proMAx.jpeg" },
+  { id: "8", model: "iPhone 17 Pro (128GB)", generation: "iphone-17", price: 1150, change: 2.5, trend: "up", image: "/17pro.jpeg" },
+  { id: "9", model: "iPhone 17 (128GB)", generation: "iphone-17", price: 720, change: 1.8, trend: "up", image: "/17.jpeg" },
+  { id: "10", model: "iPhone 16 Pro Max (256GB)", generation: "iphone-16", price: 1350, change: -1.2, trend: "down", image: "/16promax.jpeg" },
+  { id: "11", model: "iPhone 16 Pro (128GB)", generation: "iphone-16", price: 1050, change: 0.8, trend: "up", image: "/16pro.jpeg" },
+  { id: "12", model: "iPhone 16 (128GB)", generation: "iphone-16", price: 650, change: 3.1, trend: "up", image: "/16.jpeg" },
 ];
 
 export default function TradePage() {
-  const [activeCategory, setActiveCategory] = useState("phones");
+  const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [modalValue, setModalValue] = useState(null);
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
+  const [activeDeviceId, setActiveDeviceId] = useState(null);
 
   useEffect(() => {
     const checkDark = () => setIsDark(document.documentElement.classList.contains("dark"));
@@ -44,8 +50,12 @@ export default function TradePage() {
     return () => observer.disconnect();
   }, []);
 
+  const toggleDevice = (id) => {
+    setActiveDeviceId((prev) => (prev === id ? null : id));
+  };
+
   const filteredDevices = MOCK_DEVICES.filter((device) => {
-    const matchesCategory = device.category === activeCategory;
+    const matchesCategory = activeCategory === "all" || device.generation === activeCategory;
     const matchesSearch = device.model.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -85,6 +95,22 @@ export default function TradePage() {
               ))}
             </div>
 
+            <div className="mt-4 space-y-3">
+              {activeDeviceId && (() => {
+                const activeDevice = MOCK_DEVICES.find((d) => d.id === activeDeviceId);
+                if (!activeDevice) return null;
+                return (
+                  <div className="flex justify-center">
+                    <img
+                      src={activeDevice.image}
+                      alt={activeDevice.model}
+                      className="h-40 w-auto object-contain border-2 border-black rounded-xl"
+                    />
+                  </div>
+                );
+              })()}
+            </div>
+
             <div className="mt-4 overflow-x-auto no-scrollbar">
               <table className="w-full text-left text-sm">
                 <thead>
@@ -97,7 +123,11 @@ export default function TradePage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                   {filteredDevices.map((device) => (
-                    <tr key={device.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50">
+                    <tr
+                      key={device.id}
+                      className={`cursor-pointer transition ${activeDeviceId === device.id ? "bg-blue-50 dark:bg-blue-950/30" : "hover:bg-gray-50 dark:hover:bg-zinc-800/50"}`}
+                      onClick={() => toggleDevice(device.id)}
+                    >
                       <td className="py-4">
                         <div className="flex items-center gap-3">
                           <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 dark:bg-zinc-800">
@@ -132,11 +162,12 @@ export default function TradePage() {
             <h2 className="uniswap-section-title mb-4">Recent Payouts</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">Trust signals from our community</p>
             <div className="mt-4 space-y-3">
-              {[
-                { user: "@crypt0joe", device: "iPhone 14 Pro", amount: 540, time: "2 hours ago" },
-                { user: "@techlady", device: "Samsung S23", amount: 320, time: "5 hours ago" },
-                { user: "@dev_guy", device: "MacBook Pro M3", amount: 890, time: "1 day ago" },
-              ].map((payout, idx) => (
+                {[
+  { user: "@crypt0joe", device: "iPhone 14 Pro Max", amount: 780, time: "2 hours ago" },
+  { user: "@techlady", device: "iPhone 15 Pro", amount: 540, time: "5 hours ago" },
+  { user: "@dev_guy", device: "iPhone 16 Pro Max", amount: 920, time: "1 day ago" },
+  { user: "@newuser", device: "iPhone 17 Pro", amount: 650, time: "2 days ago" },
+].map((payout, idx) => (
                 <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-zinc-800/50">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center justify-center h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-950/60">

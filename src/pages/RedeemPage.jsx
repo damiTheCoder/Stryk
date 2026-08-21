@@ -6,12 +6,13 @@ const mockUpgradeData = {
   usdcBalance: 847.5,
   targetDevice: "iPhone 16 Pro Max",
   targetPrice: 1199.0,
-  tradeInOptions: ["iPhone 15 Pro", "Samsung Galaxy S24", "iPhone 14 Pro", "MacBook Pro M3"],
+  tradeInOptions: ["iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 17 Pro Max", "iPhone 17 Pro", "iPhone 17"],
   estimatedDelivery: "3-5 business days",
   history: [
-    { id: 1, device: "iPhone 15 Pro", status: "Delivered", date: "2025-06-20", tracking: "TRK-8839201", payout: 780 },
-    { id: 2, device: "Samsung Galaxy S24 Ultra", status: "Shipped", date: "2025-07-15", tracking: "TRK-9912345", payout: 650 },
-    { id: 3, device: "MacBook Pro M3", status: "Processing", date: "2025-07-28", tracking: "TRK-1100456", payout: 1450 },
+    { id: 1, device: "iPhone 15 Pro Max", status: "Delivered", date: "2025-06-20", tracking: "TRK-8839201", payout: 920 },
+    { id: 2, device: "iPhone 16 Pro", status: "Shipped", date: "2025-07-15", tracking: "TRK-9912345", payout: 1050 },
+    { id: 3, device: "iPhone 17 Pro", status: "Processing", date: "2025-07-28", tracking: "TRK-1100456", payout: 1150 },
+    { id: 4, device: "iPhone 14 Pro Max", status: "Delivered", date: "2025-06-10", tracking: "TRK-7723456", payout: 650 },
   ],
 };
 
@@ -123,9 +124,18 @@ export default function RedeemPage() {
                       onChange={handleChange}
                       className="uniswap-input"
                     >
-                      <option value="iPhone 16 Pro Max">iPhone 16 Pro Max — $1,199</option>
-                      <option value="Samsung Galaxy S25 Ultra">Samsung Galaxy S25 Ultra — $1,099</option>
-                      <option value="MacBook Pro M4">MacBook Pro M4 — $1,899</option>
+                      <option value="iPhone 17 Pro Max">iPhone 17 Pro Max — $1,199</option>
+                      <option value="iPhone 17 Pro">iPhone 17 Pro — $1,099</option>
+                      <option value="iPhone 17">iPhone 17 — $899</option>
+                      <option value="iPhone 16 Pro Max">iPhone 16 Pro Max — $1,099</option>
+                      <option value="iPhone 16 Pro">iPhone 16 Pro — $999</option>
+                      <option value="iPhone 16">iPhone 16 — $799</option>
+                      <option value="iPhone 15 Pro Max">iPhone 15 Pro Max — $999</option>
+                      <option value="iPhone 15 Pro">iPhone 15 Pro — $899</option>
+                      <option value="iPhone 15">iPhone 15 — $699</option>
+                      <option value="iPhone 14 Pro Max">iPhone 14 Pro Max — $899</option>
+                      <option value="iPhone 14 Pro">iPhone 14 Pro — $799</option>
+                      <option value="iPhone 14">iPhone 14 — $599</option>
                     </select>
                   </div>
                   <div className="rounded-xl bg-blue-50 dark:bg-blue-950/30 p-4">

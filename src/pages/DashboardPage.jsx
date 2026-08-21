@@ -10,6 +10,8 @@ import {
   Package,
   Clock,
   TrendingUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 const MOCK_PORTFOLIO = {
@@ -65,18 +67,18 @@ const generateChartData = (basePrice) => {
 };
 
 const DEVICES = [
-  { id: "iphone16", name: "iPhone 16", price: 1199, image: "/iPhone 16.jpeg" },
-  { id: "iphone16pro", name: "iPhone 16 Pro", price: 1299, image: "/iPhone 16.jpeg" },
-  { id: "iphone16promax", name: "iPhone 16 Pro Max", price: 1399, image: "/iPhone 16.jpeg" },
-  { id: "iphone17", name: "iPhone 17", price: 1199, image: "/iPhone 16.jpeg" },
-  { id: "iphone17pro", name: "iPhone 17 Pro", price: 1299, image: "/iPhone 16.jpeg" },
-  { id: "iphone17promax", name: "iPhone 17 Pro Max", price: 1399, image: "/iPhone 16.jpeg" },
-  { id: "iphone15", name: "iPhone 15", price: 999, image: "/M1.png" },
-  { id: "iphone15pro", name: "iPhone 15 Pro", price: 1099, image: "/M1.png" },
-  { id: "iphone15promax", name: "iPhone 15 Pro Max", price: 1199, image: "/M1.png" },
-  { id: "iphone14", name: "iPhone 14", price: 799, image: "/M2.png" },
-  { id: "iphone14pro", name: "iPhone 14 Pro", price: 899, image: "/M2.png" },
-  { id: "iphone14promax", name: "iPhone 14 Pro Max", price: 999, image: "/M2.png" },
+  { id: "iphone16", name: "iPhone 16", price: 1199, image: "/16.jpeg" },
+  { id: "iphone16pro", name: "iPhone 16 Pro", price: 1299, image: "/16pro.jpeg" },
+  { id: "iphone16promax", name: "iPhone 16 Pro Max", price: 1399, image: "/16promax.jpeg" },
+  { id: "iphone17", name: "iPhone 17", price: 1199, image: "/17.jpeg" },
+  { id: "iphone17pro", name: "iPhone 17 Pro", price: 1299, image: "/17pro.jpeg" },
+  { id: "iphone17promax", name: "iPhone 17 Pro Max", price: 1399, image: "/17proMAx.jpeg" },
+  { id: "iphone15", name: "iPhone 15", price: 999, image: "/15pro.jpeg" },
+  { id: "iphone15pro", name: "iPhone 15 Pro", price: 1099, image: "/15pro.jpeg" },
+  { id: "iphone15promax", name: "iPhone 15 Pro Max", price: 1199, image: "/15proMax.jpeg" },
+  { id: "iphone14", name: "iPhone 14", price: 799, image: "/14.jpeg" },
+  { id: "iphone14pro", name: "iPhone 14 Pro", price: 899, image: "/14pro.jpeg" },
+  { id: "iphone14promax", name: "iPhone 14 Pro Max", price: 999, image: "/14proMax.jpeg" },
 ];
 
 const CHART_DATA = generateChartData(DEVICES[0].price);
@@ -146,6 +148,15 @@ export default function DashboardPage() {
     return () => observer.disconnect();
   }, []);
 
+  const currentIndex = DEVICES.findIndex((d) => d.id === selectedDevice.id);
+
+  const goToDevice = (index) => {
+    const newIndex = (index + DEVICES.length) % DEVICES.length;
+    const device = DEVICES[newIndex];
+    setSelectedDevice(device);
+    setChartData(generateChartData(device.price));
+  };
+
   const filteredTransactions = txFilter === "All"
     ? MOCK_TRANSACTIONS
     : MOCK_TRANSACTIONS.filter((tx) => tx.type === txFilter.toLowerCase());
@@ -205,41 +216,66 @@ export default function DashboardPage() {
             <p className="hidden sm:block text-gray-500 dark:text-gray-400">Trade in your device. Get paid in stablecoins. Upgrade when you're ready.</p>
           </header>
         </div>
-      </div>
 
-      <div className="w-full animate-drop-in" style={{ "--i": 0 }}>
-        <PriceChart data={chartData} />
-      </div>
-
-      <div className="mx-auto max-w-7xl w-full px-3 pt-0 pb-6 lg:px-6 lg:pt-6 lg:pb-6 space-y-1 md:space-y-4">
-        <div className="px-3 lg:px-6">
-          <div className="dashboard-metrics-desktop flex flex-nowrap items-stretch gap-3 md:gap-6 overflow-x-auto no-scrollbar animate-drop-in" style={{ "--i": 1 }}>
-            <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">USDC Balance</p>
-              <p
-                className="mt-2 text-2xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
-                onClick={() => setModalValue(formatCurrency(MOCK_PORTFOLIO.usdcBalance))}
-              >
-                ${MOCK_PORTFOLIO.usdcBalance.toLocaleString()}
-              </p>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Ready to use</p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+          <div className="lg:col-span-7">
+            <div className="w-full animate-drop-in" style={{ "--i": 0 }}>
+              <PriceChart data={chartData} />
             </div>
+          </div>
 
-            <div className="border-r border-gray-200 dark:border-gray-800 pr-8 min-w-[220px] shrink-0 flex flex-col justify-between">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Device Trade-In Value</p>
-              <p className="mt-2 text-2xl font-medium text-gray-900 dark:text-white">{formatCurrency(MOCK_PORTFOLIO.deviceTradeInValue)}</p>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Ready to cash out</p>
-            </div>
+          <div className="lg:col-span-5">
+            <div className="px-3 lg:px-6">
+              <div className="dashboard-metrics-desktop flex flex-nowrap items-stretch gap-3 md:gap-6 overflow-x-auto no-scrollbar animate-drop-in" style={{ "--i": 1 }}>
+              <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">USDC Balance</p>
+                <p
+                  className="mt-2 text-2xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
+                  onClick={() => setModalValue(formatCurrency(MOCK_PORTFOLIO.usdcBalance))}
+                >
+                  ${MOCK_PORTFOLIO.usdcBalance.toLocaleString()}
+                </p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Ready to use</p>
+              </div>
 
-            <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Upgrade Savings</p>
-              <p
-                className="mt-2 text-2xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
-                onClick={() => setModalValue(formatCurrency(MOCK_PORTFOLIO.upgradeSavings))}
-              >
-                {formatCurrency(MOCK_PORTFOLIO.upgradeSavings)}
-              </p>
-              <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">Accumulated</p>
+              <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Device Trade-In Value</p>
+                <p className="mt-2 text-2xl font-medium text-gray-900 dark:text-white">{formatCurrency(MOCK_PORTFOLIO.deviceTradeInValue)}</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Ready to cash out</p>
+              </div>
+
+              <div className="min-w-[220px] shrink-0 flex flex-col justify-between">
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Upgrade Savings</p>
+                <p
+                  className="mt-2 text-2xl font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-600 transition"
+                  onClick={() => setModalValue(formatCurrency(MOCK_PORTFOLIO.upgradeSavings))}
+                >
+                  {formatCurrency(MOCK_PORTFOLIO.upgradeSavings)}
+                </p>
+                <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">Accumulated</p>
+              </div>
+              </div>
+              <div className="mt-4 relative flex items-center justify-center">
+                <button
+                  onClick={() => goToDevice(currentIndex - 1)}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black bg-white/80 dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-700 transition"
+                  aria-label="Previous device"
+                >
+                  <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-200" />
+                </button>
+                <img
+                  src={selectedDevice.image}
+                  alt={selectedDevice.name}
+                  className="h-48 w-auto object-contain border-2 border-black rounded-xl"
+                />
+                <button
+                  onClick={() => goToDevice(currentIndex + 1)}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black bg-white/80 dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-700 transition"
+                  aria-label="Next device"
+                >
+                  <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-200" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -249,10 +285,10 @@ export default function DashboardPage() {
             <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 2 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <button className="inline-flex items-center justify-center rounded-full bg-green-600 px-4 py-3 text-base font-medium text-white transition hover:bg-green-700">
+                <button className="inline-flex items-center justify-center rounded-lg bg-green-500 px-4 py-3 text-base font-medium text-white transition hover:bg-green-600">
                   Apply for Lease
                 </button>
-                <button className="inline-flex items-center justify-center rounded-full bg-purple-600 px-4 py-3 text-base font-medium text-white transition hover:bg-purple-700">
+                <button className="inline-flex items-center justify-center rounded-lg bg-blue-500 px-4 py-3 text-base font-medium text-white transition hover:bg-blue-600">
                   Trade In
                 </button>
               </div>

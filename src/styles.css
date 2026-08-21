@@ -37,11 +37,13 @@
 .dashboard-metrics-desktop {
   display: flex;
   flex-wrap: nowrap;
+  gap: 1.5rem;
 }
 @media (max-width: 768px) {
   .dashboard-metrics-desktop {
     display: flex;
     flex-wrap: nowrap;
+    gap: 1rem;
   }
 }
 .dashboard-metrics > div:first-child > div:last-child {
@@ -127,7 +129,10 @@ button, input, select { font: inherit; }
 .landing-main {
   min-height: 100dvh;
   overflow: auto;
-  background: #ffffff;
+  background: transparent;
+}
+body:has(.landing-hero) .landing-main {
+  background: transparent;
 }
 
 .banner-carousel {
@@ -317,10 +322,11 @@ button, input, select { font: inherit; }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
 }
 .dark .landing-nav-bar {
-  background: #000000;
+  background: rgba(0, 0, 0, 0.85);
 }
 .landing-nav-inner {
   display: flex;
@@ -390,9 +396,33 @@ button, input, select { font: inherit; }
   position: relative;
   overflow: hidden;
   padding: 100px 20px 80px;
-  background: #ffffff;
+  background: transparent;
 }
-.dark .landing-hero { background: #000; }
+.landing-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #ffffff);
+  pointer-events: none;
+}
+.dark .landing-hero { background: transparent; }
+.dark .landing-hero::after {
+  background: linear-gradient(to bottom, transparent, #000000);
+}
+body:has(.landing-hero) {
+  background: url("/io.jpeg") center top / cover no-repeat fixed;
+}
+body:has(.landing-hero) .landing-nav-bar {
+  background: transparent;
+  backdrop-filter: none;
+}
+body:has(.landing-hero) .dark .landing-nav-bar {
+  background: transparent;
+  backdrop-filter: none;
+}
 .landing-hero-content {
   position: relative;
   z-index: 1;
