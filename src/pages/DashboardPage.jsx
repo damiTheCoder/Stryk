@@ -83,8 +83,8 @@ const CHART_DATA = generateChartData(DEVICES[0].price);
 
 function PriceChart({ data, color = "#4f46e5" }) {
   const width = 800;
-  const height = 320;
-  const padding = { top: 20, right: 80, bottom: 30, left: 20 };
+  const height = 200;
+  const padding = { top: 20, right: 0, bottom: 30, left: 0 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
 
@@ -109,7 +109,7 @@ function PriceChart({ data, color = "#4f46e5" }) {
     );
     const price = max - (i / priceSteps) * range;
     gridLines.push(
-      `<text x="${width - padding.right + 8}" y="${y + 4}" fill="#9ca3af" fontSize="11" fontFamily="ui-sans-serif, system-ui">$${price.toFixed(2)}</text>`
+      `<text x="${padding.left + 8}" y="${y + 4}" fill="#9ca3af" fontSize="11" fontFamily="ui-sans-serif, system-ui">$${price.toFixed(2)}</text>`
     );
   }
 
@@ -249,12 +249,10 @@ export default function DashboardPage() {
             <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 2 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <button className="inline-flex items-center justify-center gap-2 rounded-full bg-green-50 dark:bg-green-900/40 px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 transition hover:bg-green-100 dark:hover:bg-green-900/60">
-                  <Smartphone className="h-5 w-5" />
+                <button className="inline-flex items-center justify-center rounded-full bg-green-600 px-4 py-3 text-base font-medium text-white transition hover:bg-green-700">
                   Apply for Lease
                 </button>
-                <button className="inline-flex items-center justify-center gap-2 rounded-full bg-purple-50 dark:bg-purple-900/40 px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 transition hover:bg-purple-100 dark:hover:bg-purple-900/60">
-                  <Smartphone className="h-5 w-5" />
+                <button className="inline-flex items-center justify-center rounded-full bg-purple-600 px-4 py-3 text-base font-medium text-white transition hover:bg-purple-700">
                   Trade In
                 </button>
               </div>
