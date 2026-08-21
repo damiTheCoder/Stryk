@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatCompact } from "../utils/format";
+import { formatCompact, formatCurrency } from "../utils/format";
 import {
   TrendingUp,
   TrendingDown,
@@ -15,28 +15,22 @@ import {
   Repeat,
   CircleDollarSign,
   LineChart,
+  Smartphone,
+  Truck,
+  CheckCircle2,
 } from "lucide-react";
 
 const MOCK_PROTOCOL_STATS = {
-  totalSupply: 150000000,
-  marketCap: 42750000,
-  volume24h: 1250000,
-  volume7d: 8450000,
-  volume30d: 32100000,
-  uniqueWallets: 28459,
+  totalTradesIn: 12450,
+  totalUpgrades: 3890,
+  totalPayoutUsd: 2450000,
+  uniqueUsers: 28459,
 };
 
-const MOCK_TOKEN_METRICS = {
-  price: "$0.285",
-  change24h: "+4.32%",
-  holders: [
-    { range: "1 - 1,000", count: 12450, percent: 75 },
-    { range: "1,001 - 10,000", count: 3120, percent: 18 },
-    { range: "10,001 - 100,000", count: 850, percent: 5 },
-    { range: "100,001+", count: 139, percent: 2 },
-  ],
-  burnRate: "0.5%",
-  totalBurned: 7500000,
+const MOCK_DEVICE_METRICS = {
+  avgTradeInValue: "$485",
+  topDevice: "iPhone 15 Pro",
+  fulfillmentRate: "99.2%",
 };
 
 const MOCK_REVENUE = {
@@ -52,9 +46,9 @@ export default function AnalyticsPage() {
   const [activeVolume, setActiveVolume] = useState("24h");
 
   const volumeValues = {
-    "24h": MOCK_PROTOCOL_STATS.volume24h,
-    "7d": MOCK_PROTOCOL_STATS.volume7d,
-    "30d": MOCK_PROTOCOL_STATS.volume30d,
+    "24h": MOCK_PROTOCOL_STATS.totalPayoutUsd,
+    "7d": MOCK_PROTOCOL_STATS.totalPayoutUsd * 7,
+    "30d": MOCK_PROTOCOL_STATS.totalPayoutUsd * 30,
   };
 
   return (
@@ -62,7 +56,7 @@ export default function AnalyticsPage() {
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
           <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Analytics</h1>
-          <p className="mt-2 text-gray-500 dark:text-gray-400">Protocol metrics, token data, and revenue dashboard.</p>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Recommerce metrics, device data, and payout dashboard.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -70,25 +64,24 @@ export default function AnalyticsPage() {
             <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-blue-600" />
-                Protocol Stats
+                Platform Stats
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Supply</p>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.totalSupply)}</p>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">$STRYK</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Trade-Ins</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.totalTradesIn)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Market Cap</p>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.marketCap)}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Upgrades</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.totalUpgrades)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Unique Wallets</p>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.uniqueWallets)}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Unique Users</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_PROTOCOL_STATS.uniqueUsers)}</p>
                 </div>
               </div>
               <div className="mt-6">
-                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Trading Volume</p>
+                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Total Payouts</p>
                 <div className="inline-flex rounded-xl bg-gray-100 p-1">
                   {VOLUME_LABELS.map((label) => (
                     <button
@@ -102,51 +95,53 @@ export default function AnalyticsPage() {
                     </button>
                   ))}
                 </div>
-                 <p className="mt-4 text-3xl font-semibold text-gray-900 dark:text-white">{formatCompact(volumeValues[activeVolume])}</p>
+                 <p className="mt-4 text-3xl font-semibold text-gray-900 dark:text-white">{formatCurrency(volumeValues[activeVolume])}</p>
               </div>
             </div>
 
             <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <LineChart className="h-5 w-5 text-violet-600" />
-                Token Metrics
+                Device Metrics
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl p-5 bg-surface">
-                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">Price</h3>
-                   <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{MOCK_TOKEN_METRICS.price}</p>
-                  <p className={`mt-1 inline-flex items-center gap-1 text-sm font-medium ${MOCK_TOKEN_METRICS.change24h.startsWith("+") ? "text-emerald-600" : "text-rose-600"}`}>
-                    {MOCK_TOKEN_METRICS.change24h.startsWith("+") ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-                    {MOCK_TOKEN_METRICS.change24h}
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 dark:text-gray-300 dark:text-gray-600 dark:text-gray-400">Avg. Trade-In Value</h3>
+                    <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{MOCK_DEVICE_METRICS.avgTradeInValue}</p>
+                  <p className={`mt-1 inline-flex items-center gap-1 text-sm font-medium text-emerald-600`}>
+                    <TrendingUp className="h-4 w-4" />
+                    +3.2% this week
                   </p>
                   <div className="mt-4 rounded-2xl p-4 text-center bg-surface">
-                    <BarChart3 className="mx-auto h-6 w-6 text-gray-400 dark:text-gray-400" />
-                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Price chart placeholder with technical overlays.</p>
+                    <Smartphone className="mx-auto h-6 w-6 text-gray-400 dark:text-gray-400" />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Top device: {MOCK_DEVICE_METRICS.topDevice}</p>
                   </div>
                 </div>
                 <div className="rounded-2xl p-5 bg-surface">
-                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Holder Distribution</h3>
+                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Fulfillment</h3>
                   <div className="space-y-3">
-                    {MOCK_TOKEN_METRICS.holders.map((holder) => (
-                      <div key={holder.range}>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">{holder.range}</span>
-                          <span className="text-gray-900 dark:text-white font-medium">{formatCompact(holder.count)} ({holder.percent}%)</span>
-                        </div>
-                        <div className="mt-1 h-2 w-full rounded-full bg-gray-200">
-                          <div className="h-2 rounded-full bg-violet-500" style={{ width: `${holder.percent}%` }} />
-                        </div>
-                      </div>
-                    ))}
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600 dark:text-gray-400">QC Pass Rate</span>
+                      <span className="text-gray-900 dark:text-white font-medium">{MOCK_DEVICE_METRICS.fulfillmentRate}</span>
+                    </div>
+                    <div className="h-2 w-full rounded-full bg-gray-200">
+                      <div className="h-2 rounded-full bg-emerald-500" style={{ width: `${99.2}%` }} />
+                    </div>
                   </div>
                   <div className="mt-4 flex items-center justify-between rounded-2xl p-3 bg-surface">
                     <div className="flex items-center gap-2">
-                      <Flame className="h-4 w-4 text-orange-500" />
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Burn Rate</span>
+                      <Truck className="h-4 w-4 text-blue-500" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Avg. Ship Time</span>
                     </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">{MOCK_TOKEN_METRICS.burnRate}</span>
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">3.5 days</span>
                   </div>
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 text-right">{MOCK_TOKEN_METRICS.totalBurned} $STRYK burned</p>
+                  <div className="mt-2 flex items-center justify-between rounded-2xl p-3 bg-surface">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Customer Satisfaction</span>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-900 dark:text-white">4.8/5</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -156,34 +151,34 @@ export default function AnalyticsPage() {
             <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <DollarSign className="h-5 w-5 text-emerald-600" />
-                Revenue Dashboard
+                Payout Dashboard
               </h2>
               <div className="space-y-4">
                 <div className="rounded-2xl p-4 bg-surface">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Fees Collected</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Total Paid Out</p>
                     <Repeat className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                   </div>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_REVENUE.feesCollected)}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCurrency(MOCK_REVENUE.feesCollected)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Spread Profit</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Trade-In Volume</p>
                     <CircleDollarSign className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                   </div>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_REVENUE.spreadProfit)}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCurrency(MOCK_REVENUE.spreadProfit)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Vault Yield Generated</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Upgrade Credits Issued</p>
                     <Wallet className="h-4 w-4 text-gray-400 dark:text-gray-400" />
                   </div>
-                   <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_REVENUE.vaultYield)}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">{formatCurrency(MOCK_REVENUE.vaultYield)}</p>
                 </div>
               </div>
               <div className="mt-4 rounded-xl bg-gray-900 p-4">
-                <p className="text-sm text-gray-400 dark:text-gray-400">Total Revenue</p>
-                 <p className="text-2xl font-semibold text-white">{formatCompact(MOCK_REVENUE.totalRevenue)}</p>
+                <p className="text-sm text-gray-400 dark:text-gray-400">Total Payout Volume</p>
+                 <p className="text-2xl font-semibold text-white">{formatCurrency(MOCK_REVENUE.totalRevenue)}</p>
                 <div className="mt-2 flex items-center gap-1 text-sm text-emerald-400">
                   <TrendingUp className="h-4 w-4" />
                   <span>+12.5% vs last month</span>
@@ -198,10 +193,10 @@ export default function AnalyticsPage() {
               </h2>
               <div className="space-y-3">
                 {[
-                  { label: "Avg. Transaction Size", value: "$2,450", trend: "up" },
-                  { label: "Daily Active Wallets", value: "4,832", trend: "up" },
-                  { label: "Protocol Revenue (30d)", value: "$462.7K", trend: "up" },
-                  { label: "New Holders (7d)", value: "1,245", trend: "down" },
+                  { label: "Avg. Trade-In Value", value: "$485", trend: "up" },
+                  { label: "Daily Active Users", value: "4,832", trend: "up" },
+                  { label: "Payout Volume (30d)", value: "$462.7K", trend: "up" },
+                  { label: "New Trade-Ins (7d)", value: "1,245", trend: "down" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between rounded-2xl p-3 bg-surface">
                     <span className="text-sm text-gray-600 dark:text-gray-400">{item.label}</span>

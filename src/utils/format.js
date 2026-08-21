@@ -13,3 +13,7 @@ export function formatCompact(val) {
   }
   return String(num);
 }
+
+export function formatCurrency(val) {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
+}

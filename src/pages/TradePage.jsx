@@ -1,222 +1,158 @@
 import { useState, useEffect } from "react";
-import { AdvancedRealTimeChart } from "react-ts-tradingview-widgets";
+import { formatCompact, formatCurrency } from "../utils/format";
 import NumberModal from "../components/NumberModal";
+import {
+  Smartphone,
+  TrendingUp,
+  TrendingDown,
+  ArrowUpRight,
+  ArrowDownRight,
+  Clock,
+  CheckCircle2,
+  Search,
+  Zap,
+} from "lucide-react";
 
-const TIMEFRAMES = [
-  { label: "1m", value: "1" },
-  { label: "15m", value: "15" },
-  { label: "1h", value: "60" },
-  { label: "4h", value: "240" },
-  { label: "D", value: "D" },
+const DEVICE_CATEGORIES = [
+  { id: "phones", label: "Phones" },
+  { id: "laptops", label: "Laptops" },
+  { id: "tablets", label: "Tablets" },
+  { id: "gaming", label: "Gaming" },
 ];
-const SLIPPAGE_OPTIONS = ["0.1%", "0.5%", "1%"];
+
+const MOCK_DEVICES = [
+  { id: "1", model: "iPhone 15 Pro Max (256GB)", category: "phones", price: 920, change: -2.3, trend: "down" },
+  { id: "2", model: "iPhone 15 Pro (128GB)", category: "phones", price: 780, change: -1.8, trend: "down" },
+  { id: "3", model: "Samsung S24 Ultra (256GB)", category: "phones", price: 650, change: 0.5, trend: "up" },
+  { id: "4", model: "iPhone 14 Pro (256GB)", category: "phones", price: 540, change: -3.1, trend: "down" },
+  { id: "5", model: "NVIDIA RTX 4080", category: "gaming", price: 1150, change: 4.2, trend: "up" },
+  { id: "6", model: "MacBook Pro M3 (14\")", category: "laptops", price: 1450, change: 1.1, trend: "up" },
+  { id: "7", model: "iPad Pro M4 (12.9\")", category: "tablets", price: 720, change: -0.8, trend: "down" },
+  { id: "8", model: "PlayStation 5", category: "gaming", price: 380, change: 2.5, trend: "up" },
+];
 
 export default function TradePage() {
-  const [fromToken, setFromToken] = useState("STRK");
-  const [toToken, setToToken] = useState("USDC");
-  const [fromAmount, setFromAmount] = useState("");
-  const [slippage, setSlippage] = useState("0.5%");
-  const [timeframe, setTimeframe] = useState("60");
+  const [activeCategory, setActiveCategory] = useState("phones");
+  const [searchQuery, setSearchQuery] = useState("");
   const [modalValue, setModalValue] = useState(null);
-  const [side, setSide] = useState("buy");
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     const checkDark = () => setIsDark(document.documentElement.classList.contains("dark"));
-    checkDark();
     const observer = new MutationObserver(checkDark);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape" && isFullscreen) setIsFullscreen(false);
-    };
-    document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
-  }, [isFullscreen]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("chart-fullscreen", isFullscreen);
-    return () => document.documentElement.classList.remove("chart-fullscreen");
-  }, [isFullscreen]);
-
-  const quote = fromAmount ? (parseFloat(fromAmount) * 0.00031).toFixed(2) : "0.00";
-
-  const formatCurrency = (val) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
-
-  const chartWidget = (
-    <AdvancedRealTimeChart
-      key={isDark ? (isFullscreen ? "dark-fs" : "dark") : (isFullscreen ? "light-fs" : "light")}
-      autosize
-      symbol="BINANCE:SYKUSDC"
-      interval={timeframe}
-      theme={isDark ? "dark" : "light"}
-      style="1"
-      locale="en"
-      allow_symbol_change={false}
-      hide_top_toolbar={false}
-      hide_legend={false}
-      withdateranges={true}
-      hide_side_toolbar={false}
-      save_image={true}
-      details={true}
-      hotlist={true}
-      calendar={false}
-      watchlist={[]}
-    />
-  );
+  const filteredDevices = MOCK_DEVICES.filter((device) => {
+    const matchesCategory = device.category === activeCategory;
+    const matchesSearch = device.model.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
-      {isFullscreen && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-black flex flex-col">
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-zinc-800">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center -space-x-2">
-                <img src="/Logo.jpeg" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black relative z-10" />
-                <img src="/usdc.png" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black" />
-              </div>
-              <h1 className="text-base font-bold text-gray-900 dark:text-white">SYK / USDC</h1>
-            </div>
-            <button onClick={() => setIsFullscreen(false)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 transition">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            </button>
-          </div>
-          <div className="flex-1 min-h-0">
-            {chartWidget}
-          </div>
-        </div>
-      )}
-      <div className={`flex flex-col lg:flex-row h-[calc(100vh-64px)] ${isFullscreen ? "hidden" : ""}`}>
-        <div className="flex-1 flex flex-col min-w-0 animate-drop-in">
-          <div className="flex items-center justify-between border-b border-gray-200 dark:border-zinc-800 px-4 py-2 bg-white dark:bg-black">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center -space-x-2">
-                <img src="/Logo.jpeg" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black relative z-10" />
-                <img src="/usdc.png" alt="" className="h-7 w-7 rounded-full object-cover border-2 border-white dark:border-black" />
-              </div>
-              <h1 className="text-base font-bold text-gray-900 dark:text-white">SYK / USDC</h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition">Save</button>
-              <button onClick={() => setIsFullscreen(true)} className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 transition">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex-1 relative min-h-[300px] sm:min-h-0 pb-8">
-            {chartWidget}
-          </div>
-
-          <div className="border-t border-gray-200 dark:border-zinc-800 bg-white dark:bg-black">
-            <div className="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar">
-              <button className="px-3 py-1.5 text-xs sm:text-sm font-semibold bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg whitespace-nowrap">Open trades: 0</button>
-              <button className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition whitespace-nowrap">Pending orders: 0</button>
-              <button className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition whitespace-nowrap">Closed trades</button>
-            </div>
-            <div className="px-4 py-6 text-center">
-              <p className="text-gray-900 dark:text-white font-medium text-sm sm:text-base mb-1">No open trades</p>
-              <p className="text-xs sm:text-sm text-gray-500">Check out the Watchlist to see what's available to trade on</p>
-            </div>
-          </div>
-        </div>
-
-        <aside className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col animate-drop-in">
-          <div className="flex border-b border-gray-200 dark:border-zinc-800">
-            <button
-              onClick={() => setSide("sell")}
-              className={`flex-1 py-3 text-sm font-semibold transition ${
-                side === "sell"
-                  ? "text-rose-600 bg-rose-50 dark:bg-rose-950/30"
-                  : "text-gray-500 hover:bg-gray-50 dark:hover:bg-zinc-800"
-              }`}
-            >
-              ↓ Sell
-            </button>
-            <button
-              onClick={() => setSide("buy")}
-              className={`flex-1 py-3 text-sm font-semibold transition ${
-                side === "buy"
-                  ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30"
-                  : "text-gray-500 hover:bg-gray-50 dark:hover:bg-zinc-800"
-              }`}
-            >
-              Buy ↑
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-500">Available:</span>
-              <span className="font-semibold text-gray-900 dark:text-white">847.5k $SYK</span>
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">Trade amount</label>
-              <div className="flex items-center gap-2">
+    <div className="min-h-screen bg-white dark:bg-black transition-colors">
+      <div className="mx-auto max-w-7xl w-full px-3 pt-0 pb-6 lg:px-6 lg:pt-6 lg:pb-6 space-y-1 md:space-y-4">
+        <div className="px-3 lg:px-6 space-y-4">
+          <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 1 }}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <h2 className="uniswap-section-title">Live Trade-In Pricing</h2>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
-                  type="number"
-                  value={fromAmount}
-                  onChange={(e) => setFromAmount(e.target.value)}
-                  placeholder="0.00"
-                  className="flex-1 rounded-xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 px-3 py-2.5 text-sm font-semibold text-gray-900 dark:text-white outline-none focus:border-blue-500 transition"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search devices..."
+                  className="pl-9 pr-4 py-2 rounded-lg bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-sm text-gray-900 dark:text-white outline-none focus:border-blue-500 transition w-full sm:w-64"
                 />
-                <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-zinc-700 px-2.5 py-2 rounded-lg">
-                  <img src="/Logo.jpeg" alt="" className="h-5 w-5 rounded-full object-cover" />
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">$SYK</span>
-                </div>
               </div>
             </div>
 
-            <div className="flex gap-2">
-              {["0.24 lots", "0.25 lots", "0.5 lots", "0.75 lots"].map((lot) => (
+            <div className="mt-4 flex gap-2 overflow-x-auto no-scrollbar">
+              {DEVICE_CATEGORIES.map((cat) => (
                 <button
-                  key={lot}
-                  className="flex-1 px-2 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-zinc-800 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-700 transition"
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition whitespace-nowrap ${
+                    activeCategory === cat.id
+                      ? "bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900"
+                      : "bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-zinc-700"
+                  }`}
                 >
-                  {lot}
+                  {cat.label}
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center justify-between py-2">
-              <span className="text-xs font-medium text-gray-500">Take profit</span>
-              <button className="w-10 h-5 bg-gray-200 dark:bg-zinc-700 rounded-full relative transition">
-                <div className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm"></div>
-              </button>
-            </div>
-            <div className="flex items-center justify-between py-2">
-              <span className="text-xs font-medium text-gray-500">Stop loss</span>
-              <button className="w-10 h-5 bg-gray-200 dark:bg-zinc-700 rounded-full relative transition">
-                <div className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm"></div>
-              </button>
-            </div>
-            <div className="flex items-center justify-between py-2">
-              <span className="text-xs font-medium text-gray-500">Pending order</span>
-              <button className="w-10 h-5 bg-gray-200 dark:bg-zinc-700 rounded-full relative transition">
-                <div className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm"></div>
-              </button>
+            <div className="mt-4 overflow-x-auto no-scrollbar">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-zinc-800">
+                    <th className="pb-3 font-medium text-gray-500 dark:text-gray-400">Device</th>
+                    <th className="pb-3 font-medium text-gray-500 dark:text-gray-400 text-right">Trade-In Value</th>
+                    <th className="pb-3 font-medium text-gray-500 dark:text-gray-400 text-right">24h Change</th>
+                    <th className="pb-3 font-medium text-gray-500 dark:text-gray-400 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
+                  {filteredDevices.map((device) => (
+                    <tr key={device.id} className="hover:bg-gray-50 dark:hover:bg-zinc-800/50">
+                      <td className="py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 dark:bg-zinc-800">
+                            <Smartphone className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                          </div>
+                          <span className="font-medium text-gray-900 dark:text-white">{device.model}</span>
+                        </div>
+                      </td>
+                      <td className="py-4 text-right">
+                        <span className="font-semibold text-gray-900 dark:text-white">{formatCurrency(device.price)}</span>
+                      </td>
+                      <td className="py-4 text-right">
+                        <div className={`inline-flex items-center gap-1 text-sm font-medium ${device.trend === "up" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
+                          {device.trend === "up" ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
+                          {Math.abs(device.change)}%
+                        </div>
+                      </td>
+                      <td className="py-4 text-right">
+                        <button className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm font-medium text-white transition">
+                          <Zap className="h-3.5 w-3.5" />
+                          Get Quote
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <div className="p-4 border-t border-gray-200 dark:border-zinc-800">
-            <button
-              disabled={!fromAmount}
-              className={`w-full py-3.5 rounded-2xl text-sm font-bold transition ${
-                side === "buy"
-                  ? "bg-emerald-500 hover:bg-emerald-400 text-white"
-                  : "bg-rose-500 hover:bg-rose-400 text-white"
-              } disabled:opacity-40 disabled:cursor-not-allowed`}
-            >
-              Open {side} trade
-            </button>
+          <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 2 }}>
+            <h2 className="uniswap-section-title mb-4">Recent Payouts</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Trust signals from our community</p>
+            <div className="mt-4 space-y-3">
+              {[
+                { user: "@crypt0joe", device: "iPhone 14 Pro", amount: 540, time: "2 hours ago" },
+                { user: "@techlady", device: "Samsung S23", amount: 320, time: "5 hours ago" },
+                { user: "@dev_guy", device: "MacBook Pro M3", amount: 890, time: "1 day ago" },
+              ].map((payout, idx) => (
+                <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-zinc-800/50">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-emerald-50 dark:bg-emerald-950/60">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white">{payout.user} → {payout.device}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{payout.time}</p>
+                    </div>
+                  </div>
+                  <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">+{formatCurrency(payout.amount)}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
       {modalValue !== null && <NumberModal value={modalValue} onClose={() => setModalValue(null)} />}
     </div>

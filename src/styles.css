@@ -244,8 +244,8 @@ button, input, select { font: inherit; }
 .brand { gap: 10px; font-weight: 850; }
 .brand-mark,
 .brand-logo {
-  width: 36px;
-  height: 36px;
+  width: 33px;
+  height: 33px;
   border-radius: 9999px;
 }
 .brand-mark {
@@ -258,12 +258,8 @@ button, input, select { font: inherit; }
 .brand-logo {
   display: block;
   object-fit: cover;
-  border: 1px solid transparent;
-  background: #f3f4f4;
-  padding: 4px;
 }
 .dark .brand-logo {
-  background: #27272a;
   border-color: transparent;
 }
 .desktop-nav { gap: 22px; color: #3c444f; font-size: 14px; }
@@ -443,8 +439,8 @@ button, input, select { font: inherit; }
   100% { opacity: 1; transform: translateY(0); }
 }
 .animate-drop-in {
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: 1;
+  transform: translateY(0);
 }
 .animate-drop-in.visible {
   opacity: 1;
@@ -452,8 +448,8 @@ button, input, select { font: inherit; }
   animation: dropIn 0.6s ease-out forwards;
 }
 .animate-page-enter {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
 }
 .animate-page-enter.visible {
   opacity: 1;

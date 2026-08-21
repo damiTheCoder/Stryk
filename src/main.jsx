@@ -33,6 +33,7 @@ import {
   Trophy,
   User,
   WalletCards,
+  Wallet,
   X,
   Home,
   BarChart3,
@@ -51,6 +52,7 @@ import {
   Globe,
   TrendingUp,
   Lock as LockIcon,
+  Key,
   HelpCircle,
   ChevronDown,
   Twitter,
@@ -67,11 +69,26 @@ import {
 } from "lucide-react";
 
 window.onerror = (message, url, line) => {
+  const lower = String(message).toLowerCase();
+  if (lower.includes("metamask") || lower.includes("contentscript") || lower.includes("inpage")) return false;
   console.error("Global error:", message, url, line);
   return false;
 };
 
+const isExtensionError = (reason) => {
+  const str = String(reason).toLowerCase();
+  return (
+    str.includes("metamask") ||
+    str.includes("contentscript") ||
+    str.includes("inpage") ||
+    str.includes("eventemitter") ||
+    str.includes("runtime.lasterror") ||
+    str.includes("receiving end does not exist")
+  );
+};
+
 window.addEventListener("unhandledrejection", (event) => {
+  if (isExtensionError(event.reason)) return;
   console.error("Unhandled rejection:", event.reason);
 });
 
@@ -224,9 +241,9 @@ function Shell({ route, go, cart, tags, darkMode, setDarkMode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const dappRoutes = [
     ["dashboard", LayoutDashboard, "Dashboard"],
-    ["trade", BarChart3, "Trade"],
-    ["stake", Lock, "Stake"],
-    ["redeem", TicketPercent, "Redeem"],
+    ["trade", Smartphone, "Trade-In"],
+    ["stake", WalletCards, "Savings"],
+    ["redeem", ShoppingBag, "Upgrade"],
     ["vault", Boxes, "Vault"],
     ["analytics", Flame, "Analytics"],
     ["about", User, "About"],
@@ -264,7 +281,7 @@ function Shell({ route, go, cart, tags, darkMode, setDarkMode }) {
               <button className="icon-button" aria-label="More" onClick={() => setMobileOpen((v) => !v)}>
                 <MoreHorizontal size={20} />
               </button>
-              <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect</button>
+               <button className="primary" onClick={() => alert("Connect wallet coming soon")}>Connect</button>
             </div>
             <button className="mobile-search-button reset" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
               {mobileOpen ? <X size={21} strokeWidth={2.4} /> : <MoreHorizontal size={21} strokeWidth={2.4} />}
@@ -291,7 +308,7 @@ function Shell({ route, go, cart, tags, darkMode, setDarkMode }) {
 function LandingPage({ go, darkMode, setDarkMode }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
-  const words = ["yield", "trade", "hardware"];
+  const words = ["upgrade", "trade-in", "lease", "save"];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -302,31 +319,32 @@ function LandingPage({ go, darkMode, setDarkMode }) {
   }, []);
 
   const stats = [
-    { value: "Any amount", label: "Minimum deposit" },
-    { value: "Oracle-fed", label: "Live pricing" },
-    { value: "3 paths", label: "Saver, Trader, DeFi" },
-    { value: "On-chain", label: "Every action" },
+    { value: "Instant", label: "USDC payouts" },
+    { value: "Fair pricing", label: "Live market rates" },
+    { value: "Lease", label: "Flexible device leasing" },
+    { value: "No fees", label: "Transparent pricing" },
   ];
 
   const products = [
-    { icon: BarChart3, title: "Trade", desc: "Buy low, sell high, and accumulate. Trade STRYK for USDC or more STRYK on deep liquidity markets with transparent on-chain pricing.", image: "/M1.png", color: "#1a5fff" },
-    { icon: Repeat, title: "Saver", desc: "DCA into STRYK, hold, and redeem physical devices. Dollar-cost your way into premium electronics at the oracle’s live redemption price.", image: "/M2.png", color: "#16a34a" },
-    { icon: Boxes, title: "Vault", desc: "Deposit any amount—$10, $100, $1,000, $100K. The oracle fetches the current redemption price and the vault mints STRYK proportionally to your position.", image: "/M3.png", color: "#7b3ff2" },
-    { icon: TicketPercent, title: "Redeem", desc: "Burn the required STRYK and your device ships. Exchange your holdings for the underlying physical asset or its market value at any time.", image: "/M4.png", color: "#c98208" },
+    { icon: Smartphone, title: "Trade-In", desc: "Send in your old device and get an instant USDC payout. We price it live every day—no haggling, no lowball offers.", image: "/M1.png", color: "#1a5fff" },
+    { icon: Key, title: "Lease", desc: "Apply for a device lease with flexible terms. Keep your cash, pay over time, and upgrade whenever you want.", image: "/M2.png", color: "#16a34a" },
+    { icon: Wallet, title: "Savings", desc: "Save USDC weekly into your upgrade fund. Earn boost bonuses and reach your next device faster.", image: "/M3.png", color: "#7b3ff2" },
+    { icon: Truck, title: "Fulfillment", desc: "Your new device ships within 3-5 business days. Track every step from trade-in to delivery.", image: "/M4.png", color: "#c98208" },
   ];
 
   const features = [
-    { icon: ShieldCheckIcon, title: "Hardware-backed", desc: "Every position is backed by a physical device, audited and verifiable on-chain." },
-    { icon: Globe, title: "Borderless access", desc: "Trade, stake, and redeem from anywhere in the world with a non-custodial wallet." },
-    { icon: TrendingUp, title: "Real yield", desc: "Earn from actual device usage and appreciation, not synthetic rewards." },
-    { icon: LockIcon, title: "Non-custodial", desc: "You hold the keys. Your assets stay in your wallet, always." },
+    { icon: ShieldCheckIcon, title: "Fair market pricing", desc: "Every device is priced using live market data. No hidden fees, no lowball offers." },
+    { icon: Globe, title: "Instant USDC payouts", desc: "Get paid in stablecoins within 24-48 hours after quality control verification." },
+    { icon: TrendingUp, title: "Upgrade savings", desc: "Save USDC weekly and earn boost bonuses toward your next device." },
+    { icon: CheckCircle2, title: "Quality guaranteed", desc: "Every device is inspected, graded, and tested before being resold." },
   ];
 
   const faqs = [
-    { q: "What is the STRYK Protocol Flywheel?", a: "Users deposit any amount, the oracle fetches the live redemption price, and the vault mints STRYK proportionally. From there you choose a path—Saver, Trader, or DeFi—and the protocol handles the rest." },
-    { q: "How is STRYK minted?", a: "The vault calculates your mint based on the current oracle price. For example, if 1 iPhone = 1,200,000 STRYK, a $1,000 deposit mints roughly 833,333 STRYK." },
-    { q: "What can I do with STRYK?", a: "Saver: DCA, hold, and redeem. Trader: buy low, sell high, and accumulate. DeFi: collateralize and lend where permitted." },
-    { q: "How does redemption work?", a: "Burn the required STRYK and your device ships. You can redeem for the underlying physical asset or its market value once you meet the threshold." },
+    { q: "How does trade-in work?", a: "Select your device, get an instant quote, ship it to us using a free prepaid label, and receive USDC within 24-48 hours after quality control." },
+    { q: "How is the trade-in value determined?", a: "We use live market pricing from multiple sources to ensure you get a fair, transparent price for your device. No haggling required." },
+    { q: "How does leasing work?", a: "Apply for a device lease with flexible terms. Keep your cash, pay over time, and upgrade whenever you want. Early payoff options available." },
+    { q: "Can I upgrade to a new device?", a: "Yes. Trade in your old device, apply the payout toward a new device, and we'll ship it to you within 3-5 business days." },
+    { q: "What if my device doesn't match the quote?", a: "If the condition differs from your initial assessment, we'll provide a revised quote. You can accept or have your device returned for free." },
   ];
 
   return (
@@ -364,7 +382,7 @@ function LandingPage({ go, darkMode, setDarkMode }) {
             Real <span className="landing-word-bg">{words[wordIndex]}</span>.
           </h1>
           <p className="landing-hero-subtitle">
-            STRYK turns premium electronics into on-chain positions you can trade, stake, and redeem—backed by real hardware, not promises.
+            Apply for a lease, trade in your device, and get paid in stablecoins. Upgrade when you're ready.
           </p>
           <div className="landing-hero-actions">
             <button className="landing-btn-primary" onClick={() => go("dashboard")}>
@@ -437,13 +455,13 @@ function LandingPage({ go, darkMode, setDarkMode }) {
         <div className="landing-container">
           <div className="landing-security-grid">
             <div>
-              <h2 className="landing-section-title">Protocol-grade security</h2>
-              <p className="landing-section-subtitle">The STRYK flywheel is powered by audited vaults, live oracle pricing, and regulated infrastructure—so every mint, trade, and redemption is verifiable on-chain.</p>
+              <h2 className="landing-section-title">Trusted recommerce platform</h2>
+              <p className="landing-section-subtitle">Every trade-in is verified, every payout is instant, and every upgrade is backed by our 99.2% fulfillment rate. Fair pricing, transparent process.</p>
               <div className="landing-security-list">
                 {[
-                  { icon: ShieldCheckIcon, title: "Oracle-verified pricing", desc: "Live redemption prices are fetched on-chain by independent oracles, ensuring every mint is proportional and transparent." },
-                  { icon: LockIcon, title: "Non-custodial by design", desc: "You retain full control of your STRYK tokens and keys. The vault only mints or burns what you authorize." },
-                  { icon: Award, title: "Regulated partners", desc: "Licensed and regulated in multiple jurisdictions including Mauritius, Cyprus, and Seychelles." },
+                  { icon: ShieldCheckIcon, title: "Live market pricing", desc: "Device values are updated in real time from multiple market sources to ensure fair, competitive offers." },
+                  { icon: CheckCircle2, title: "Instant USDC payouts", desc: "Receive your payout in stablecoins within 24-48 hours after quality control verification." },
+                  { icon: Truck, title: "Fast fulfillment", desc: "Upgraded devices ship within 3-5 business days with full tracking and insurance." },
                 ].map((item) => (
                   <div key={item.title} className="landing-security-item">
                     <item.icon size={20} strokeWidth={1.8} />
@@ -462,10 +480,10 @@ function LandingPage({ go, darkMode, setDarkMode }) {
             </div>
             <div className="landing-security-visual">
               <div className="landing-security-card">
-                <ShieldCheckIcon size={48} strokeWidth={1.2} />
-                <p className="landing-security-card-title">Protected assets</p>
-                <p className="landing-security-card-value">$4.2M+</p>
-                <p className="landing-security-card-label">Secured on-chain</p>
+                <CheckCircle2 size={48} strokeWidth={1.2} />
+                <p className="landing-security-card-title">Devices traded in</p>
+                <p className="landing-security-card-value">12.4K+</p>
+                <p className="landing-security-card-label">And counting</p>
               </div>
             </div>
           </div>
@@ -496,17 +514,17 @@ function LandingPage({ go, darkMode, setDarkMode }) {
       </section>
 
       {/* CTA */}
-      <section className="landing-cta-section animate-drop-in" style={{ "--i": 8 }}>
+      <section className="landing-section landing-cta-section animate-drop-in" style={{ "--i": 8 }}>
         <div className="landing-container">
           <div className="landing-cta-card">
-            <h2 className="landing-cta-title">Ready to enter the flywheel?</h2>
-            <p className="landing-cta-subtitle">Deposit any amount, mint STRYK, and choose your path. The protocol does the rest.</p>
+            <h2 className="landing-cta-title">Ready to upgrade your device?</h2>
+            <p className="landing-cta-subtitle">Apply for a lease, trade in your old device, get paid in USDC, and upgrade to the latest model—all in one place.</p>
             <div className="landing-cta-actions">
               <button className="landing-btn-primary" onClick={() => go("dashboard")}>
-                Join Waitlist <ArrowUpRight size={18} />
+                Get Started <ArrowUpRight size={18} />
               </button>
-              <button className="landing-btn-secondary" onClick={() => go("docs")}>
-                Read Litepaper
+              <button className="landing-btn-secondary" onClick={() => go("trade")}>
+                Apply for Lease
               </button>
             </div>
           </div>

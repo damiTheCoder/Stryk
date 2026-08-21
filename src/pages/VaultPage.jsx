@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatCompact } from "../utils/format";
+import { formatCompact, formatCurrency } from "../utils/format";
 import {
   Smartphone,
   HardDrive,
@@ -59,17 +59,14 @@ const STATUS_COLORS = {
 };
 
 export default function VaultPage() {
-  const formatCurrency = (val) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
-
   const formatDate = (dateStr) => new Date(dateStr).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       <div className="mx-auto max-w-7xl p-4 md:p-8 space-y-6">
         <header>
-          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Vault</h1>
-          <p className="mt-2 text-gray-500 dark:text-gray-400">Physical asset storage, audit status, and custodian details.</p>
+          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Inventory Vault</h1>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Physical device storage, quality control, and fulfillment status.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -77,27 +74,27 @@ export default function VaultPage() {
             <div className="uniswap-card p-6 animate-drop-in">
               <h2 className="uniswap-section-title mb-4 flex items-center gap-2">
                 <HardDrive className="h-5 w-5 text-blue-600" />
-                Vault Overview
+                Inventory Overview
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Devices Stored</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Devices Ready</p>
                    <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCompact(MOCK_VAULT_OVERVIEW.totalDevices)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Value Locked</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Total Value</p>
                    <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">{formatCurrency(MOCK_VAULT_OVERVIEW.totalValueUsd)}</p>
                 </div>
                 <div className="rounded-2xl p-4 bg-surface">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Insurance Status</p>
-                  <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-emerald-600">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">QC Status</p>
+                   <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-emerald-600">
                     <ShieldCheck className="h-4 w-4" />
                     {MOCK_VAULT_OVERVIEW.insuranceStatus}
                   </p>
                 </div>
               </div>
                <div className="mt-6">
-                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Device Breakdown by Model</h3>
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-600 mb-3">Inventory by Model</h3>
                 <div className="overflow-x-auto no-scrollbar">
                   <table className="w-full text-left text-sm">
                     <thead>
