@@ -11,6 +11,8 @@ import {
   CheckCircle2,
   Search,
   Zap,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 const DEVICE_CATEGORIES = [
@@ -52,6 +54,20 @@ export default function TradePage() {
 
   const toggleDevice = (id) => {
     setActiveDeviceId((prev) => (prev === id ? null : id));
+  };
+
+  const goToPrevDevice = () => {
+    if (!activeDeviceId || filteredDevices.length === 0) return;
+    const currentIndex = filteredDevices.findIndex((d) => d.id === activeDeviceId);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : filteredDevices.length - 1;
+    setActiveDeviceId(filteredDevices[prevIndex].id);
+  };
+
+  const goToNextDevice = () => {
+    if (!activeDeviceId || filteredDevices.length === 0) return;
+    const currentIndex = filteredDevices.findIndex((d) => d.id === activeDeviceId);
+    const nextIndex = currentIndex < filteredDevices.length - 1 ? currentIndex + 1 : 0;
+    setActiveDeviceId(filteredDevices[nextIndex].id);
   };
 
   const filteredDevices = MOCK_DEVICES.filter((device) => {
@@ -100,12 +116,26 @@ export default function TradePage() {
                 const activeDevice = MOCK_DEVICES.find((d) => d.id === activeDeviceId);
                 if (!activeDevice) return null;
                 return (
-                  <div className="flex justify-center">
+                  <div className="flex items-center justify-center gap-4">
+                    <button
+                      onClick={goToPrevDevice}
+                      className="flex items-center justify-center h-10 w-10 rounded-full border-2 border-black bg-white dark:bg-zinc-900 hover:bg-gray-100 dark:hover:bg-zinc-800 transition"
+                      aria-label="Previous device"
+                    >
+                      <ChevronLeft className="h-5 w-5 text-gray-900 dark:text-white" />
+                    </button>
                     <img
                       src={activeDevice.image}
                       alt={activeDevice.model}
                       className="h-56 w-auto object-contain border-2 border-black rounded-xl"
                     />
+                    <button
+                      onClick={goToNextDevice}
+                      className="flex items-center justify-center h-10 w-10 rounded-full border-2 border-black bg-white dark:bg-zinc-900 hover:bg-gray-100 dark:hover:bg-zinc-800 transition"
+                      aria-label="Next device"
+                    >
+                      <ChevronRight className="h-5 w-5 text-gray-900 dark:text-white" />
+                    </button>
                   </div>
                 );
               })()}

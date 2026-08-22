@@ -81,7 +81,7 @@ const DEVICES = [
 
 const CHART_DATA = generateChartData(DEVICES[0].price);
 
-function PriceChart({ data, color = "#4f46e5" }) {
+function PriceChart({ data, color = "#4f46e5", isDark = false }) {
   const width = 800;
   const height = 200;
   const padding = { top: 20, right: 0, bottom: 30, left: 0 };
@@ -102,14 +102,16 @@ function PriceChart({ data, color = "#4f46e5" }) {
 
   const gridLines = [];
   const priceSteps = 6;
+  const gridColor = isDark ? "#374151" : "#e5e7eb";
+  const textColor = isDark ? "#9ca3af" : "#9ca3af";
   for (let i = 0; i <= priceSteps; i++) {
     const y = padding.top + (i / priceSteps) * chartHeight;
     gridLines.push(
-      `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#e5e7eb" strokeWidth="1" />`
+      `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${gridColor}" strokeWidth="1" />`
     );
     const price = max - (i / priceSteps) * range;
     gridLines.push(
-      `<text x="${padding.left + 8}" y="${y + 4}" fill="#9ca3af" fontSize="11" fontFamily="ui-sans-serif, system-ui">$${price.toFixed(2)}</text>`
+      `<text x="${padding.left + 8}" y="${y + 4}" fill="${textColor}" fontSize="11" fontFamily="ui-sans-serif, system-ui">$${price.toFixed(2)}</text>`
     );
   }
 
@@ -117,8 +119,8 @@ function PriceChart({ data, color = "#4f46e5" }) {
     <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full" preserveAspectRatio="none">
       <defs>
         <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.2" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
+          <stop offset="0%" stopColor="#6b7280" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#6b7280" stopOpacity="0" />
         </linearGradient>
       </defs>
       {gridLines}
@@ -134,7 +136,6 @@ export default function DashboardPage() {
   const [txFilter, setTxFilter] = useState("All");
   const [modalValue, setModalValue] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const [isDarkMode, setIsDarkMode] = useState(() =>
     document.documentElement.classList.contains("dark")
@@ -173,8 +174,7 @@ export default function DashboardPage() {
               </div>
               <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white tracking-tight">SYK / USDC</span>
             </div>
-            <div className="flex items-center justify-between gap-3">
-              <div className="relative inline-flex items-center">
+            <div className="relative inline-flex items-center">
                   <span className="text-xl font-medium text-gray-900 dark:text-white">{selectedDevice.name}</span>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -200,14 +200,6 @@ export default function DashboardPage() {
                   </div>
                 )}
               </div>
-              <button
-                onClick={() => setIsImageModalOpen(true)}
-                className="flex items-center justify-center h-9 w-9 rounded-md bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 transition"
-                aria-label="View device"
-              >
-                <img src="/Custom QR code.jpeg" alt="QR" className="h-5 w-5 object-cover" />
-              </button>
-            </div>
             <p className="mt-2 text-2xl font-medium text-gray-900 dark:text-white">{formatCurrency(selectedDevice.price)}</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Trade-in value</p>
             <p className="hidden sm:block text-gray-500 dark:text-gray-400">Trade in your device. Get paid in stablecoins. Upgrade when you're ready.</p>
@@ -217,7 +209,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           <div className="lg:col-span-7">
             <div className="w-full animate-drop-in" style={{ "--i": 0 }}>
-              <PriceChart data={chartData} />
+              <PriceChart data={chartData} isDark={isDarkMode} color={isDarkMode ? "#ffffff" : "#000000"} />
             </div>
           </div>
 
@@ -409,24 +401,6 @@ export default function DashboardPage() {
         </div>
       </div>
       {modalValue !== null && <NumberModal value={modalValue} onClose={() => setModalValue(null)} />}
-      {isImageModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setIsImageModalOpen(false)}>
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl max-w-sm mx-4" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={selectedDevice.image}
-              alt={selectedDevice.name}
-              className="h-64 w-auto object-contain border-2 border-black rounded-xl mx-auto"
-            />
-            <p className="mt-4 text-center text-base font-semibold text-gray-900 dark:text-white">{selectedDevice.name}</p>
-            <button
-              onClick={() => setIsImageModalOpen(false)}
-              className="mt-4 w-full rounded-lg bg-gray-100 dark:bg-zinc-800 py-2.5 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
