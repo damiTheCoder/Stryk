@@ -10,8 +10,6 @@ import {
   Package,
   Clock,
   TrendingUp,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 
 const MOCK_PORTFOLIO = {
@@ -136,6 +134,7 @@ export default function DashboardPage() {
   const [txFilter, setTxFilter] = useState("All");
   const [modalValue, setModalValue] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const [isDarkMode, setIsDarkMode] = useState(() =>
     document.documentElement.classList.contains("dark")
@@ -147,15 +146,6 @@ export default function DashboardPage() {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
   }, []);
-
-  const currentIndex = DEVICES.findIndex((d) => d.id === selectedDevice.id);
-
-  const goToDevice = (index) => {
-    const newIndex = (index + DEVICES.length) % DEVICES.length;
-    const device = DEVICES[newIndex];
-    setSelectedDevice(device);
-    setChartData(generateChartData(device.price));
-  };
 
   const filteredTransactions = txFilter === "All"
     ? MOCK_TRANSACTIONS
@@ -169,7 +159,7 @@ export default function DashboardPage() {
 
   const savingsProgress = Math.min((MOCK_PORTFOLIO.upgradeSavings / MOCK_PORTFOLIO.targetPrice) * 100, 100);
 
-  return (
+   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="mx-auto max-w-7xl w-full px-3 pt-3 pb-6 lg:px-6 lg:pt-6 lg:pb-6 space-y-1 md:space-y-4">
         <div className="lg:w-2/3 lg:p-6 px-3">
@@ -183,7 +173,7 @@ export default function DashboardPage() {
               </div>
               <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white tracking-tight">SYK / USDC</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between gap-3">
               <div className="relative inline-flex items-center">
                   <span className="text-xl font-medium text-gray-900 dark:text-white">{selectedDevice.name}</span>
                 <button
@@ -210,6 +200,13 @@ export default function DashboardPage() {
                   </div>
                 )}
               </div>
+              <button
+                onClick={() => setIsImageModalOpen(true)}
+                className="flex items-center justify-center h-9 w-9 rounded-md bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 transition"
+                aria-label="View device"
+              >
+                <img src="/Custom QR code.jpeg" alt="QR" className="h-5 w-5 object-cover" />
+              </button>
             </div>
             <p className="mt-2 text-2xl font-medium text-gray-900 dark:text-white">{formatCurrency(selectedDevice.price)}</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Trade-in value</p>
@@ -255,27 +252,6 @@ export default function DashboardPage() {
                 <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400 font-medium">Accumulated</p>
               </div>
               </div>
-              <div className="mt-4 relative flex items-center justify-center">
-                <button
-                  onClick={() => goToDevice(currentIndex - 1)}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black bg-white/80 dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-700 transition"
-                  aria-label="Previous device"
-                >
-                  <ChevronLeft className="h-5 w-5 text-gray-700 dark:text-gray-200" />
-                </button>
-                <img
-                  src={selectedDevice.image}
-                  alt={selectedDevice.name}
-                  className="h-48 w-auto object-contain border-2 border-black rounded-xl"
-                />
-                <button
-                  onClick={() => goToDevice(currentIndex + 1)}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-black bg-white/80 dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-700 transition"
-                  aria-label="Next device"
-                >
-                  <ChevronRight className="h-5 w-5 text-gray-700 dark:text-gray-200" />
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -285,10 +261,10 @@ export default function DashboardPage() {
             <div className="uniswap-card px-3 lg:px-6 py-6 animate-drop-in" style={{ "--i": 2 }}>
               <h2 className="uniswap-section-title">Quick Actions</h2>
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <button className="inline-flex items-center justify-center rounded-lg bg-green-500 px-4 py-3 text-base font-medium text-white transition hover:bg-green-600">
+                <button className="inline-flex items-center justify-center rounded-lg bg-blue-500 px-4 py-3 text-base font-medium text-white transition hover:bg-blue-600">
                   Apply for Lease
                 </button>
-                <button className="inline-flex items-center justify-center rounded-lg bg-blue-500 px-4 py-3 text-base font-medium text-white transition hover:bg-blue-600">
+                <button className="inline-flex items-center justify-center rounded-lg bg-black px-4 py-3 text-base font-medium text-white transition hover:bg-gray-800">
                   Trade In
                 </button>
               </div>
@@ -433,6 +409,24 @@ export default function DashboardPage() {
         </div>
       </div>
       {modalValue !== null && <NumberModal value={modalValue} onClose={() => setModalValue(null)} />}
+      {isImageModalOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setIsImageModalOpen(false)}>
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-2xl max-w-sm mx-4" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={selectedDevice.image}
+              alt={selectedDevice.name}
+              className="h-64 w-auto object-contain border-2 border-black rounded-xl mx-auto"
+            />
+            <p className="mt-4 text-center text-base font-semibold text-gray-900 dark:text-white">{selectedDevice.name}</p>
+            <button
+              onClick={() => setIsImageModalOpen(false)}
+              className="mt-4 w-full rounded-lg bg-gray-100 dark:bg-zinc-800 py-2.5 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-zinc-700 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

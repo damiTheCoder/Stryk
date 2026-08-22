@@ -164,7 +164,7 @@ export default function LeasePage() {
                             <img
                               src={activeDevice.image}
                               alt={activeDevice.model}
-                              className="h-40 w-auto object-contain border-2 border-black rounded-xl"
+                              className="h-56 w-auto object-contain border-2 border-black rounded-xl"
                             />
                           </div>
                         );
